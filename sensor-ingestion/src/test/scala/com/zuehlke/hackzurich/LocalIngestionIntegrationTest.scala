@@ -1,9 +1,7 @@
-import com.ning.http.client.Realm.RealmBuilder
 import com.zuehlke.hackzurich.RestIngestionSpec
-import com.zuehlke.hackzurich.service.{LocalLoggingActor, RestIngestionLauncher}
 import dispatch.Defaults._
 import dispatch._
-import org.scalatest.{Matchers, _}
+import org.scalatest.Matchers
 
 class LocalIngestionIntegrationTest extends RestIngestionSpec with Matchers {
   "The rest ingestion layer" should "respond to a ping" in {
