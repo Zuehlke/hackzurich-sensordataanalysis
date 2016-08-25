@@ -10,17 +10,18 @@ import scala.concurrent.Future
 
 object RestIngestionLauncher {
 
-  implicit val system = ActorSystem("my-system")
+  implicit val config = ConfigFactory.load()
+  implicit val system = ActorSystem("my-system", config)
   implicit val materializer = ActorMaterializer()
   implicit val executionContext = system.dispatcher
-  implicit val config = ConfigFactory.load()
 
   var bindingFuture: Future[Http.ServerBinding] = null
 
   def launchWith(ingestionActorProps: Props, hostname: String, port: Int): Unit = {
 
+    val basicAuthPassword = config.getString("hackzurich.basicauth.password")
     val ingestionActor = system.actorOf(ingestionActorProps, "ingestion-actor")
-    val route = new SensorDataIngestionRoute(ingestionActor)
+    val route = new SensorDataIngestionRoute(ingestionActor, basicAuthPassword)
     bindingFuture = Http().bindAndHandle(route.route, hostname, port)
 
     println(s"Server online at http://$hostname:$port/")
