@@ -1,6 +1,6 @@
 Steps to build and deploy Akka REST Service for Data Ingestion
 
-- sudo ../gradlew distDocker --stacktrace
+- sudo ./gradlew distDocker --stacktrace
 - sudo docker push mspringma1/sensor-ingestion:latest
 - dcos marathon app add sensor-ingestion-options.json
 - to be sure: open-shmack-haproxy-stats.sh and search for port of sensor-ingestion, should be 8083; copy hostname from URL.
