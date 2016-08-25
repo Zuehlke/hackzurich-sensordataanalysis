@@ -3,20 +3,23 @@ import dispatch.Defaults._
 import dispatch._
 import org.scalatest.{Matchers, _}
 
-class LocalIngestionIntegrationTest extends FlatSpec with Matchers with BeforeAndAfter {
+class LocalIngestionIntegrationTest extends AsyncFlatSpec with Matchers with BeforeAndAfter {
 
   before {
-    // RestIngestionLauncher.launchWith(LocalLoggingActor.mkProps, "localhost", 28081)
+    RestIngestionLauncher.launchWith(LocalLoggingActor.mkProps, "localhost", 28081)
   }
 
   after {
-    // RestIngestionLauncher.tearDown()
+    RestIngestionLauncher.tearDown()
   }
 
 
-  "The rest ingestion layer" should "return something" in {
+  "The rest ingestion layer" should "respond to a ping" in {
     val svc = url("http://localhost:28081/hello")
-    val country = Http(svc OK as.String)
+    val futureResponse = Http(svc OK as.String)
+    futureResponse map { response =>
+      response should be("<h1>Sensor Ingestion Akka REST Service running</h1>")
+    }
   }
 
 }

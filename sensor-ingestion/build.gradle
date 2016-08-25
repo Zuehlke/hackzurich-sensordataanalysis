@@ -28,7 +28,7 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'org.apache.kafka:kafka_2.11:0.10.0.1'
 
-    testCompile "org.scalatest:scalatest_2.10:2.2.6"
+    testCompile "org.scalatest:scalatest_2.11:3.0.0"
     testCompile "net.databinder.dispatch:dispatch-core_2.11:0.11.2"
 
     testCompile "com.typesafe.akka:akka-http-testkit_2.11:2.4.8"
