@@ -1,8 +1,11 @@
 import com.zuehlke.hackzurich.RestIngestionSpec
 import dispatch.Defaults._
 import dispatch._
+import org.junit.runner.RunWith
 import org.scalatest.Matchers
+import org.scalatest.junit.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
 class LocalIngestionIntegrationTest extends RestIngestionSpec with Matchers {
   "The rest ingestion layer" should "respond to a ping" in {
     val svc = url(s"http://$host:$port/hello")
