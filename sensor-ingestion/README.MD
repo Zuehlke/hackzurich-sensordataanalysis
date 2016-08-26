@@ -12,7 +12,7 @@ See <https://github.com/Zuehlke/SHMACK/blob/master/Docker.md> for details!
 * to be sure: `open-shmack-haproxy-stats.sh` and search for port of sensor-ingestion, should be 8083; copy hostname from URL.
 * `~/shmack/repo/04_implementation/scripts/helpers/open-browser.sh  http://ec2-54-183-172-209.us-west-1.compute.amazonaws.com:8083/hello` with a corrected hostname from the HAProxy stats provides a healthcheck
 * `curl --data '{"sensor":"dummy", "data":"nothing"}' --request POST --basic --user hackzurich http://ec2-54-183-172-209.us-west-1.compute.amazonaws.com:8083/sensorReading/curl`
-  Will ask for password, then post some data, should return: **Sent msg to kafka topic curl!**
+  Will ask for password, then post some data, should return: **Sent msg to kafka topic sensor-reading with key  curl!**
 * `~/shmack/repo/04_implementation/scripts/helpers/open-browser.sh  http://ec2-54-183-172-209.us-west-1.compute.amazonaws.com:8083/sensorReading/`
   Should tell you after login just in a single number how many messages have been processed since last restart
   
@@ -22,7 +22,7 @@ See <https://github.com/Zuehlke/SHMACK/blob/master/Docker.md> for details!
   Will show `Server online at http://localhost:18080/` and block with something like `> Building 80% > :runLocalTestServer`
 * Open <http://localhost:18080/hello>
 * In a new shell `curl --data '{"sensor":"dummy", "data":"nothing"}' --request POST --basic --user hackzurich http://localhost:18080/sensorReading/curl`
-  Will ask for password, then post some data, should return: **Sent msg to kafka topic curl!**
+  Will ask for password, then post some data, should return: **Sent msg to kafka topic sensor-reading with key curl!**
 * Return to shell where you launched `./gradlew runLocalTestServer` and see that the message appeared.
 * Open <http://localhost:18080/sensorReading/> as user `hackzurich` to see the count
 * Code against this local endpoint. 
