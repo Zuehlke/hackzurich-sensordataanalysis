@@ -1,0 +1,28 @@
+apply plugin: 'scala'
+
+group = "mspringma1"
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    provided
+    compile.extendsFrom provided
+}
+
+task fatJar(type: Jar) {
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+dependencies {
+    provided 'org.apache.spark:spark-core_2.10:2.0.0'
+
+    compile 'org.apache.spark:spark-streaming-kafka_2.10:1.6.2'
+    compile 'org.apache.spark:spark-streaming_2.10:2.0.0'
+}
+
+
+
