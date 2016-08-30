@@ -39,7 +39,7 @@ class LocalIngestionIntegrationTest extends RestIngestionSpec with Matchers {
       .POST << content
     val futureResponse = Http(request OK as.String)
     futureResponse map { response =>
-      response should be(s"<h1>User $user sent msg $content to kafka topic 123123123!</h1>")
+      response should be(s"<h1>User $user sent msg $content to kafka topic sensor-reading with key 123123123!</h1>")
     }
   }
 

@@ -34,3 +34,8 @@ dependencies {
     testCompile "com.typesafe.akka:akka-http-testkit_2.11:2.4.8"
     testCompile "junit:junit:4.12"
 }
+
+task runLocalTestServer(type: JavaExec) {
+    main = 'com.zuehlke.hackzurich.RestIngestionLocalLauncher'
+    classpath = sourceSets.main.runtimeClasspath
+}

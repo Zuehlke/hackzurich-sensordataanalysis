@@ -12,6 +12,7 @@ import com.zuehlke.hackzurich.service.ProducerActor._
 import scala.concurrent.Await
 import scala.concurrent.duration._
 import akka.http.scaladsl.model.StatusCodes._
+import com.zuehlke.hackzurich.configuration.RestIngestionConfiguration
 import com.zuehlke.hackzurich.routes.SensorDataIngestionRoute.BasicAuthPassword
 
 class SensorDataIngestionRoute(val kafkaProducerActor: ActorRef, password: BasicAuthPassword) {
@@ -57,8 +58,8 @@ class SensorDataIngestionRoute(val kafkaProducerActor: ActorRef, password: Basic
     post {
       authenticateBasic(realm = "post sensor reading", userPassAuthenticator) { user =>
         entity(as[String]) { messageContent =>
-          kafkaProducerActor ! Message(messageContent, deviceId, Some(System.currentTimeMillis().toString))
-          complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, s"<h1>User $user sent msg $messageContent to kafka topic $deviceId!</h1>"))
+          kafkaProducerActor ! Message(messageContent, RestIngestionConfiguration.TOPIC, Option(deviceId))
+          complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, s"<h1>User $user sent msg $messageContent to kafka topic ${RestIngestionConfiguration.TOPIC} with key $deviceId!</h1>"))
         }
       }
     }
