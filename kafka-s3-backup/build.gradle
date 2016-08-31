@@ -1,6 +1,6 @@
 apply plugin: 'scala'
 
-group = "mspringma1"
+group = "mhaspra"
 
 repositories {
     mavenCentral()
@@ -23,6 +23,3 @@ dependencies {
     compile 'org.apache.spark:spark-streaming-kafka_2.10:1.6.2'
     compile 'org.apache.spark:spark-streaming_2.10:2.0.0'
 }
-
-
-

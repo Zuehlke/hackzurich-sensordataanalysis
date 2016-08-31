@@ -11,14 +11,13 @@ import org.apache.spark.streaming.kafka._
   * Consumes messages from one or more topics in Kafka and puts them into an S3 bucket.
   *
   * Run in dcos with:
-  * dcos spark run --submit-args="--supervise --conf spark.mesos.uris=http://hdfs.marathon.mesos:9000/v1/connect/hdfs-site.xml,http://hdfs.marathon.mesos:9000/v1/connect/core-site.xml --class com.zuehlke.hackzurich.KafkaToS3 <jar_location> <broker_dns:port> <topics> <awsId> <awsSecret>
+  * dcos spark run --submit-args="--supervise --conf spark.mesos.uris=http://hdfs.marathon.mesos:9000/v1/connect/hdfs-site.xml,http://hdfs.marathon.mesos:9000/v1/connect/core-site.xml --class com.zuehlke.hackzurich.KafkaToS3 <jar_location> <topics> <awsId> <awsSecret>
   */
 object KafkaToS3 {
   def main(args: Array[String]) {
     if (args.length < 5) {
       System.err.println(s"""
                             |Usage: KafkaToS3 <brokers> <topics> <s3bucket> <awsAccessKeyId> <awsAccesKeySecret>
-                            |  <brokers> is a list of one or more Kafka brokers
                             |  <topics> is a list of one or more kafka topics to consume from
                             |  <s3bucket> the s3bucket to store the files into
                             |  <awsAccessKeyId> the aws access key
@@ -27,7 +26,7 @@ object KafkaToS3 {
       System.exit(1)
     }
 
-    val Array(brokers, topics, s3bucket, awsId, awsSecret) = args
+    val Array(topics, s3bucket, awsId, awsSecret) = args
 
     // Create context with 2 second batch interval
     val sparkConf = new SparkConf().setAppName("KafkaToS3")
@@ -38,7 +37,7 @@ object KafkaToS3 {
 
     // Create direct kafka stream with brokers and topics
     val topicsSet = topics.split(",").toSet
-    val kafkaParams = Map[String, String]("metadata.broker.list" -> brokers)
+    val kafkaParams = Map[String, String]("metadata.broker.list" -> KafkaBootstrapper.mkBootstrapServersString)
     val messages = KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder](
       ssc, kafkaParams, topicsSet)
 
