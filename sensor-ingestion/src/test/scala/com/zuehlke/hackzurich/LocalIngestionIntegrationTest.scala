@@ -4,6 +4,7 @@ import dispatch._
 import org.junit.runner.RunWith
 import org.scalatest.Matchers
 import org.scalatest.junit.JUnitRunner
+import org.apache.commons.lang3.StringUtils
 
 @RunWith(classOf[JUnitRunner])
 class LocalIngestionIntegrationTest extends RestIngestionSpec with Matchers {
@@ -39,10 +40,9 @@ class LocalIngestionIntegrationTest extends RestIngestionSpec with Matchers {
       .POST << content
     val futureResponse = Http(request OK as.String)
     futureResponse map { response =>
-      response should be(s"<h1>User $user sent msg $content to kafka topic sensor-reading with key 123123123!</h1>")
+      response should be(s"<h1>User $user sent msg '$content' to kafka topic sensor-reading with key 123123123!</h1>")
     }
   }
-
 
   it should "respond with a non-zero response to a request of the processed messages after posting data" in {
     val content = "some dummy data"
@@ -64,6 +64,20 @@ class LocalIngestionIntegrationTest extends RestIngestionSpec with Matchers {
       assert( Integer.valueOf(count) > 0 )
     }
   }
+
+  it should "abbreviate very long data in response" in {
+    val content = "some" + StringUtils.repeat(" very,", 100) + " very long message"
+    val expectedAbbreviation = "some very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, very, ..."
+
+    val request = url(s"http://$host:$port/sensorReading/123123123")
+      .as_!(user, password)
+      .POST << content
+    val futureResponse = Http(request OK as.String)
+    futureResponse map { response =>
+      response should be(s"<h1>User $user sent msg '$expectedAbbreviation' to kafka topic sensor-reading with key 123123123!</h1>")
+    }
+  }
+
 
 
 }
