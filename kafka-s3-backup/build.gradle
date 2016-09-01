@@ -20,6 +20,8 @@ task fatJar(type: Jar) {
 dependencies {
     provided 'org.apache.spark:spark-core_2.10:2.0.0'
 
+    compile project(':common-utils')
+
     compile 'org.apache.spark:spark-streaming-kafka_2.10:1.6.2'
     compile 'org.apache.spark:spark-streaming_2.10:2.0.0'
 }

@@ -7,13 +7,13 @@ import akka.http.scaladsl.server.{ExceptionHandler, Route}
 import akka.http.scaladsl.server.directives.Credentials
 import akka.pattern.ask
 import akka.util.Timeout
-import com.zuehlke.hackzurich.service.ProducerActor._
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
 import akka.http.scaladsl.model.StatusCodes._
 import com.zuehlke.hackzurich.configuration.RestIngestionConfiguration
 import com.zuehlke.hackzurich.routes.SensorDataIngestionRoute.BasicAuthPassword
+import com.zuehlke.hackzurich.service.ProducerActor.{Message, MessagesProcessedResponse, RequestMessagesProcessed}
 import org.apache.commons.lang3.StringUtils
 
 /** Defines how / which requests are routed and handled

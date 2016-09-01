@@ -1,7 +1,7 @@
 package com.zuehlke.hackzurich.service
 
 import akka.actor.Props
-import com.zuehlke.hackzurich.service.ProducerActor.MessagesProcessedResponse
+import ProducerActor.MessagesProcessedResponse
 
 class LocalLoggingActor extends ProducerActor {
   var messagesProcessed: Long = 0
