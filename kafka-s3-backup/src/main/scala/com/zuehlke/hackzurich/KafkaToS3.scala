@@ -2,6 +2,7 @@ package com.zuehlke.hackzurich
 
 import java.util.Calendar
 
+import com.zuehlke.hackzurich.common.kafkautils.MesosKafkaBootstrapper
 import kafka.serializer.StringDecoder
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming._
@@ -37,7 +38,7 @@ object KafkaToS3 {
 
     // Create direct kafka stream with brokers and topics
     val topicsSet = topics.split(",").toSet
-    val kafkaParams = Map[String, String]("metadata.broker.list" -> KafkaBootstrapper.mkBootstrapServersString)
+    val kafkaParams = Map[String, String]("metadata.broker.list" -> MesosKafkaBootstrapper.mkBootstrapServersString)
     val messages = KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder](
       ssc, kafkaParams, topicsSet)
 

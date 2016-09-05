@@ -1,7 +1,7 @@
 package com.zuehlke.hackzurich.service
 
 import akka.actor.{Actor, ActorLogging}
-import com.zuehlke.hackzurich.service.ProducerActor.{Message, RequestMessagesProcessed}
+import ProducerActor.{Message, RequestMessagesProcessed}
 
 trait ProducerActor extends Actor with ActorLogging {
   def handleMessage(msg: String, topic: String, key: Option[String]): Unit

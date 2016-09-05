@@ -22,6 +22,7 @@ repositories {
 }
 
 dependencies {
+    compile project(':common-utils')
     compile "com.typesafe.akka:akka-actor_2.11:2.4.8"
     compile "com.typesafe.akka:akka-stream_2.11:2.4.8"
     compile "com.typesafe.akka:akka-http-experimental_2.11:2.4.8"

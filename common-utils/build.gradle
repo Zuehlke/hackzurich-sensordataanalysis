@@ -1,0 +1,11 @@
+apply plugin: 'scala'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //compile 'org.apache.commons:commons-lang3:3.4'
+    compile 'org.apache.kafka:kafka_2.11:0.10.0.1'
+}
+

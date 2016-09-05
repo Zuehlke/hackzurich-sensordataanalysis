@@ -1,13 +1,19 @@
-package com.zuehlke.hackzurich
+package com.zuehlke.hackzurich.common.kafkautils
 
-import kafka.utils.Json
-
-
-object KafkaBootstrapper {
-  import org.apache.zookeeper.ZooKeeper
-  import scala.collection.JavaConversions._
+/** Reads from ZooKeeper the broker information for Kafka stored by DC/OS */
+object MesosKafkaBootstrapper {
   import kafka.utils.Json
+  import org.apache.zookeeper.ZooKeeper
 
+  import scala.collection.JavaConversions._
+
+  /**
+    * Builds the list of Kafka brokers to bootstrap
+    * in a similar way as kafka.cluster.Broker#createBroker(int, java.lang.String)
+    * in org.apache.kafka:kafka_2.11:0.10.0.1
+    *
+    * @return comma-separated list of brokers found in ZooKeeper
+    */
   def mkBootstrapServersString : String = {
     def extractConnection(zkData: String): String = {
       val brokerInfo = Json.parseFull(zkData).get.asInstanceOf[Map[String, Any]]

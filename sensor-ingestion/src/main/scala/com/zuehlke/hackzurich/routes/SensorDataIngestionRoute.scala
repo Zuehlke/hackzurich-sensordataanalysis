@@ -7,15 +7,22 @@ import akka.http.scaladsl.server.{ExceptionHandler, Route}
 import akka.http.scaladsl.server.directives.Credentials
 import akka.pattern.ask
 import akka.util.Timeout
-import com.zuehlke.hackzurich.service.ProducerActor._
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
 import akka.http.scaladsl.model.StatusCodes._
 import com.zuehlke.hackzurich.configuration.RestIngestionConfiguration
 import com.zuehlke.hackzurich.routes.SensorDataIngestionRoute.BasicAuthPassword
+import com.zuehlke.hackzurich.service.ProducerActor.{Message, MessagesProcessedResponse, RequestMessagesProcessed}
+import org.apache.commons.lang3.StringUtils
 
-class SensorDataIngestionRoute(val kafkaProducerActor: ActorRef, password: BasicAuthPassword) {
+/** Defines how / which requests are routed and handled
+  * using the Akka HTTP Routing DSL (http://doc.akka.io/docs/akka-stream-and-http-experimental/1.0-RC3/scala/http/routing-dsl/overview.html)
+  *
+  * This feature is still fairly new and the DSL may still not be very well supported in your IDE.
+  * So the IDE my complain about some statements that the Scala compiler within Gradle accepts - and that is the most important thing, I guess.
+  */
+class SensorDataIngestionRoute(val producerActor: ActorRef, password: BasicAuthPassword) {
   implicit val timeout = Timeout(1 seconds)
 
   import scala.concurrent.ExecutionContext.Implicits.global
@@ -37,16 +44,18 @@ class SensorDataIngestionRoute(val kafkaProducerActor: ActorRef, password: Basic
         sensorReadingPOST(deviceId) ~ sensorReadingGET()
       }
 
+  /** very basic interaction, mainly used as helathcheck whether service is up and running */
   def helloGET() = {
     get {
       complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "<h1>Sensor Ingestion Akka REST Service running</h1>"))
     }
   }
 
+  /** As an example of what could be responded to a GET request, return the number of submitted sensor readings since last restart */
   def sensorReadingGET() = {
     get {
       authenticateBasic(realm = "get sensor reading", userPassAuthenticator) { user =>
-        val futureCount = (kafkaProducerActor ? RequestMessagesProcessed).mapTo[MessagesProcessedResponse]
+        val futureCount = (producerActor ? RequestMessagesProcessed).mapTo[MessagesProcessedResponse]
         val result = Await.result(futureCount, timeout.duration)
         complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, s"${result.count}"))
       }
@@ -54,12 +63,14 @@ class SensorDataIngestionRoute(val kafkaProducerActor: ActorRef, password: Basic
   }
 
 
+  /** Most important operation: Record sensor readings submitted as POST request by storing it in a (Kafka) topic. */
   def sensorReadingPOST(deviceId: String) = {
     post {
       authenticateBasic(realm = "post sensor reading", userPassAuthenticator) { user =>
         entity(as[String]) { messageContent =>
-          kafkaProducerActor ! Message(messageContent, RestIngestionConfiguration.TOPIC, Option(deviceId))
-          complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, s"<h1>User $user sent msg $messageContent to kafka topic ${RestIngestionConfiguration.TOPIC} with key $deviceId!</h1>"))
+          producerActor ! Message(messageContent, RestIngestionConfiguration.TOPIC, Option(deviceId))
+          val messageSnippet = StringUtils.abbreviate(messageContent, 200)
+          complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, s"<h1>User $user sent msg '$messageSnippet' to kafka topic ${RestIngestionConfiguration.TOPIC} with key $deviceId!</h1>"))
         }
       }
     }
