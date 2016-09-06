@@ -1,0 +1,364 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\nSimple way to test what is written in the topic sensor-reading the Akka endpoint. \nRequires running Kafka and <https://github.com/mspringma/hackzurich-sensordataanalysis/tree/master/sensor-ingestion>.\n\nSpark Interpreter must be configured with depency\n\n> org.apache.kafka:kafka_2.10:jar:0.10.0.0\n\nSee also <https://docs.mesosphere.com/1.7/usage/service-guides/kafka/connecting-clients/>",
+      "dateUpdated": "Aug 31, 2016 1:40:56 PM",
+      "config": {
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": false,
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1472650848426_343164468",
+      "id": "20160831-134048_1377592162",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "<p>Simple way to test what is written in the topic sensor-reading the Akka endpoint.\n<br  />Requires running Kafka and <a href=\"https://github.com/mspringma/hackzurich-sensordataanalysis/tree/master/sensor-ingestion\">https://github.com/mspringma/hackzurich-sensordataanalysis/tree/master/sensor-ingestion</a>.</p>\n<p>Spark Interpreter must be configured with depency</p>\n<blockquote><p>org.apache.kafka:kafka_2.10:jar:0.10.0.0</p>\n</blockquote>\n<p>See also <a href=\"https://docs.mesosphere.com/1.7/usage/service-guides/kafka/connecting-clients/\">https://docs.mesosphere.com/1.7/usage/service-guides/kafka/connecting-clients/</a></p>\n"
+      },
+      "dateCreated": "Aug 31, 2016 1:40:48 PM",
+      "dateStarted": "Aug 31, 2016 1:40:57 PM",
+      "dateFinished": "Aug 31, 2016 1:40:58 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:1100"
+    },
+    {
+      "title": "old way of loading moduls would have been...",
+      "text": "%dep\nz.load(\"org.apache.kafka:kafka_2.10:jar:0.10.0.0\");",
+      "dateUpdated": "Aug 31, 2016 1:40:57 PM",
+      "config": {
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1472650848427_342779719",
+      "id": "20160831-134048_257339012",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "res0: org.apache.zeppelin.spark.dep.Dependency = org.apache.zeppelin.spark.dep.Dependency@3c06d15c\n"
+      },
+      "dateCreated": "Aug 31, 2016 1:40:48 PM",
+      "dateStarted": "Aug 31, 2016 1:40:57 PM",
+      "dateFinished": "Aug 31, 2016 1:41:04 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:1101"
+    },
+    {
+      "text": "import org.apache.zookeeper.ZooKeeper\nimport scala.collection.JavaConversions._\nimport kafka.utils.Json\n\ndef extractConnection(zkData: String): String = {\n    val brokerInfo = Json.parseFull(zkData).get.asInstanceOf[Map[String, Any]]\n    val host = brokerInfo(\"host\").asInstanceOf[String]\n    val port = brokerInfo(\"port\").asInstanceOf[Int]\n    s\"$host:$port\"\n}\n\nval zk = new ZooKeeper(\"master.mesos:2181/dcos-service-kafka\", 10000, null)\nval ids = zk.getChildren(\"/brokers/ids\", false)\nval connections = scala.collection.mutable.ListBuffer.empty[String]\n\nfor (id <- ids) {\n    connections += (extractConnection(new String(zk.getData(\"/brokers/ids/\" + id, false, null))))\n}\nval bootstrapServers = connections.mkString(\",\")",
+      "dateUpdated": "Aug 31, 2016 1:40:57 PM",
+      "config": {
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1472650848427_342779719",
+      "id": "20160831-134048_1745799898",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "import org.apache.zookeeper.ZooKeeper\nimport scala.collection.JavaConversions._\nimport kafka.utils.Json\nextractConnection: (zkData: String)String\nzk: org.apache.zookeeper.ZooKeeper = State:CONNECTING sessionid:0x0 local:null remoteserver:null lastZxid:0 xid:1 sent:0 recv:0 queuedpkts:0 pendingresp:0 queuedevents:0\nids: java.util.List[String] = [0, 1, 2]\nconnections: scala.collection.mutable.ListBuffer[String] = ListBuffer()\nbootstrapServers: String = 10.0.4.222:9585,10.0.7.51:9780,10.0.4.234:10054\n"
+      },
+      "dateCreated": "Aug 31, 2016 1:40:48 PM",
+      "dateStarted": "Aug 31, 2016 1:40:58 PM",
+      "dateFinished": "Aug 31, 2016 1:41:21 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:1102"
+    },
+    {
+      "title": "Create Consumer",
+      "text": "import java.util.Properties\nimport org.apache.kafka.clients.consumer._\n\nval  consumerProps = new Properties()\nconsumerProps.put(\"bootstrap.servers\", bootstrapServers)\n  \nconsumerProps.put(\"key.deserializer\", \"org.apache.kafka.common.serialization.StringDeserializer\")\nconsumerProps.put(\"value.deserializer\", \"org.apache.kafka.common.serialization.StringDeserializer\")\n\nconsumerProps.put(\"value.deserializer\", \"org.apache.kafka.common.serialization.StringDeserializer\")\nconsumerProps.put(\"group.id\", \"test-client-consumer\")\n\n\nval consumer = new KafkaConsumer[String, String](consumerProps)",
+      "dateUpdated": "Aug 31, 2016 1:42:59 PM",
+      "config": {
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1472650848427_342779719",
+      "id": "20160831-134048_1964551888",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "import java.util.Properties\nimport org.apache.kafka.clients.consumer._\nconsumerProps: java.util.Properties = {}\nres15: Object = null\nres17: Object = null\nres18: Object = null\nres20: Object = org.apache.kafka.common.serialization.StringDeserializer\nres21: Object = null\nconsumer: org.apache.kafka.clients.consumer.KafkaConsumer[String,String] = org.apache.kafka.clients.consumer.KafkaConsumer@1536bbc\n"
+      },
+      "dateCreated": "Aug 31, 2016 1:40:48 PM",
+      "dateStarted": "Aug 31, 2016 1:42:59 PM",
+      "dateFinished": "Aug 31, 2016 1:43:01 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:1103",
+      "focus": true
+    },
+    {
+      "title": "Subscribe To Beginning of Topic",
+      "text": "import java.util.Arrays\n\nconsumer.subscribe(Arrays.asList(\"sensor-reading\"))\nconsumer.seekToBeginning(consumer.assignment)",
+      "dateUpdated": "Aug 31, 2016 1:43:03 PM",
+      "config": {
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1472650848427_342779719",
+      "id": "20160831-134048_1152304226",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "import java.util.Arrays\n"
+      },
+      "dateCreated": "Aug 31, 2016 1:40:48 PM",
+      "dateStarted": "Aug 31, 2016 1:43:03 PM",
+      "dateFinished": "Aug 31, 2016 1:43:04 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:1104",
+      "focus": true
+    },
+    {
+      "title": "you can read more than once...",
+      "text": "val recordsIt = consumer.poll(100).iterator\n\nwhile (recordsIt.hasNext) {\n    val record = recordsIt.next\n    println(s\"${record.key} : ${record.value}\")\n}",
+      "dateUpdated": "Aug 31, 2016 1:43:11 PM",
+      "config": {
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorHide": false,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1472650848427_342779719",
+      "id": "20160831-134048_2125881597",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "recordsIt: java.util.Iterator[org.apache.kafka.clients.consumer.ConsumerRecord[String,String]] = org.apache.kafka.clients.consumer.ConsumerRecords$ConcatenatedIterable$1@698d5c7a\ncurl : {\"sensor\":\"dummy\", \"data\":\"nothing\"}\n"
+      },
+      "dateCreated": "Aug 31, 2016 1:40:48 PM",
+      "dateStarted": "Aug 31, 2016 1:43:11 PM",
+      "dateFinished": "Aug 31, 2016 1:43:12 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:1105",
+      "focus": true
+    },
+    {
+      "title": "until you finally close the consumer",
+      "text": "consumer.close",
+      "dateUpdated": "Aug 31, 2016 1:43:29 PM",
+      "config": {
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorHide": false,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1472650848427_342779719",
+      "id": "20160831-134048_1617964523",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Aug 31, 2016 1:40:48 PM",
+      "dateStarted": "Aug 31, 2016 1:43:29 PM",
+      "dateFinished": "Aug 31, 2016 1:43:29 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:1106",
+      "focus": true
+    },
+    {
+      "title": "Interact with same topic on shell on DC/OS master node",
+      "text": "%md\nTo observe somewhere else, you can actually observe on the shell the topic\n\n> ssh-into-dcos-master.sh\n\n> docker run -it mesosphere/kafka-client\n\n> ./kafka-console-consumer.sh --zookeeper master.mesos:2181/dcos-service-kafka --topic sensor-reading\n\nAnd you can end with Ctrl-C and post also a new message to the topic through the endpoint\n\n> curl --data '{\"sensor\":\"dummy\", \"data\":\"nothing\"}' --request POST --basic --user hackzurich http://ec2-54-183-149-224.us-west-1.compute.amazonaws.com:8083/sensorReading/curl\n",
+      "dateUpdated": "Aug 31, 2016 1:40:57 PM",
+      "config": {
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": false,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1472650848427_342779719",
+      "id": "20160831-134048_1345220891",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "<p>To observe somewhere else, you can actually observe on the shell the topic</p>\n<blockquote><p>ssh-into-dcos-master.sh</p>\n<p>docker run -it mesosphere/kafka-client</p>\n<p>./kafka-console-consumer.sh &ndash;zookeeper master.mesos:2181/dcos-service-kafka &ndash;topic sensor-reading</p>\n</blockquote>\n<p>And you can end with Ctrl-C and post also a new message to the topic through the endpoint</p>\n<blockquote><p>curl &ndash;data '{&ldquo;sensor&rdquo;:&ldquo;dummy&rdquo;, &ldquo;data&rdquo;:&ldquo;nothing&rdquo;}' &ndash;request POST &ndash;basic &ndash;user hackzurich http://ec2-54-183-149-224.us-west-1.compute.amazonaws.com:8083/sensorReading/curl</p>\n</blockquote>\n"
+      },
+      "dateCreated": "Aug 31, 2016 1:40:48 PM",
+      "dateStarted": "Aug 31, 2016 1:40:58 PM",
+      "dateFinished": "Aug 31, 2016 1:40:58 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:1107"
+    },
+    {
+      "dateUpdated": "Aug 31, 2016 1:40:57 PM",
+      "config": {
+        "colWidth": 12,
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1472650848427_342779719",
+      "id": "20160831-134048_1653682856",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT"
+      },
+      "dateCreated": "Aug 31, 2016 1:40:48 PM",
+      "dateStarted": "Aug 31, 2016 1:41:22 PM",
+      "dateFinished": "Aug 31, 2016 1:41:22 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:1108"
+    }
+  ],
+  "name": "Check Sensor Data Ingestion",
+  "id": "2BWFVZ3A5",
+  "angularObjects": {
+    "2BVBR7YK5": [],
+    "2BW32AC9Y": [],
+    "2BVVQN6XC": [],
+    "2BX1KGDT8": [],
+    "2BWPNUVJ5": [],
+    "2BTNFPFYK": [],
+    "2BUZ73EZK": [],
+    "2BVSZ5B4D": [],
+    "2BWJ366VH": [],
+    "2BW8UB6SZ": [],
+    "2BWDE8MMS": [],
+    "2BWT55N1N": [],
+    "2BUARN48P": [],
+    "2BW8DV3PB": []
+  },
+  "config": {
+    "looknfeel": "default"
+  },
+  "info": {}
+}
