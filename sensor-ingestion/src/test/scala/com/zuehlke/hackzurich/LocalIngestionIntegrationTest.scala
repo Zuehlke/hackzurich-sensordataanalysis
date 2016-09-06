@@ -40,7 +40,18 @@ class LocalIngestionIntegrationTest extends RestIngestionSpec with Matchers {
       .POST << content
     val futureResponse = Http(request OK as.String)
     futureResponse map { response =>
-      response should be(s"<h1>User $user sent msg '$content' to kafka topic sensor-reading with key 123123123!</h1>")
+      response should be(s"<h1>User $user sent msg '$content' to kafka topic sensor-reading with key '123123123'!</h1>")
+    }
+  }
+
+  it should "accept posts to the sensor reading path constructing key from parameters in path" in {
+    val content = "some dummy data"
+    val request = url(s"http://$host:$port/sensorReading/?deviceID=123123123&deviceType=iPhone%20OS")
+      .as_!(user, password)
+      .POST << content
+    val futureResponse = Http(request OK as.String)
+    futureResponse map { response =>
+      response should be(s"<h1>User $user sent msg '$content' to kafka topic sensor-reading with key '123123123_iPhone OS'!</h1>")
     }
   }
 
@@ -74,7 +85,7 @@ class LocalIngestionIntegrationTest extends RestIngestionSpec with Matchers {
       .POST << content
     val futureResponse = Http(request OK as.String)
     futureResponse map { response =>
-      response should be(s"<h1>User $user sent msg '$expectedAbbreviation' to kafka topic sensor-reading with key 123123123!</h1>")
+      response should be(s"<h1>User $user sent msg '$expectedAbbreviation' to kafka topic sensor-reading with key '123123123'!</h1>")
     }
   }
 
