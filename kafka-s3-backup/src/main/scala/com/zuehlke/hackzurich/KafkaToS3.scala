@@ -16,9 +16,9 @@ import org.apache.spark.streaming.kafka._
   */
 object KafkaToS3 {
   def main(args: Array[String]) {
-    if (args.length < 5) {
+    if (args.length < 4) {
       System.err.println(s"""
-                            |Usage: KafkaToS3 <brokers> <topics> <s3bucket> <awsAccessKeyId> <awsAccesKeySecret>
+                            |Usage: KafkaToS3 <topics> <s3bucket> <awsAccessKeyId> <awsAccesKeySecret>
                             |  <topics> is a list of one or more kafka topics to consume from
                             |  <s3bucket> the s3bucket to store the files into
                             |  <awsAccessKeyId> the aws access key
