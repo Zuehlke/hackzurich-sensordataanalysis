@@ -14,8 +14,13 @@ configurations {
 task fatJar(type: Jar) {
     
     baseName = project.name + '-all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
+    from {
+        (configurations.compile - configurations.provided).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    from sourceSets.test.output
+    with jar    with jar
 }
 
 dependencies {
