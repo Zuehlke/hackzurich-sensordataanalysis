@@ -2,15 +2,15 @@ package com.zuehlke.hackzurich.routes
 
 import akka.actor.ActorRef
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity, HttpResponse}
+import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.{ExceptionHandler, Route}
-import akka.http.scaladsl.server.directives.Credentials
+import akka.http.scaladsl.server.directives.{Credentials,ParameterDirectives}
 import akka.pattern.ask
 import akka.util.Timeout
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
-import akka.http.scaladsl.model.StatusCodes._
 import com.zuehlke.hackzurich.configuration.RestIngestionConfiguration
 import com.zuehlke.hackzurich.routes.SensorDataIngestionRoute.BasicAuthPassword
 import com.zuehlke.hackzurich.service.ProducerActor.{Message, MessagesProcessedResponse, RequestMessagesProcessed}
@@ -40,8 +40,8 @@ class SensorDataIngestionRoute(val producerActor: ActorRef, password: BasicAuthP
     path("hello") {
       helloGET()
     } ~
-      pathPrefix("sensorReading" / Remaining) { deviceId =>
-        sensorReadingPOST(deviceId) ~ sensorReadingGET()
+      pathPrefix("sensorReading" / Remaining) { expliciteKey =>
+        sensorReadingPOST(expliciteKey) ~ sensorReadingGET()
       }
 
   /** very basic interaction, mainly used as helathcheck whether service is up and running */
@@ -64,13 +64,16 @@ class SensorDataIngestionRoute(val producerActor: ActorRef, password: BasicAuthP
 
 
   /** Most important operation: Record sensor readings submitted as POST request by storing it in a (Kafka) topic. */
-  def sensorReadingPOST(deviceId: String) = {
+  def sensorReadingPOST(expliciteKey: String) = {
     post {
-      authenticateBasic(realm = "post sensor reading", userPassAuthenticator) { user =>
-        entity(as[String]) { messageContent =>
-          producerActor ! Message(messageContent, RestIngestionConfiguration.TOPIC, Option(deviceId))
-          val messageSnippet = StringUtils.abbreviate(messageContent, 200)
-          complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, s"<h1>User $user sent msg '$messageSnippet' to kafka topic ${RestIngestionConfiguration.TOPIC} with key $deviceId!</h1>"))
+      parameters("deviceID" ? "", "deviceType" ? "" ) { (deviceID, deviceType) =>
+        val key = List(expliciteKey, deviceID, deviceType).filter(_.nonEmpty).mkString("_")
+        authenticateBasic(realm = "post sensor reading", userPassAuthenticator) { user =>
+          entity(as[String]) { messageContent =>
+            producerActor ! Message(messageContent, RestIngestionConfiguration.TOPIC, Option(key))
+            val messageSnippet = StringUtils.abbreviate(messageContent, 200)
+            complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, s"<h1>User $user sent msg '$messageSnippet' to kafka topic ${RestIngestionConfiguration.TOPIC} with key '$key'!</h1>"))
+          }
         }
       }
     }
