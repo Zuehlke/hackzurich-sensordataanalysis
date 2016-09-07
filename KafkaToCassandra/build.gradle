@@ -1,7 +1,6 @@
-group 'mhaspra'
-version '1.0-SNAPSHOT'
-
 apply plugin: 'scala'
+
+group = "mhaspra"
 
 repositories {
     mavenCentral()
@@ -13,6 +12,7 @@ configurations {
 }
 
 task fatJar(type: Jar) {
+    
     baseName = project.name + '-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
@@ -20,7 +20,9 @@ task fatJar(type: Jar) {
 
 dependencies {
     provided 'org.apache.spark:spark-core_2.10:2.0.0'
+    provided ('org.apache.spark:spark-sql_2.10:2.0.0')
 
+    compile 'com.datastax.spark:spark-cassandra-connector_2.10:2.0.0-M3'
     compile 'org.apache.spark:spark-streaming-kafka_2.10:1.6.2'
     compile 'org.apache.spark:spark-streaming_2.10:2.0.0'
 }

@@ -1,16 +1,17 @@
 package com.zuehlke.hackzurich
 
-import java.util.Calendar
-
+import com.datastax.spark.connector.SomeColumns
 import kafka.serializer.StringDecoder
-import org.apache.spark.SparkConf
 import org.apache.spark.streaming._
-import org.apache.spark.streaming.kafka._
+import org.apache.spark.{SparkConf}
+import com.datastax.spark.connector.streaming._
+import org.apache.spark.streaming.kafka.KafkaUtils
 
 /**
   * Consumes messages from one or more topics in Kafka and puts them into a cassandra table
   *
   * Run in dcos with:
+  *
   * dcos spark run --submit-args="--supervise --conf spark.mesos.uris=http://hdfs.marathon.mesos:9000/v1/connect/hdfs-site.xml,http://hdfs.marathon.mesos:9000/v1/connect/core-site.xml --class com.zuehlke.hackzurich.KafkaToS3 <jar_location> <broker_dns:port> <topics> <tablename>
   */
 object KafkaToCassandra {
@@ -37,14 +38,9 @@ object KafkaToCassandra {
     val messages = KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder](
       ssc, kafkaParams, topicsSet)
 
-    // Save to Cassandra
-    messages.foreachRDD(rdd => {
 
-      println("\n\nNumber of records in this batch : " + rdd.count())
-      if(rdd.count() > 0){
-        rdd.repartition(1).saveToCassandra("hackzurich", "sensordata", SomeColumns("key", "data"))
-      }
-    })
+    // Save to Cassandra
+    messages.saveToCassandra("hackzurichzuhlke", tablename, SomeColumns("key", "data"))
 
     // Start the computation
     ssc.start()
