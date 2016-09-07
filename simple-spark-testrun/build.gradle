@@ -1,0 +1,27 @@
+apply plugin: 'scala'
+
+group = "mspringma"
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    provided
+    compile.extendsFrom provided
+}
+
+task fatJarForSparkSubmit(type: Jar) {
+
+    baseName = project.name + '-all'
+    from {
+        (configurations.compile - configurations.provided).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    with jar
+}
+
+dependencies {
+    provided 'org.apache.spark:spark-core_2.10:2.0.0'
+}
