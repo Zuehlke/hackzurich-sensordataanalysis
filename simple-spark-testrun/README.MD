@@ -10,10 +10,10 @@ Main intention is to verify that job can get executed in DC/OS and provide a sim
    Hint: Commandline `aws s3 cp <local file> <s3://destination file>` and `aws s3 sync <local dir> <s3://dir>` 
    works significantly faster than upload [in browser in S3 console](https://console.aws.amazon.com/s3/home?region=us-west-1),
    e.g. `aws s3 cp build/libs/simple-spark-testrun-all.jar s3://myjardirectory`
-   but you will have to adjust permissions in the S3 properties of the JAR readable/downloadable by `Everyone` in the browser.
+   but you will *always after an upload* have to adjust permissions in the S3 properties of the JAR readable/downloadable by `Everyone` in the browser.
    And when you do this the first time, just copy also the https-link of your JAR on S3 from the properties to your clipboard 
    as you will need it in the next step.
-6. Submit the spark job with:  `dcos spark run --submit-args="--supervise --class com.zuehlke.hackzurich.SparkTestrun jar-location"`
+6. [Run the spark job](https://docs.mesosphere.com/1.7/usage/service-guides/spark/run-job/) with:  `dcos spark run --submit-args="--supervise --class com.zuehlke.hackzurich.SparkTestrun jar-location"`
 7. You can trace execution in `open-shmack-spark-ui.sh`. 
    Information is not ideally exposed since some links to the Spark UI may not work through the proxy, 
    but if needed, you can access the logs of the sandbox in `open-shmack-mesos-console.sh`; even as a browser window that updates with the logs 

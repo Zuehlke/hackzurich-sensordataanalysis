@@ -23,5 +23,5 @@ task fatJarForSparkSubmit(type: Jar) {
 }
 
 dependencies {
-    provided 'org.apache.spark:spark-core_2.10:2.0.0'
+    provided 'org.apache.spark:spark-core_2.11:2.0.0'
 }
