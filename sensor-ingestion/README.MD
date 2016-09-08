@@ -15,7 +15,10 @@ See <https://github.com/Zuehlke/SHMACK/blob/master/Docker.md> for details!
   Will ask for password, then post some data, should return: **Sent msg to kafka topic sensor-reading with key  curl!**
 * `~/shmack/repo/04_implementation/scripts/helpers/open-browser.sh  http://ec2-54-183-172-209.us-west-1.compute.amazonaws.com:8083/sensorReading/`
   Should tell you after login just in a single number how many messages have been processed since last restart
-  
+* To monitor incoming data, most basic but very reliable way is:
+   * `ssh-into-dcos-master.sh`
+   * `docker run -it mesosphere/kafka-client`
+   * `./kafka-console-consumer.sh --zookeeper master.mesos:2181/dcos-service-kafka --topic sensor-reading`
 ## Running a local server that allows testing the endpoint
 * Check out the repository as usual
 * `./gradlew runLocalTestServer`
