@@ -59,6 +59,14 @@ See <https://github.com/Zuehlke/SHMACK/blob/master/Docker.md> for details!
 * Now basically do the regular deployment through Docker/Marathon that will use the already created topic, but:
   * In sensor-ingestion-options.json, set `"HAPROXY_0_PORT": "80"`, so the server will be accessible on default port 80, 
     for which DC/OS creates an [Elastic Load Balancer (ELB)](https://us-west-1.console.aws.amazon.com/ec2/v2/home?region=us-west-1#LoadBalancers:) by default (together with one to access the admin interface)
+* Optional: When missing some points at the time Kafka is deployed and topics are created, many of the parameters can get fixed later.
+  Some information stated here because there were some changes in the commands in Kafka 0.10, so a lot of the examples you find on [StackOverflow](http://stackoverflow.com/questions/29129222/changing-kafka-rentention-period-during-runtime) etc. don't work anymore exactly as posted.
+  * Connect to the cluster directly: `ssh-into-dcos-master.sh`
+  * Get the current version of the Kafka command-line tooling: `docker run -it mesosphere/kafka-client`
+  * Low-level topic list: `./kafka-topics.sh --list --zookeeper master.mesos:2181/dcos-service-kafka`
+  * Describe the topic, showing changes from default config: `./kafka-topics.sh --describe --topic sensor-reading --zookeeper master.mesos:2181/dcos-service-kafka`
+  * Changing a parameter -here retention to 100 days- of a topic: `./kafka-configs.sh --alter --add-config retention.ms=8640000000 --entity-type topics --entity-name sensor-reading --zookeeper master.mesos:2181/dcos-service-kafka` 
+
 * Further information:
   * [DC/OS Kafka Documentation](https://docs.mesosphere.com/1.7/usage/service-guides/kafka/)
   * [DC/OS Kafka Service and CLI](https://github.com/mesosphere/dcos-kafka-service)
