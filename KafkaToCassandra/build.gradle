@@ -11,25 +11,26 @@ configurations {
     compile.extendsFrom provided
 }
 
-task fatJar(type: Jar) {
-    
+task fatJarForSparkSubmit(type: Jar) {
+
     baseName = project.name + '-all'
     from {
         (configurations.compile - configurations.provided).collect {
             it.isDirectory() ? it : zipTree(it)
         }
     }
-    from sourceSets.test.output
-    with jar    with jar
+    with jar
 }
 
 dependencies {
     provided 'org.apache.spark:spark-core_2.10:2.0.0'
-    provided ('org.apache.spark:spark-sql_2.10:2.0.0')
+    provided 'org.apache.spark:spark-streaming_2.10:2.0.0'
+    provided 'org.apache.spark:spark-sql_2.10:2.0.0'
+
+    compile project(':common-utils')
 
     compile 'com.datastax.spark:spark-cassandra-connector_2.10:2.0.0-M3'
     compile 'org.apache.spark:spark-streaming-kafka_2.10:1.6.2'
-    compile 'org.apache.spark:spark-streaming_2.10:2.0.0'
 }
 
 
