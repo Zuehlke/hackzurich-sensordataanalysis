@@ -26,10 +26,12 @@ task fatJar(type: Jar) {
 dependencies {
     provided 'org.apache.spark:spark-core_2.11:2.0.0'
     provided ('org.apache.spark:spark-sql_2.11:2.0.0')
+    provided 'org.apache.spark:spark-streaming_2.11:2.0.0'
+
+    compile project(':common-utils')
 
     compile 'com.datastax.spark:spark-cassandra-connector_2.11:2.0.0-M3'
-    compile 'org.apache.spark:spark-streaming-kafka_2.11:1.6.2'
-    compile 'org.apache.spark:spark-streaming_2.11:2.0.0'
+    compile 'org.apache.spark:spark-streaming-kafka-0-10_2.11:2.0.0'
 }
 
 

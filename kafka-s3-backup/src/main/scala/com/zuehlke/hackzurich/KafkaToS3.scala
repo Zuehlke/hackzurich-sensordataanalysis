@@ -4,7 +4,6 @@ import java.util.Calendar
 
 import com.zuehlke.hackzurich.common.kafkautils.MesosKafkaBootstrapper
 import org.apache.kafka.clients.consumer.ConsumerConfig
-import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming._
 import org.apache.spark.streaming.kafka010.{ConsumerStrategies, KafkaUtils, LocationStrategies}
