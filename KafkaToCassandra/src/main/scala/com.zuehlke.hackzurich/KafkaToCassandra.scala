@@ -30,6 +30,7 @@ object KafkaToCassandra {
 
     // Create context with 2 second batch interval
     val sparkConf = new SparkConf().setAppName("KafkaToS3")
+    sparkConf.set("spark.cassandra.connection.host", "node-0.cassandra.mesos")
     val ssc = new StreamingContext(sparkConf, Seconds(30))
 
     // Create direct kafka stream with brokers and topics
