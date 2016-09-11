@@ -9,7 +9,7 @@ How to run this example
 5. Start the sensor ingestion app
 6. Build the fat jar with the gradle task fatJar
 7. Upload it to s3
-8. Run the Spark job with: dcos spark run --submit-args="--supervise --conf spark.mesos.uris=http://hdfs.marathon.mesos:9000/v1/connect/hdfs-site.xml,http://hdfs.marathon.mesos:9000/v1/connect/core-site.xml --class com.zuehlke.hackzurich.KafkaToCassandra https://s3-us-west-1.amazonaws.com/<your_bucket>/KafkaToCassandra-all.jar sensor-reading hackzurichzuhlke gyrodata"
+8. Run the Spark job with: dcos spark run --submit-args="--supervise --conf spark.mesos.uris=http://hdfs.marathon.mesos:9000/v1/connect/hdfs-site.xml,http://hdfs.marathon.mesos:9000/v1/connect/core-site.xml --class com.zuehlke.hackzurich.KafkaToCassandra https://s3-us-west-1.amazonaws.com/your_bucket/KafkaToCassandra-all.jar sensor-reading hackzurichzuhlke gyrodata"
 9. Send Data to the sensor-ingestion app that looks like:
 {
     "z" : -0.004197141877964879,

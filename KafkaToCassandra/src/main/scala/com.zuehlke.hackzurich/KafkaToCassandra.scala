@@ -62,11 +62,18 @@ object KafkaToCassandra {
       ssc, LocationStrategies.PreferConsistent, ConsumerStrategies.Subscribe[String, String](topicsSet, kafkaParams))
 
     // Save to Cassandra
-    messages.map(GyroSensordata(_)).saveToCassandra(keyspace, tablename, SomeColumns("date", "deviceid", "x", "y", "z"))
+    messages
+      .filter(isGyroData)
+      .map(GyroSensordata(_))
+      .saveToCassandra(keyspace, tablename, SomeColumns("date", "deviceid", "x", "y", "z"))
 
     // Start the computation
     ssc.start()
     ssc.awaitTermination()
+  }
+
+  def isGyroData(r: ConsumerRecord[String, String]): Boolean = {
+    r.value() contains "GYROSCOPE"
   }
 }
 case class GyroSensordata(date: String, deviceid: String, x: Double, y: Double, z:Double)
