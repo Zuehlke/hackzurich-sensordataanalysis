@@ -62,17 +62,22 @@ object KafkaToCassandra {
       ssc, LocationStrategies.PreferConsistent, ConsumerStrategies.Subscribe[String, String](topicsSet, kafkaParams))
 
     // Save to Cassandra
-    messages.map(Sensordata(_)).saveToCassandra(keyspace, tablename, SomeColumns("key", "data"))
+    messages.map(GyroSensordata(_)).saveToCassandra(keyspace, tablename, SomeColumns("date", "deviceid", "x", "y", "z"))
 
     // Start the computation
     ssc.start()
     ssc.awaitTermination()
   }
 }
-case class Sensordata(key: String, data: String)
-object Sensordata {
-  def apply(r: ConsumerRecord[String, String]): Sensordata = {
-    def json = JSON.parseFull(r.value()).get.asInstanceOf[Map[String, String]]
-    Sensordata(json.get("key").get,  json.get("data").get)
+case class GyroSensordata(date: String, deviceid: String, x: Double, y: Double, z:Double)
+object GyroSensordata {
+  def apply(r: ConsumerRecord[String, String]): GyroSensordata = {
+    def json = JSON.parseFull(r.value()).get.asInstanceOf[Map[String, Any]]
+    GyroSensordata(
+      json.get("date").get.asInstanceOf[String],
+      r.key().toString(),
+      json.get("x").get.asInstanceOf[Double],
+      json.get("y").get.asInstanceOf[Double],
+      json.get("z").get.asInstanceOf[Double])
   }
 }
