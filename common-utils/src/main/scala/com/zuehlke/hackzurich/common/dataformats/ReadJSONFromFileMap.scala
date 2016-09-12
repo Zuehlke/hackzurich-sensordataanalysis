@@ -23,18 +23,12 @@ object ReadJSONFromFileMap {
     val ssql = spark.sqlContext
 
 
-    val rdd = sc.makeRDD(Array(validJson))
+    val rdd = sc.makeRDD(Array(validJson, invalidJson))
     val gyroFilter = new SensorTypeFilter("Gyro")
 
     rdd
       .flatMap(com.zuehlke.hackzurich.common.dataformats.SensorReadingJSONParser.parseReadingsUsingScalaJSONParser)
-//        .filter(t => !None.eq(t))
       .filter(gyroFilter(_))
-
-      //      .filter(t => match {
-//      case None => false
-//      case _ => _._2.get("type") == "Gyro")
-//    })
       .foreach(println)
 
   }

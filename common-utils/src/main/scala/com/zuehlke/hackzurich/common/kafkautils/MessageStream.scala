@@ -9,7 +9,7 @@ import org.apache.spark.streaming.StreamingContext
 import org.apache.spark.streaming.dstream.InputDStream
 import org.apache.spark.streaming.kafka010.{ConsumerStrategies, KafkaUtils, LocationStrategies}
 
-class ReasonableKeyFilter {
+class ReasonableKeyFilter extends Serializable {
   def apply(record : ConsumerRecord[String, String]): Boolean = {
     record.key.nonEmpty && record.key.length > 0 && !record.key.equalsIgnoreCase("(none)") && !record.key.equalsIgnoreCase("curl")
   }

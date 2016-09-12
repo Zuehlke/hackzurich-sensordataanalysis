@@ -1,0 +1,779 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\nDashboard to check battery remaining on sensing smartphones",
+      "dateUpdated": "Sep 12, 2016 5:04:27 PM",
+      "config": {
+        "colWidth": 12,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1473699804103_-1061950996",
+      "id": "20160815-141030_2113782946",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "<p>Dashboard to check battery remaining on sensing smartphones</p>\n"
+      },
+      "dateCreated": "Sep 12, 2016 5:03:24 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:1692",
+      "dateFinished": "Sep 12, 2016 5:04:23 PM",
+      "dateStarted": "Sep 12, 2016 5:04:23 PM",
+      "focus": true
+    },
+    {
+      "title": "WARNING: Don't clean up accidentally",
+      "text": "%cassandra\nDROP TABLE sensordata.batterycurrent;",
+      "dateUpdated": "Sep 12, 2016 5:52:59 PM",
+      "config": {
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1473699804104_-1063874741",
+      "id": "20160909-081211_192373495",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\n\n<div class=\"container\">\n<div class=\"row text-center\">\n<h4>No Result</h4>\n</div>\n<br/>\n    <div class=\"row\">\n    <div class=\"col-md-3\"></div>\n    <div class=\"col-md-6 col-offset-md-3 table-responsive table-bordered\">\n        <table class=\"table\">\n            <caption><h5>Last query execution info</h5></caption>\n            <thead>\n                <tr>\n                    <th>Info</th>\n                    <th>Value</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <td>Statement</td>\n                    <td>DROP TABLE sensordata.batterycurrent;</td>\n                </tr>\n                <tr>\n                    <td>Achieved Consistency</td>\n                    <td>N/A</td>\n                </tr>\n                <tr>\n                    <td>Tried Hosts</td>\n                    <td>node-1.cassandra.mesos10.0.4.234:9042</td>\n                </tr>\n                <tr>\n                    <td>Queried Hosts</td>\n                    <td>node-1.cassandra.mesos10.0.4.234:9042</td>\n                </tr>\n                <tr>\n                    <td>Schema In Agreement</td>\n                    <td>true</td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n    </div>\n</div>"
+      },
+      "dateCreated": "Sep 12, 2016 5:03:24 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:1693",
+      "dateFinished": "Sep 12, 2016 5:53:00 PM",
+      "dateStarted": "Sep 12, 2016 5:52:59 PM",
+      "focus": true
+    },
+    {
+      "title": "Battery History - date is part of primary key",
+      "text": "%cassandra\nCREATE KEYSPACE IF NOT EXISTS sensordata WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 2 };\nCREATE TABLE IF NOT EXISTS sensordata.batteryhistory(\n    deviceid text, \n    date text, \n    batterystate text, \n    batterylevel double,\n    PRIMARY KEY (deviceid, date)\n) WITH CLUSTERING ORDER BY (date DESC);\n",
+      "dateUpdated": "Sep 12, 2016 8:57:06 PM",
+      "config": {
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1473699804104_-1063874741",
+      "id": "20160815-141223_1829713864",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\n\n<div class=\"container\">\n<div class=\"row text-center\">\n<h4>No Result</h4>\n</div>\n<br/>\n    <div class=\"row\">\n    <div class=\"col-md-3\"></div>\n    <div class=\"col-md-6 col-offset-md-3 table-responsive table-bordered\">\n        <table class=\"table\">\n            <caption><h5>Last query execution info</h5></caption>\n            <thead>\n                <tr>\n                    <th>Info</th>\n                    <th>Value</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <td>Statement</td>\n                    <td>CREATE TABLE IF NOT EXISTS sensordata.batteryhistory(\n    deviceid text, \n    date text, \n    batterystate text, \n    batterylevel double,\n    PRIMARY KEY (deviceid, date)\n) WITH CLUSTERING ORDER BY (date DESC);</td>\n                </tr>\n                <tr>\n                    <td>Achieved Consistency</td>\n                    <td>N/A</td>\n                </tr>\n                <tr>\n                    <td>Tried Hosts</td>\n                    <td>node-0.cassandra.mesos10.0.7.51:9042</td>\n                </tr>\n                <tr>\n                    <td>Queried Hosts</td>\n                    <td>node-0.cassandra.mesos10.0.7.51:9042</td>\n                </tr>\n                <tr>\n                    <td>Schema In Agreement</td>\n                    <td>true</td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n    </div>\n</div>"
+      },
+      "dateCreated": "Sep 12, 2016 5:03:24 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:1695",
+      "dateFinished": "Sep 12, 2016 5:53:11 PM",
+      "dateStarted": "Sep 12, 2016 5:53:10 PM",
+      "focus": true
+    },
+    {
+      "text": "%cassandra\nuse sensordata;\ndescribe table sensordata.batteryhistory;",
+      "dateUpdated": "Sep 12, 2016 5:53:18 PM",
+      "config": {
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1473699804104_-1063874741",
+      "id": "20160912-051340_890085162",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\n\n<br/>\n<br/>\n<nav class=\"navbar navbar-default\">\n    <ul class=\"nav navbar-nav\">\n        \n        <li>\n            <a><strong>DESCRIBE TABLE sensordata.batteryhistory;</strong></a>\n        </li>\n    </ul>\n    <ul class=\"nav navbar-nav navbar-right\">\n        <li class=\"dropdown\">\n            <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                <strong>Legend</strong>\n                <span class=\"caret\"></span>\n            </a>\n            <ul class=\"dropdown-menu\">\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-dashboard text-muted\" />&nbsp;Cluster\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-folder-open text-danger\" />&nbsp;&nbsp;Keyspace\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-copyright-mark text-warning\" />&nbsp;&nbsp;UDT\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-th-list text-primary\" />&nbsp;&nbsp;Table\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-eye-open text-primary\" />&nbsp;&nbsp;Materialized View\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-random text-success\" />&nbsp;&nbsp;Function\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-retweet text-success\" />&nbsp;&nbsp;Aggregate\n                    </a>\n                </li>\n                <li role=\"separator\" class=\"divider text-muted\"></li>\n                <li class=\"dropdown-header\"><span class=\"text-primary\">Table icons</span></li>\n                <li class=\"bg-info\">\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-fullscreen\" />&nbsp;&nbsp;Partition Key\n                    </a>\n                </li>\n                <li class=\"bg-warning\">\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-pushpin\" />&nbsp;&nbsp;Static Column\n                    </a>\n                </li>\n                <li class=\"bg-success\">\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-sort\" />&nbsp;&nbsp;Clustering Column\n                    </a>\n                </li>\n                <li class=\"bg-success\">\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-sort-by-attributes\" />&nbsp;&nbsp;Clustering Order ASC\n                    </a>\n                </li>\n                <li class=\"bg-success\">\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-sort-by-attributes-alt\" />&nbsp;&nbsp;Clustering Order DESC\n                    </a>\n                </li>\n            </ul>\n        </li>\n        <li>\n            <a href=\"#\"></a>\n        </li>\n    </ul>\n</nav>\n<hr/>\n\n<div class=\"row\">\n    <div class=\"col-md-2\"/>\n    <div class=\"col-md-8 col-offset-md-2\">\n        <div class=\"panel panel-default table-responsive table-bordered\">\n            <table class=\"table\">\n                \n                <caption><h4 class=\"text-primary\"><i class=\"glyphicon glyphicon-th-list\"/>&nbsp;batteryhistory</h4></caption>\n                                <thead>\n                    <tr>\n                        <th class=\"col-md-4\">Column Type</th>\n                        <th class=\"col-md-4\">Column Name</th>\n                        <th class=\"col-md-4\">Data Type</th>\n                    </tr>\n                </thead>\n                <tbody>\n                                            \n\n                    <tr class=\"info\">\n                        <td class=\"col-md-4\">\n                            <i class=\"glyphicon glyphicon-fullscreen\" title=\"Partition Key\"/>\n                        </td>\n                        <td class=\"col-md-4\">deviceid</td>\n                        <td class=\"col-md-4\">text</td>\n                    </tr>\n                                                                    \n                    <tr class=\"success\">\n                        <td class=\"col-md-4\">\n                            <i class=\"glyphicon glyphicon-sort\" title=\"Clustering Column\"/>\n                            &nbsp;\n                            <i class=\"glyphicon glyphicon-sort-by-attributes-alt\" title=\"Sort DESC\"/>\n                        </td>\n                        <td class=\"col-md-4\">date</td>\n                        <td class=\"col-md-4\">text</td>\n                    </tr>\n                                                                    \n                    <tr>\n                        <td class=\"col-md-4\"></td>\n                        <td class=\"col-md-4\">batterylevel</td>\n                        <td class=\"col-md-4\">double</td>\n                    </tr>\n                                                                    \n                    <tr>\n                        <td class=\"col-md-4\"></td>\n                        <td class=\"col-md-4\">batterystate</td>\n                        <td class=\"col-md-4\">text</td>\n                    </tr>\n                                            \n                </tbody>\n            </table>\n            <div class=\"panel-footer\">\n                <a data-toggle=\"collapse\" data-target=\"#c988ced0-7911-11e6-aff9-8d522ad11762_asCQL\" class=\"text-primary\">\n                    <strong>As CQL statement</strong>\n                    <span class=\"caret\"></span>\n                </a>\n                <br/><br/>\n                <div class=\"collapse\" id=\"c988ced0-7911-11e6-aff9-8d522ad11762_asCQL\">\n                    <pre class=\"well\">CREATE TABLE sensordata.batteryhistory (\n    deviceid text,\n    date text,\n    batterylevel double,\n    batterystate text,\n    PRIMARY KEY (deviceid, date)\n) WITH CLUSTERING ORDER BY (date DESC)\n   AND read_repair_chance = 0.0\n   AND dclocal_read_repair_chance = 0.1\n   AND gc_grace_seconds = 864000\n   AND bloom_filter_fp_chance = 0.01\n   AND caching = { 'keys' : 'ALL', 'rows_per_partition' : 'NONE' }\n   AND comment = ''\n   AND compaction = { 'class' : 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold' : 32, 'min_threshold' : 4 }\n   AND compression = { 'chunk_length_in_kb' : 64, 'class' : 'org.apache.cassandra.io.compress.LZ4Compressor' }\n   AND default_time_to_live = 0\n   AND speculative_retry = '99PERCENTILE'\n   AND min_index_interval = 128\n   AND max_index_interval = 2048\n   AND crc_check_chance = 1.0;</pre>\n                </div>\n            </div>\n        </div>\n            </div>\n    <div class=\"col-md-2\"></div>\n</div>"
+      },
+      "dateCreated": "Sep 12, 2016 5:03:24 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:1697",
+      "dateFinished": "Sep 12, 2016 5:53:18 PM",
+      "dateStarted": "Sep 12, 2016 5:53:18 PM",
+      "focus": true
+    },
+    {
+      "config": {
+        "colWidth": 12,
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "deviceid",
+              "index": 0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "date",
+              "index": 1,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "xAxis": {
+              "name": "deviceid",
+              "index": 0,
+              "aggr": "sum"
+            },
+            "yAxis": {
+              "name": "date",
+              "index": 1,
+              "aggr": "sum"
+            }
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1473703317810_2091259400",
+      "id": "20160912-180157_1193404182",
+      "dateCreated": "Sep 12, 2016 6:01:57 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "focus": true,
+      "$$hashKey": "object:2982",
+      "text": "%cassandra\nSELECT * FROM batteryhistory LIMIT 10;",
+      "dateUpdated": "Sep 12, 2016 8:58:11 PM",
+      "dateFinished": "Sep 12, 2016 8:47:36 PM",
+      "dateStarted": "Sep 12, 2016 8:47:36 PM",
+      "title": "Here we can observe how quickly battery drains or charges and correlate to other measurements whether battery level has impact on sensor readings",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "deviceid\tdate\tbatterylevel\tbatterystate\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS\t2016-09-06T00:50:42.804+02:00\t0.49\tUnplugged\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS\t2016-09-06T00:32:41.568+02:00\t0.51\tUnplugged\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS\t2016-09-06T00:27:14.825+02:00\t0.52\tUnplugged\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS\t2016-09-06T00:21:27.723+02:00\t0.53\tUnplugged\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS\t2016-09-06T00:15:40.646+02:00\t0.54\tUnplugged\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS\t2016-09-06T00:09:12.718+02:00\t0.55\tUnplugged\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS\t2016-09-06T00:00:01.871+02:00\t0.56\tUnplugged\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS\t2016-09-05T23:55:50.630+02:00\t0.57\tUnplugged\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS\t2016-09-05T23:53:07.389+02:00\t0.58\tUnplugged\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS\t2016-09-05T23:39:32.589+02:00\t0.59\tUnplugged\n",
+        "comment": "",
+        "msgTable": [
+          [
+            {
+              "key": "date",
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS"
+            },
+            {
+              "key": "date",
+              "value": "2016-09-06T00:50:42.804+02:00"
+            },
+            {
+              "key": "date",
+              "value": "0.49"
+            },
+            {
+              "key": "date",
+              "value": "Unplugged"
+            }
+          ],
+          [
+            {
+              "key": "batterylevel",
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS"
+            },
+            {
+              "key": "batterylevel",
+              "value": "2016-09-06T00:32:41.568+02:00"
+            },
+            {
+              "key": "batterylevel",
+              "value": "0.51"
+            },
+            {
+              "key": "batterylevel",
+              "value": "Unplugged"
+            }
+          ],
+          [
+            {
+              "key": "batterystate",
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS"
+            },
+            {
+              "key": "batterystate",
+              "value": "2016-09-06T00:27:14.825+02:00"
+            },
+            {
+              "key": "batterystate",
+              "value": "0.52"
+            },
+            {
+              "key": "batterystate",
+              "value": "Unplugged"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS"
+            },
+            {
+              "value": "2016-09-06T00:21:27.723+02:00"
+            },
+            {
+              "value": "0.53"
+            },
+            {
+              "value": "Unplugged"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS"
+            },
+            {
+              "value": "2016-09-06T00:15:40.646+02:00"
+            },
+            {
+              "value": "0.54"
+            },
+            {
+              "value": "Unplugged"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS"
+            },
+            {
+              "value": "2016-09-06T00:09:12.718+02:00"
+            },
+            {
+              "value": "0.55"
+            },
+            {
+              "value": "Unplugged"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS"
+            },
+            {
+              "value": "2016-09-06T00:00:01.871+02:00"
+            },
+            {
+              "value": "0.56"
+            },
+            {
+              "value": "Unplugged"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS"
+            },
+            {
+              "value": "2016-09-05T23:55:50.630+02:00"
+            },
+            {
+              "value": "0.57"
+            },
+            {
+              "value": "Unplugged"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS"
+            },
+            {
+              "value": "2016-09-05T23:53:07.389+02:00"
+            },
+            {
+              "value": "0.58"
+            },
+            {
+              "value": "Unplugged"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS"
+            },
+            {
+              "value": "2016-09-05T23:39:32.589+02:00"
+            },
+            {
+              "value": "0.59"
+            },
+            {
+              "value": "Unplugged"
+            }
+          ]
+        ],
+        "columnNames": [
+          {
+            "name": "deviceid",
+            "index": 0,
+            "aggr": "sum"
+          },
+          {
+            "name": "date",
+            "index": 1,
+            "aggr": "sum"
+          },
+          {
+            "name": "batterylevel",
+            "index": 2,
+            "aggr": "sum"
+          },
+          {
+            "name": "batterystate",
+            "index": 3,
+            "aggr": "sum"
+          }
+        ],
+        "rows": [
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS",
+            "2016-09-06T00:50:42.804+02:00",
+            "0.49",
+            "Unplugged"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS",
+            "2016-09-06T00:32:41.568+02:00",
+            "0.51",
+            "Unplugged"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS",
+            "2016-09-06T00:27:14.825+02:00",
+            "0.52",
+            "Unplugged"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS",
+            "2016-09-06T00:21:27.723+02:00",
+            "0.53",
+            "Unplugged"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS",
+            "2016-09-06T00:15:40.646+02:00",
+            "0.54",
+            "Unplugged"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS",
+            "2016-09-06T00:09:12.718+02:00",
+            "0.55",
+            "Unplugged"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS",
+            "2016-09-06T00:00:01.871+02:00",
+            "0.56",
+            "Unplugged"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS",
+            "2016-09-05T23:55:50.630+02:00",
+            "0.57",
+            "Unplugged"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS",
+            "2016-09-05T23:53:07.389+02:00",
+            "0.58",
+            "Unplugged"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS",
+            "2016-09-05T23:39:32.589+02:00",
+            "0.59",
+            "Unplugged"
+          ]
+        ]
+      }
+    },
+    {
+      "config": {
+        "colWidth": 12,
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1473701129595_-1027620809",
+      "id": "20160912-172529_442017483",
+      "dateCreated": "Sep 12, 2016 5:25:29 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "focus": true,
+      "$$hashKey": "object:2651",
+      "text": "%cassandra\nCREATE TABLE IF NOT EXISTS sensordata.batterycurrent(\n    deviceid text, \n    date text, \n    batterystate text, \n    batterylevel double,\n    PRIMARY KEY (deviceid)\n);\n",
+      "dateUpdated": "Sep 12, 2016 8:59:18 PM",
+      "dateFinished": "Sep 12, 2016 6:05:42 PM",
+      "dateStarted": "Sep 12, 2016 6:05:42 PM",
+      "title": "Almost identical table, but date is not part of primary key - so only last reported measurement per device is kept",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\n\n<div class=\"container\">\n<div class=\"row text-center\">\n<h4>No Result</h4>\n</div>\n<br/>\n    <div class=\"row\">\n    <div class=\"col-md-3\"></div>\n    <div class=\"col-md-6 col-offset-md-3 table-responsive table-bordered\">\n        <table class=\"table\">\n            <caption><h5>Last query execution info</h5></caption>\n            <thead>\n                <tr>\n                    <th>Info</th>\n                    <th>Value</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <td>Statement</td>\n                    <td>CREATE TABLE IF NOT EXISTS sensordata.batterycurrent(\n    deviceid text, \n    date text, \n    batterystate text, \n    batterylevel double,\n    PRIMARY KEY (deviceid)\n);</td>\n                </tr>\n                <tr>\n                    <td>Achieved Consistency</td>\n                    <td>N/A</td>\n                </tr>\n                <tr>\n                    <td>Tried Hosts</td>\n                    <td>node-0.cassandra.mesos10.0.7.51:9042</td>\n                </tr>\n                <tr>\n                    <td>Queried Hosts</td>\n                    <td>node-0.cassandra.mesos10.0.7.51:9042</td>\n                </tr>\n                <tr>\n                    <td>Schema In Agreement</td>\n                    <td>true</td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n    </div>\n</div>"
+      }
+    },
+    {
+      "text": "%cassandra\nSELECT * FROM batterycurrent;",
+      "dateUpdated": "Sep 12, 2016 9:00:05 PM",
+      "config": {
+        "colWidth": 12,
+        "editorMode": "ace/mode/scala",
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "deviceid",
+              "index": 0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "batterylevel",
+              "index": 1,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "xAxis": {
+              "name": "deviceid",
+              "index": 0,
+              "aggr": "sum"
+            }
+          }
+        },
+        "enabled": true,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1473699804104_-1063874741",
+      "id": "20160912-051403_2074682974",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "deviceid\tbatterylevel\tbatterystate\tdate\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS\t0.57\tUnplugged\t2016-09-06T00:50:42.804+02:00\n0C09B0A6-87DA-4CC4-A553-5C53A0B60914_iPhone OS\t0.23\tUnplugged\t2016-09-12T13:05:45.347+02:00\n72ED0416-739D-49DD-92CC-CC442A6E6C0B_iPhone OS\t0.27\tUnplugged\t2016-09-09T16:21:42.346+02:00\n4085211A-AEE5-48B8-B8E6-A96A5BD47D8F_iPhone OS\t0.95\tUnplugged\t2016-09-06T12:37:28.803+02:00\n6EC09F7D-9479-4C1F-90D4-1B95546802D3_iPhone OS\t0.22\tUnplugged\t2016-09-09T15:07:12.956+02:00\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t0.17\tCharging\t2016-09-12T22:50:25.939+02:00\n4DF5779D-2B39-469B-928C-B6DBA7849E25_iPhone OS\t0.46\tUnplugged\t2016-09-09T15:08:08.488+02:00\n",
+        "comment": "",
+        "msgTable": [
+          [
+            {
+              "key": "batterylevel",
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS"
+            },
+            {
+              "key": "batterylevel",
+              "value": "0.57"
+            },
+            {
+              "key": "batterylevel",
+              "value": "Unplugged"
+            },
+            {
+              "key": "batterylevel",
+              "value": "2016-09-06T00:50:42.804+02:00"
+            }
+          ],
+          [
+            {
+              "key": "batterystate",
+              "value": "0C09B0A6-87DA-4CC4-A553-5C53A0B60914_iPhone OS"
+            },
+            {
+              "key": "batterystate",
+              "value": "0.23"
+            },
+            {
+              "key": "batterystate",
+              "value": "Unplugged"
+            },
+            {
+              "key": "batterystate",
+              "value": "2016-09-12T13:05:45.347+02:00"
+            }
+          ],
+          [
+            {
+              "key": "date",
+              "value": "72ED0416-739D-49DD-92CC-CC442A6E6C0B_iPhone OS"
+            },
+            {
+              "key": "date",
+              "value": "0.27"
+            },
+            {
+              "key": "date",
+              "value": "Unplugged"
+            },
+            {
+              "key": "date",
+              "value": "2016-09-09T16:21:42.346+02:00"
+            }
+          ],
+          [
+            {
+              "value": "4085211A-AEE5-48B8-B8E6-A96A5BD47D8F_iPhone OS"
+            },
+            {
+              "value": "0.95"
+            },
+            {
+              "value": "Unplugged"
+            },
+            {
+              "value": "2016-09-06T12:37:28.803+02:00"
+            }
+          ],
+          [
+            {
+              "value": "6EC09F7D-9479-4C1F-90D4-1B95546802D3_iPhone OS"
+            },
+            {
+              "value": "0.22"
+            },
+            {
+              "value": "Unplugged"
+            },
+            {
+              "value": "2016-09-09T15:07:12.956+02:00"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "0.17"
+            },
+            {
+              "value": "Charging"
+            },
+            {
+              "value": "2016-09-12T22:50:25.939+02:00"
+            }
+          ],
+          [
+            {
+              "value": "4DF5779D-2B39-469B-928C-B6DBA7849E25_iPhone OS"
+            },
+            {
+              "value": "0.46"
+            },
+            {
+              "value": "Unplugged"
+            },
+            {
+              "value": "2016-09-09T15:08:08.488+02:00"
+            }
+          ]
+        ],
+        "columnNames": [
+          {
+            "name": "deviceid",
+            "index": 0,
+            "aggr": "sum"
+          },
+          {
+            "name": "batterylevel",
+            "index": 1,
+            "aggr": "sum"
+          },
+          {
+            "name": "batterystate",
+            "index": 2,
+            "aggr": "sum"
+          },
+          {
+            "name": "date",
+            "index": 3,
+            "aggr": "sum"
+          }
+        ],
+        "rows": [
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS",
+            "0.57",
+            "Unplugged",
+            "2016-09-06T00:50:42.804+02:00"
+          ],
+          [
+            "0C09B0A6-87DA-4CC4-A553-5C53A0B60914_iPhone OS",
+            "0.23",
+            "Unplugged",
+            "2016-09-12T13:05:45.347+02:00"
+          ],
+          [
+            "72ED0416-739D-49DD-92CC-CC442A6E6C0B_iPhone OS",
+            "0.27",
+            "Unplugged",
+            "2016-09-09T16:21:42.346+02:00"
+          ],
+          [
+            "4085211A-AEE5-48B8-B8E6-A96A5BD47D8F_iPhone OS",
+            "0.95",
+            "Unplugged",
+            "2016-09-06T12:37:28.803+02:00"
+          ],
+          [
+            "6EC09F7D-9479-4C1F-90D4-1B95546802D3_iPhone OS",
+            "0.22",
+            "Unplugged",
+            "2016-09-09T15:07:12.956+02:00"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "0.17",
+            "Charging",
+            "2016-09-12T22:50:25.939+02:00"
+          ],
+          [
+            "4DF5779D-2B39-469B-928C-B6DBA7849E25_iPhone OS",
+            "0.46",
+            "Unplugged",
+            "2016-09-09T15:08:08.488+02:00"
+          ]
+        ]
+      },
+      "dateCreated": "Sep 12, 2016 5:03:24 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:1698",
+      "dateFinished": "Sep 12, 2016 9:00:05 PM",
+      "dateStarted": "Sep 12, 2016 9:00:05 PM",
+      "title": "... and this results in a fairly compact view of (usually) the most recent power information",
+      "focus": true
+    },
+    {
+      "dateUpdated": "Sep 12, 2016 5:03:24 PM",
+      "config": {
+        "colWidth": 12,
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1473699804105_-1064259489",
+      "id": "20160908-122746_608137275",
+      "dateCreated": "Sep 12, 2016 5:03:24 PM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:1705"
+    }
+  ],
+  "name": "Battery Dashboard",
+  "id": "2BX9G5VF7",
+  "angularObjects": {
+    "2BXVRASXW:shared_process": [],
+    "2BUG9UTJB:shared_process": [],
+    "2BWKDXNSV:shared_process": [],
+    "2BXSPQ97Z:shared_process": [],
+    "2BUW8ZTER:shared_process": [],
+    "2BXFXPW1A:shared_process": [],
+    "2BUX7A2WD:shared_process": [],
+    "2BX6YVK89:shared_process": [],
+    "2BU48K7BS:shared_process": [],
+    "2BV42RSWE:shared_process": [],
+    "2BUE5CUJ8:shared_process": [],
+    "2BWMDG7ZU:shared_process": [],
+    "2BXPGF7XP:shared_process": [],
+    "2BUQA2TDK:shared_process": [],
+    "2BXD5QQTM:shared_process": [],
+    "2BUZZSMN8:shared_process": [],
+    "2BWMWPM7Q:shared_process": [],
+    "2BUHGZQA2:shared_process": []
+  },
+  "config": {
+    "looknfeel": "default"
+  },
+  "info": {}
+}
