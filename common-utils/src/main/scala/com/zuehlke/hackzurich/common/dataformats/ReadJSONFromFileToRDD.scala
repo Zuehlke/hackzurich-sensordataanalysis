@@ -2,6 +2,7 @@ package com.zuehlke.hackzurich.common.dataformats
 
 import org.apache.spark.sql.SparkSession
 
+// actually, just executables to run locally some parsing from files
 object ReadJSONFromFileToRDD {
   def main(args: Array[String]) {
 

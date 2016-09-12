@@ -7,6 +7,7 @@ import org.apache.spark.streaming.{Seconds, StreamingContext}
 import scala.util.{Failure, Success, Try}
 import scala.util.parsing.json.JSON
 
+// actually, just executables to run locally some parsing from files
 object ReadJSONFromFileMap {
   def main(args: Array[String]) {
 
