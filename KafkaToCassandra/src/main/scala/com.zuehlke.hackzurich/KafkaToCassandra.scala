@@ -10,7 +10,9 @@ import org.apache.kafka.clients.consumer.{ConsumerConfig, ConsumerRecord}
 import org.apache.spark.streaming.kafka010.{ConsumerStrategies, KafkaUtils, LocationStrategies}
 import com.datastax.spark.connector.streaming._
 import org.apache.spark.streaming.dstream.InputDStream
-import scala.util.parsing.json.{JSON}
+
+import scala.util.{Failure, Success, Try}
+import scala.util.parsing.json.JSON
 
 
 /**
@@ -24,11 +26,12 @@ object KafkaToCassandra {
 
   def main(args: Array[String]) {
     if (args.length < 3) {
-      System.err.println(s"""
-                            |Usage: KafkaToCassandra <brokers> <topics> <tablename>
-                            |  <topics> is a list of one or more kafka topics to consume from
-                            |  <keyspace> is a cassandra keyspace that contains the table to store the data
-                            |  <tablename> is a cassandra table that stores the data
+      System.err.println(
+        s"""
+           |Usage: KafkaToCassandra <brokers> <topics> <tablename>
+           |  <topics> is a list of one or more kafka topics to consume from
+           |  <keyspace> is a cassandra keyspace that contains the table to store the data
+           |  <tablename> is a cassandra table that stores the data
         """.stripMargin)
       System.exit(1)
     }
@@ -73,18 +76,22 @@ object KafkaToCassandra {
   }
 
   def isGyroData(r: ConsumerRecord[String, String]): Boolean = {
-    r.value() contains "GYROSCOPE"
+    r.value() contains "Gyro"
   }
 }
-case class GyroSensordata(date: String, deviceid: String, x: Double, y: Double, z:Double)
+
+case class GyroSensordata(date: String, deviceid: String, x: Double, y: Double, z: Double)
+
 object GyroSensordata {
   def apply(r: ConsumerRecord[String, String]): GyroSensordata = {
-    def json = JSON.parseFull(r.value()).get.asInstanceOf[Map[String, Any]]
-    GyroSensordata(
-      json.get("date").get.asInstanceOf[String],
-      r.key().toString(),
-      json.get("x").get.asInstanceOf[Double],
-      json.get("y").get.asInstanceOf[Double],
-      json.get("z").get.asInstanceOf[Double])
+    Try(JSON.parseFull(r.value()).get.asInstanceOf[Map[String, Any]]) match {
+      case Success(json) =>  GyroSensordata(
+          json.get("date").get.asInstanceOf[String],
+          r.key.toString,
+          json.get("x").get.asInstanceOf[Double],
+          json.get("y").get.asInstanceOf[Double],
+          json.get("z").get.asInstanceOf[Double])
+      case Failure(f) => GyroSensordata("invalid - reason: " + f.toString, r.key.toString, 0.0, 0.0, 0.0)
+    }
   }
 }

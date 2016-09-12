@@ -11,7 +11,7 @@ configurations {
     compile.extendsFrom provided
 }
 
-task fatJar(type: Jar) {
+task fatJarForSparkSubmit(type: Jar) {
     
     baseName = project.name + '-all'
     from {
@@ -19,8 +19,7 @@ task fatJar(type: Jar) {
             it.isDirectory() ? it : zipTree(it)
         }
     }
-    from sourceSets.test.output
-    with jar    with jar
+    with jar
 }
 
 dependencies {
