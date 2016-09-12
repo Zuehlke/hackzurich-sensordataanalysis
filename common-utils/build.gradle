@@ -4,8 +4,32 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    //compile 'org.apache.commons:commons-lang3:3.4'
-    compile 'org.apache.kafka:kafka_2.11:0.10.0.1'
+
+configurations {
+    provided
+    compile.extendsFrom provided
 }
 
+task fatJarForSparkSubmit(type: Jar) {
+
+    baseName = project.name + '-all'
+    from {
+        (configurations.compile - configurations.provided).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    with jar
+}
+
+dependencies {
+    provided 'org.apache.spark:spark-core_2.11:2.0.0'
+    provided 'org.apache.spark:spark-streaming_2.11:2.0.0'
+    provided 'org.apache.spark:spark-sql_2.11:2.0.0'
+    provided 'org.apache.hadoop:hadoop-client:2.7.3'
+
+    compile 'org.apache.kafka:kafka_2.11:0.10.0.1'
+    compile 'org.apache.spark:spark-streaming-kafka-0-10_2.11:2.0.0'
+
+    testCompile "org.scalatest:scalatest_2.11:3.0.0"
+    testCompile "junit:junit:4.12"
+}
