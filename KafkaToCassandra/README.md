@@ -3,8 +3,11 @@ How to run this example
 1. Install cassandra
 2. Install kafka
 3. Install zeppeling with dcos package install --package-version=0.6.0 zeppelin
-3.1. Add the labels HAPROXY_GROUP=external and HAPROXY_0_PORT=8085
-3.2. Change the cassandra interpreter settings hosts properies to: node-0.cassandra.mesos
+
+3.0 dcos package install zeppelin --package-version=0.6.0
+3.1 Add the labels HAPROXY_GROUP=external and HAPROXY_0_PORT=8085
+3.2 Change the cassandra interpreter settings hosts properies to: node-0.cassandra.mesos
+
 4. Import the Zepplin notebook /Zeppelin-Notebooks/Cassandra Setup Gyro-Sensor.json and create the keyspace and the table
 5. Start the sensor ingestion app
 6. Build the fat jar with the gradle task fatJar
