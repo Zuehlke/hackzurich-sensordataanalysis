@@ -3,6 +3,7 @@ package com.zuehlke.hackzurich.common.kafkautils
 import com.zuehlke.hackzurich.common.kafkautils.MessageStream.OffsetRestConfig.OffsetRestConfig
 import org.apache.kafka.clients.consumer.{ConsumerConfig, ConsumerRecord}
 import org.apache.spark.SparkContext
+import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.{Dataset, Row, SQLContext}
 import org.apache.spark.streaming.StreamingContext
 import org.apache.spark.streaming.dstream.InputDStream
@@ -35,7 +36,7 @@ object MessageStream {
     KafkaUtils.createDirectStream[String, String](ssc, LocationStrategies.PreferConsistent, ConsumerStrategies.Subscribe[String, String](topicsSet, kafkaParams))
   }
 
-  def parseJson(ssql: SQLContext, sc: SparkContext, wholeJson: String) : Dataset[Row]= {
-    ssql.read.json(sc.makeRDD(Array(wholeJson)))
+  def parseJson(ssql: SQLContext, sc: SparkContext, unparsedJsonContent: RDD[String]) : Dataset[Row]= {
+    ssql.read.json(unparsedJsonContent)
   }
 }

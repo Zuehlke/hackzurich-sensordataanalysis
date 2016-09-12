@@ -14,20 +14,28 @@ import org.apache.spark.sql.{SQLContext, SparkSession}
 object KafkaToCassandra {
   def main(args: Array[String]) {
     val executionName = "KafkaToCassandra-Gyro"
-    // Create context with 5 second batch interval
 
-    val spark = SparkSession.builder().appName(executionName).getOrCreate()
+    val spark = SparkSession.builder()
+      .appName(executionName)
+      .config("spark.cassandra.connection.host","node-0.cassandra.mesos,node-1.cassandra.mesos,node-2.cassandra.mesos")
+      .getOrCreate()
+
+    // Create context with 5 second batch interval
     val ssc = new StreamingContext(spark.sparkContext, Seconds(5))
-    val ssql = spark.sqlContext
 
     val messages = MessageStream.directMessageStream(ssc, executionName)
 
-    // Need to transform data from JSON to com.zuehlke.hackzurich.common.dataformats.GyrometerReading
-    // Would like to do that like this: ... but that would build an RDD of RDD. Not good.
-     //messages.flatMap(record => Tuple2(record.key, MessageStream.parseJson(ssql, spark.sparkContext, record.value())
+    val ssql = spark.sqlContext
+
+    messages
+      .filter(r => r.key.nonEmpty && !r.key.equalsIgnoreCase("(none)") && r.key.length > 0)
+      .map(r => Tuple2(r.key, ssql.read.json(spark.sparkContext.makeRDD(Array(r.value())))))
+
+
+
 
     // Save to Cassandra
-    messages.saveToCassandra("sensordata", "sensorreading_by_device_sensortype", SomeColumns("key", "data"))
+    //messages.saveToCassandra("sensordata", "sensorreading_by_device_sensortype", SomeColumns("key", "data"))
 
     // Start the computation
     ssc.start()
