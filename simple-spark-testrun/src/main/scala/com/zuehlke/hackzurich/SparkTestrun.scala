@@ -3,10 +3,13 @@ package com.zuehlke.hackzurich
 import org.apache.spark.{SparkConf, SparkContext}
 
 /**
-  * Consumes messages from one or more topics in Kafka and puts them into an S3 bucket.
+  * Just a very simple Spark job to test that running jobs works with builds from your environment on DC/OS.
   *
   * Run in dcos with:
   * dcos spark run --submit-args="--supervise --class com.zuehlke.hackzurich.SparkTestrun <jar_location>"
+  *
+  * To retrieve the output, you may navigate to the finished jobs of the Spark frameworh in open-shmack-mesos-console.sh
+  * and take a look at stdout/stderr in the jobs sandbox.
   */
 object SparkTestrun {
   def main(args: Array[String]) {
