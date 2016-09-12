@@ -3,9 +3,9 @@ How to run this example
 1. Install cassandra
 2. Install kafka
 3. Install zeppeling with dcos package install --package-version=0.6.0 zeppelin
-   .1 `dcos package install zeppelin --package-version=0.6.0`
-   .2 Add the labels `HAPROXY_GROUP=external` and `HAPROXY_0_PORT=8085`
-   .3 Change the cassandra interpreter settings hosts properies for `cassandra.hosts` to: `node-0.cassandra.mesos,node-1.cassandra.mesos,node-2.cassandra.mesos`
+   * `dcos package install zeppelin --package-version=0.6.0`
+   * Add the labels `HAPROXY_GROUP=external` and `HAPROXY_0_PORT=8085`
+   * Change the cassandra interpreter settings hosts properies for `cassandra.hosts` to: `node-0.cassandra.mesos,node-1.cassandra.mesos,node-2.cassandra.mesos`
 4. Import the Zepplin notebook `/Zeppelin-Notebooks/Sensor Data in Cassandra.json` as well as `Battery Dashboard.json` and create the keyspace and the tables
 5. Start the sensor ingestion app
 6. Build the fat jar with the gradle task `./gradlew fatJarForSparkSubmit`
