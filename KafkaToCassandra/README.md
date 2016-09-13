@@ -11,6 +11,7 @@ How to run this example
 6. Build the fat jar with the gradle task `./gradlew fatJarForSparkSubmit`
 7. Upload it to s3
 8. Run the Spark job with: `dcos spark run --submit-args="--supervise --class com.zuehlke.hackzurich.KafkaToCassandra https://s3-us-west-1.amazonaws.com/<your_bucket>/KafkaToCassandra-all.jar"`
+   HINT: For error tracking, may additionaly use the option `--total-executor-cores 1 to run the job just on one node`
 9. Send Data to the sensor-ingestion app that looks like:
    `{
         "z" : -0.004197141877964879,

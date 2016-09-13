@@ -1,6 +1,8 @@
 apply plugin: 'scala'
+apply plugin: 'application'
 
 group = "mhaspra"
+mainClassName = "com.zuehlke.hackzurich.KafkaToCassandra"
 
 repositories {
     mavenCentral()
@@ -33,6 +35,5 @@ dependencies {
     compile 'com.datastax.spark:spark-cassandra-connector_2.11:2.0.0-M3'
     compile 'org.apache.spark:spark-streaming-kafka-0-10_2.11:2.0.0'
 }
-
 
 

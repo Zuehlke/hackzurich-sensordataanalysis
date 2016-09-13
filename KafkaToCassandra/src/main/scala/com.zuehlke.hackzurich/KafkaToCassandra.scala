@@ -64,6 +64,23 @@ object KafkaToCassandra {
     batteryReadings
       .saveToCassandra("sensordata", "batterycurrent", SomeColumns("date", "deviceid", "batterystate", "batterylevel"))
 
+    // save Barometer
+    //{
+    //  "relativeAltitude" : 3.336090087890625,
+    //  "pressure" : 96.40950012207031,
+    //  "date" : "1970-01-01T08:11:09.126+01:00",
+    //  "type" : "Barometer"
+    //}
+    val barometerFilter = new SensorTypeFilter("Barometer")
+    parsedMessages
+      .filter(barometerFilter(_))
+      .map(t => BarometerReading(
+        t._1,
+        t._2.get("date").get.asInstanceOf[String],
+        t._2.get("relativeAltitude").get.asInstanceOf[Double],
+        t._2.get("pressure").get.asInstanceOf[Double]))
+      .saveToCassandra("sensordata", "barometer", SomeColumns("date", "deviceid", "relativealtitude", "pressure"))
+
     // save Gyro
     val gyroFilter = new SensorTypeFilter("Gyro")
     parsedMessages

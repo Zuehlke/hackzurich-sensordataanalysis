@@ -35,7 +35,7 @@
       "dateFinished": "Sep 9, 2016 8:01:11 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:1703"
+      "$$hashKey": "object:8833"
     },
     {
       "title": "WARNING: Don't clean up accidentally",
@@ -73,7 +73,7 @@
       "dateFinished": "Sep 9, 2016 9:25:41 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:1704"
+      "$$hashKey": "object:8834"
     },
     {
       "text": "%cassandra\nDROP TABLE  sensordata.gyro;",
@@ -109,7 +109,7 @@
       "dateFinished": "Sep 12, 2016 4:39:32 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:1705"
+      "$$hashKey": "object:8835"
     },
     {
       "title": "Create a place to store key/value pairs (if it doesn't exists)",
@@ -147,7 +147,7 @@
       "dateFinished": "Sep 9, 2016 9:25:47 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:1706"
+      "$$hashKey": "object:8836"
     },
     {
       "text": "%cassandra\nCREATE TABLE IF NOT EXISTS sensordata.gyro(\n    date text, \n    deviceid text, \n    x double, \n    y double, \n    z double,\n    PRIMARY KEY (deviceid, date)\n) WITH CLUSTERING ORDER BY (date DESC);",
@@ -183,7 +183,7 @@
       "dateFinished": "Sep 12, 2016 4:39:41 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:1707"
+      "$$hashKey": "object:8837"
     },
     {
       "text": "%cassandra\nuse sensordata;\ndescribe table gyro;",
@@ -219,9 +219,12 @@
       "dateFinished": "Sep 12, 2016 6:07:20 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:1708"
+      "$$hashKey": "object:8838"
     },
     {
+      "text": "%cassandra\nCREATE TABLE IF NOT EXISTS sensordata.accelerometer(\n    date text, \n    deviceid text, \n    x double, \n    y double, \n    z double,\n    PRIMARY KEY (deviceid, date)\n) WITH CLUSTERING ORDER BY (date DESC);",
+      "authenticationInfo": {},
+      "dateUpdated": "Sep 13, 2016 11:38:31 AM",
       "config": {
         "colWidth": 12,
         "graph": {
@@ -242,22 +245,22 @@
       },
       "jobName": "paragraph_1473766693932_-270467637",
       "id": "20160913-113813_1871198124",
-      "dateCreated": "Sep 13, 2016 11:38:13 AM",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500,
-      "focus": true,
-      "$$hashKey": "object:2573",
-      "text": "%cassandra\nCREATE TABLE IF NOT EXISTS sensordata.accelerometer(\n    date text, \n    deviceid text, \n    x double, \n    y double, \n    z double,\n    PRIMARY KEY (deviceid, date)\n) WITH CLUSTERING ORDER BY (date DESC);",
-      "dateUpdated": "Sep 13, 2016 11:38:31 AM",
-      "dateFinished": "Sep 13, 2016 11:38:34 AM",
-      "dateStarted": "Sep 13, 2016 11:38:31 AM",
       "result": {
         "code": "SUCCESS",
         "type": "HTML",
         "msg": "\n\n<div class=\"container\">\n<div class=\"row text-center\">\n<h4>No Result</h4>\n</div>\n<br/>\n    <div class=\"row\">\n    <div class=\"col-md-3\"></div>\n    <div class=\"col-md-6 col-offset-md-3 table-responsive table-bordered\">\n        <table class=\"table\">\n            <caption><h5>Last query execution info</h5></caption>\n            <thead>\n                <tr>\n                    <th>Info</th>\n                    <th>Value</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <td>Statement</td>\n                    <td>CREATE TABLE IF NOT EXISTS sensordata.accelerometer(\n    date text, \n    deviceid text, \n    x double, \n    y double, \n    z double,\n    PRIMARY KEY (deviceid, date)\n) WITH CLUSTERING ORDER BY (date DESC);</td>\n                </tr>\n                <tr>\n                    <td>Achieved Consistency</td>\n                    <td>N/A</td>\n                </tr>\n                <tr>\n                    <td>Tried Hosts</td>\n                    <td>node-1.cassandra.mesos10.0.4.234:9042</td>\n                </tr>\n                <tr>\n                    <td>Queried Hosts</td>\n                    <td>node-1.cassandra.mesos10.0.4.234:9042</td>\n                </tr>\n                <tr>\n                    <td>Schema In Agreement</td>\n                    <td>true</td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n    </div>\n</div>"
-      }
+      },
+      "dateCreated": "Sep 13, 2016 11:38:13 AM",
+      "dateStarted": "Sep 13, 2016 11:38:31 AM",
+      "dateFinished": "Sep 13, 2016 11:38:34 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:8839"
     },
     {
+      "text": "%cassandra\ndescribe table accelerometer;",
+      "authenticationInfo": {},
+      "dateUpdated": "Sep 13, 2016 11:39:24 AM",
       "config": {
         "colWidth": 12,
         "graph": {
@@ -278,25 +281,94 @@
       },
       "jobName": "paragraph_1473766724444_-491652282",
       "id": "20160913-113844_862869997",
-      "dateCreated": "Sep 13, 2016 11:38:44 AM",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500,
-      "focus": true,
-      "$$hashKey": "object:2650",
-      "text": "%cassandra\ndescribe table accelerometer;",
-      "dateUpdated": "Sep 13, 2016 11:39:24 AM",
-      "dateFinished": "Sep 13, 2016 11:39:24 AM",
-      "dateStarted": "Sep 13, 2016 11:39:24 AM",
       "result": {
         "code": "SUCCESS",
         "type": "HTML",
         "msg": "\n\n<br/>\n<br/>\n<nav class=\"navbar navbar-default\">\n    <ul class=\"nav navbar-nav\">\n        \n        <li>\n            <a><strong>DESCRIBE TABLE accelerometer;</strong></a>\n        </li>\n    </ul>\n    <ul class=\"nav navbar-nav navbar-right\">\n        <li class=\"dropdown\">\n            <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                <strong>Legend</strong>\n                <span class=\"caret\"></span>\n            </a>\n            <ul class=\"dropdown-menu\">\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-dashboard text-muted\" />&nbsp;Cluster\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-folder-open text-danger\" />&nbsp;&nbsp;Keyspace\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-copyright-mark text-warning\" />&nbsp;&nbsp;UDT\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-th-list text-primary\" />&nbsp;&nbsp;Table\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-eye-open text-primary\" />&nbsp;&nbsp;Materialized View\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-random text-success\" />&nbsp;&nbsp;Function\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-retweet text-success\" />&nbsp;&nbsp;Aggregate\n                    </a>\n                </li>\n                <li role=\"separator\" class=\"divider text-muted\"></li>\n                <li class=\"dropdown-header\"><span class=\"text-primary\">Table icons</span></li>\n                <li class=\"bg-info\">\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-fullscreen\" />&nbsp;&nbsp;Partition Key\n                    </a>\n                </li>\n                <li class=\"bg-warning\">\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-pushpin\" />&nbsp;&nbsp;Static Column\n                    </a>\n                </li>\n                <li class=\"bg-success\">\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-sort\" />&nbsp;&nbsp;Clustering Column\n                    </a>\n                </li>\n                <li class=\"bg-success\">\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-sort-by-attributes\" />&nbsp;&nbsp;Clustering Order ASC\n                    </a>\n                </li>\n                <li class=\"bg-success\">\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-sort-by-attributes-alt\" />&nbsp;&nbsp;Clustering Order DESC\n                    </a>\n                </li>\n            </ul>\n        </li>\n        <li>\n            <a href=\"#\"></a>\n        </li>\n    </ul>\n</nav>\n<hr/>\n\n<div class=\"row\">\n    <div class=\"col-md-2\"/>\n    <div class=\"col-md-8 col-offset-md-2\">\n        <div class=\"panel panel-default table-responsive table-bordered\">\n            <table class=\"table\">\n                \n                <caption><h4 class=\"text-primary\"><i class=\"glyphicon glyphicon-th-list\"/>&nbsp;accelerometer</h4></caption>\n                                <thead>\n                    <tr>\n                        <th class=\"col-md-4\">Column Type</th>\n                        <th class=\"col-md-4\">Column Name</th>\n                        <th class=\"col-md-4\">Data Type</th>\n                    </tr>\n                </thead>\n                <tbody>\n                                            \n\n                    <tr class=\"info\">\n                        <td class=\"col-md-4\">\n                            <i class=\"glyphicon glyphicon-fullscreen\" title=\"Partition Key\"/>\n                        </td>\n                        <td class=\"col-md-4\">deviceid</td>\n                        <td class=\"col-md-4\">text</td>\n                    </tr>\n                                                                    \n                    <tr class=\"success\">\n                        <td class=\"col-md-4\">\n                            <i class=\"glyphicon glyphicon-sort\" title=\"Clustering Column\"/>\n                            &nbsp;\n                            <i class=\"glyphicon glyphicon-sort-by-attributes-alt\" title=\"Sort DESC\"/>\n                        </td>\n                        <td class=\"col-md-4\">date</td>\n                        <td class=\"col-md-4\">text</td>\n                    </tr>\n                                                                    \n                    <tr>\n                        <td class=\"col-md-4\"></td>\n                        <td class=\"col-md-4\">x</td>\n                        <td class=\"col-md-4\">double</td>\n                    </tr>\n                                                                    \n                    <tr>\n                        <td class=\"col-md-4\"></td>\n                        <td class=\"col-md-4\">y</td>\n                        <td class=\"col-md-4\">double</td>\n                    </tr>\n                                                                    \n                    <tr>\n                        <td class=\"col-md-4\"></td>\n                        <td class=\"col-md-4\">z</td>\n                        <td class=\"col-md-4\">double</td>\n                    </tr>\n                                            \n                </tbody>\n            </table>\n            <div class=\"panel-footer\">\n                <a data-toggle=\"collapse\" data-target=\"#b867a0f0-79a6-11e6-aff9-8d522ad11762_asCQL\" class=\"text-primary\">\n                    <strong>As CQL statement</strong>\n                    <span class=\"caret\"></span>\n                </a>\n                <br/><br/>\n                <div class=\"collapse\" id=\"b867a0f0-79a6-11e6-aff9-8d522ad11762_asCQL\">\n                    <pre class=\"well\">CREATE TABLE sensordata.accelerometer (\n    deviceid text,\n    date text,\n    x double,\n    y double,\n    z double,\n    PRIMARY KEY (deviceid, date)\n) WITH CLUSTERING ORDER BY (date DESC)\n   AND read_repair_chance = 0.0\n   AND dclocal_read_repair_chance = 0.1\n   AND gc_grace_seconds = 864000\n   AND bloom_filter_fp_chance = 0.01\n   AND caching = { 'keys' : 'ALL', 'rows_per_partition' : 'NONE' }\n   AND comment = ''\n   AND compaction = { 'class' : 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold' : 32, 'min_threshold' : 4 }\n   AND compression = { 'chunk_length_in_kb' : 64, 'class' : 'org.apache.cassandra.io.compress.LZ4Compressor' }\n   AND default_time_to_live = 0\n   AND speculative_retry = '99PERCENTILE'\n   AND min_index_interval = 128\n   AND max_index_interval = 2048\n   AND crc_check_chance = 1.0;</pre>\n                </div>\n            </div>\n        </div>\n            </div>\n    <div class=\"col-md-2\"></div>\n</div>"
-      }
+      },
+      "dateCreated": "Sep 13, 2016 11:38:44 AM",
+      "dateStarted": "Sep 13, 2016 11:39:24 AM",
+      "dateFinished": "Sep 13, 2016 11:39:24 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:8840"
     },
     {
-      "text": "%cassandra\nSELECT DISTINCT deviceid FROM accelerometer;",
+      "text": "%cassandra\nCREATE TABLE IF NOT EXISTS sensordata.barometer(\n    date text, \n    deviceid text, \n    relativealtitude double, \n    pressure double,\n    PRIMARY KEY (deviceid, date)\n) WITH CLUSTERING ORDER BY (date DESC);",
       "authenticationInfo": {},
-      "dateUpdated": "Sep 13, 2016 11:55:41 AM",
+      "dateUpdated": "Sep 13, 2016 3:25:57 PM",
+      "config": {
+        "colWidth": 12,
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1473773106874_-465806304",
+      "id": "20160913-132506_1321789007",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\n\n<div class=\"container\">\n<div class=\"row text-center\">\n<h4>No Result</h4>\n</div>\n<br/>\n    <div class=\"row\">\n    <div class=\"col-md-3\"></div>\n    <div class=\"col-md-6 col-offset-md-3 table-responsive table-bordered\">\n        <table class=\"table\">\n            <caption><h5>Last query execution info</h5></caption>\n            <thead>\n                <tr>\n                    <th>Info</th>\n                    <th>Value</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <td>Statement</td>\n                    <td>CREATE TABLE IF NOT EXISTS sensordata.barometer(\n    date text, \n    deviceid text, \n    relativealtitude double, \n    pressure double,\n    PRIMARY KEY (deviceid, date)\n) WITH CLUSTERING ORDER BY (date DESC);</td>\n                </tr>\n                <tr>\n                    <td>Achieved Consistency</td>\n                    <td>N/A</td>\n                </tr>\n                <tr>\n                    <td>Tried Hosts</td>\n                    <td>node-0.cassandra.mesos10.0.7.51:9042</td>\n                </tr>\n                <tr>\n                    <td>Queried Hosts</td>\n                    <td>node-0.cassandra.mesos10.0.7.51:9042</td>\n                </tr>\n                <tr>\n                    <td>Schema In Agreement</td>\n                    <td>true</td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n    </div>\n</div>"
+      },
+      "dateCreated": "Sep 13, 2016 1:25:06 PM",
+      "dateStarted": "Sep 13, 2016 3:25:57 PM",
+      "dateFinished": "Sep 13, 2016 3:25:57 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:8841"
+    },
+    {
+      "text": "%cassandra\ndescribe table barometer;",
+      "authenticationInfo": {},
+      "dateUpdated": "Sep 13, 2016 3:26:00 PM",
+      "config": {
+        "colWidth": 12,
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1473773232202_1666688283",
+      "id": "20160913-132712_1644272714",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\n\n<br/>\n<br/>\n<nav class=\"navbar navbar-default\">\n    <ul class=\"nav navbar-nav\">\n        \n        <li>\n            <a><strong>DESCRIBE TABLE barometer;</strong></a>\n        </li>\n    </ul>\n    <ul class=\"nav navbar-nav navbar-right\">\n        <li class=\"dropdown\">\n            <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                <strong>Legend</strong>\n                <span class=\"caret\"></span>\n            </a>\n            <ul class=\"dropdown-menu\">\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-dashboard text-muted\" />&nbsp;Cluster\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-folder-open text-danger\" />&nbsp;&nbsp;Keyspace\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-copyright-mark text-warning\" />&nbsp;&nbsp;UDT\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-th-list text-primary\" />&nbsp;&nbsp;Table\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-eye-open text-primary\" />&nbsp;&nbsp;Materialized View\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-random text-success\" />&nbsp;&nbsp;Function\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-retweet text-success\" />&nbsp;&nbsp;Aggregate\n                    </a>\n                </li>\n                <li role=\"separator\" class=\"divider text-muted\"></li>\n                <li class=\"dropdown-header\"><span class=\"text-primary\">Table icons</span></li>\n                <li class=\"bg-info\">\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-fullscreen\" />&nbsp;&nbsp;Partition Key\n                    </a>\n                </li>\n                <li class=\"bg-warning\">\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-pushpin\" />&nbsp;&nbsp;Static Column\n                    </a>\n                </li>\n                <li class=\"bg-success\">\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-sort\" />&nbsp;&nbsp;Clustering Column\n                    </a>\n                </li>\n                <li class=\"bg-success\">\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-sort-by-attributes\" />&nbsp;&nbsp;Clustering Order ASC\n                    </a>\n                </li>\n                <li class=\"bg-success\">\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-sort-by-attributes-alt\" />&nbsp;&nbsp;Clustering Order DESC\n                    </a>\n                </li>\n            </ul>\n        </li>\n        <li>\n            <a href=\"#\"></a>\n        </li>\n    </ul>\n</nav>\n<hr/>\n\n<div class=\"row\">\n    <div class=\"col-md-2\"/>\n    <div class=\"col-md-8 col-offset-md-2\">\n        <div class=\"panel panel-default table-responsive table-bordered\">\n            <table class=\"table\">\n                \n                <caption><h4 class=\"text-primary\"><i class=\"glyphicon glyphicon-th-list\"/>&nbsp;barometer</h4></caption>\n                                <thead>\n                    <tr>\n                        <th class=\"col-md-4\">Column Type</th>\n                        <th class=\"col-md-4\">Column Name</th>\n                        <th class=\"col-md-4\">Data Type</th>\n                    </tr>\n                </thead>\n                <tbody>\n                                            \n\n                    <tr class=\"info\">\n                        <td class=\"col-md-4\">\n                            <i class=\"glyphicon glyphicon-fullscreen\" title=\"Partition Key\"/>\n                        </td>\n                        <td class=\"col-md-4\">deviceid</td>\n                        <td class=\"col-md-4\">text</td>\n                    </tr>\n                                                                    \n                    <tr class=\"success\">\n                        <td class=\"col-md-4\">\n                            <i class=\"glyphicon glyphicon-sort\" title=\"Clustering Column\"/>\n                            &nbsp;\n                            <i class=\"glyphicon glyphicon-sort-by-attributes-alt\" title=\"Sort DESC\"/>\n                        </td>\n                        <td class=\"col-md-4\">date</td>\n                        <td class=\"col-md-4\">text</td>\n                    </tr>\n                                                                    \n                    <tr>\n                        <td class=\"col-md-4\"></td>\n                        <td class=\"col-md-4\">pressure</td>\n                        <td class=\"col-md-4\">double</td>\n                    </tr>\n                                                                    \n                    <tr>\n                        <td class=\"col-md-4\"></td>\n                        <td class=\"col-md-4\">relativealtitude</td>\n                        <td class=\"col-md-4\">double</td>\n                    </tr>\n                                            \n                </tbody>\n            </table>\n            <div class=\"panel-footer\">\n                <a data-toggle=\"collapse\" data-target=\"#60557e80-79c6-11e6-aff9-8d522ad11762_asCQL\" class=\"text-primary\">\n                    <strong>As CQL statement</strong>\n                    <span class=\"caret\"></span>\n                </a>\n                <br/><br/>\n                <div class=\"collapse\" id=\"60557e80-79c6-11e6-aff9-8d522ad11762_asCQL\">\n                    <pre class=\"well\">CREATE TABLE sensordata.barometer (\n    deviceid text,\n    date text,\n    pressure double,\n    relativealtitude double,\n    PRIMARY KEY (deviceid, date)\n) WITH CLUSTERING ORDER BY (date DESC)\n   AND read_repair_chance = 0.0\n   AND dclocal_read_repair_chance = 0.1\n   AND gc_grace_seconds = 864000\n   AND bloom_filter_fp_chance = 0.01\n   AND caching = { 'keys' : 'ALL', 'rows_per_partition' : 'NONE' }\n   AND comment = ''\n   AND compaction = { 'class' : 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold' : 32, 'min_threshold' : 4 }\n   AND compression = { 'chunk_length_in_kb' : 64, 'class' : 'org.apache.cassandra.io.compress.LZ4Compressor' }\n   AND default_time_to_live = 0\n   AND speculative_retry = '99PERCENTILE'\n   AND min_index_interval = 128\n   AND max_index_interval = 2048\n   AND crc_check_chance = 1.0;</pre>\n                </div>\n            </div>\n        </div>\n            </div>\n    <div class=\"col-md-2\"></div>\n</div>"
+      },
+      "dateCreated": "Sep 13, 2016 1:27:12 PM",
+      "dateStarted": "Sep 13, 2016 3:26:00 PM",
+      "dateFinished": "Sep 13, 2016 3:26:00 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:8842"
+    },
+    {
+      "text": "%cassandra\nSELECT DISTINCT deviceid FROM barometer;",
+      "authenticationInfo": {},
+      "dateUpdated": "Sep 13, 2016 3:31:01 PM",
       "config": {
         "colWidth": 12,
         "graph": {
@@ -355,36 +427,37 @@
         ]
       },
       "dateCreated": "Sep 12, 2016 5:14:03 AM",
-      "dateStarted": "Sep 13, 2016 11:55:41 AM",
-      "dateFinished": "Sep 13, 2016 11:55:41 AM",
+      "dateStarted": "Sep 13, 2016 3:31:01 PM",
+      "dateFinished": "Sep 13, 2016 3:31:01 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:1709",
-      "focus": true
+      "$$hashKey": "object:8843"
     },
     {
       "title": "Show the 10 most recent measurements of one iPhone",
-      "text": "%cassandra\nSELECT * FROM accelerometer WHERE deviceid = '9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS' LIMIT 10;",
+      "text": "%cassandra\nSELECT * FROM barometer WHERE deviceid = '9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS' LIMIT 100;",
       "authenticationInfo": {},
-      "dateUpdated": "Sep 13, 2016 11:58:36 AM",
+      "dateUpdated": "Sep 13, 2016 3:38:51 PM",
       "config": {
         "colWidth": 12,
         "graph": {
-          "mode": "table",
-          "height": 300,
-          "optionOpen": false,
+          "mode": "lineChart",
+          "height": 404,
+          "optionOpen": true,
           "keys": [
             {
-              "name": "deviceid",
-              "index": 0,
-              "aggr": "sum"
+              "name": "date",
+              "index": 1,
+              "aggr": "sum",
+              "$$hashKey": "object:6543"
             }
           ],
           "values": [
             {
-              "name": "date",
-              "index": 1,
-              "aggr": "sum"
+              "name": "relativealtitude",
+              "index": 3,
+              "aggr": "sum",
+              "$$hashKey": "object:6552"
             }
           ],
           "groups": [],
@@ -414,7 +487,7 @@
       "result": {
         "code": "SUCCESS",
         "type": "TABLE",
-        "msg": "deviceid\tdate\tx\ty\tz\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t1970-01-07T23:30:45.565+01:00\t0.012664794921875\t0.0185546875\t-0.992401123046875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t1970-01-07T23:30:45.467+01:00\t0.0117034912109375\t0.016326904296875\t-0.997467041015625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t1970-01-07T23:30:45.368+01:00\t0.011566162109375\t0.0166168212890625\t-0.9966583251953125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t1970-01-07T23:30:45.270+01:00\t0.013671875\t0.0159759521484375\t-0.997314453125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t1970-01-07T23:30:45.172+01:00\t0.01336669921875\t0.0184173583984375\t-0.99517822265625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t1970-01-07T23:30:45.073+01:00\t0.011566162109375\t0.0161285400390625\t-0.9949951171875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t1970-01-07T23:30:44.975+01:00\t0.0137176513671875\t0.017303466796875\t-0.9957275390625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t1970-01-07T23:30:44.877+01:00\t0.0130767822265625\t0.0170440673828125\t-0.9949188232421875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t1970-01-07T23:30:44.779+01:00\t0.01251220703125\t0.018585205078125\t-0.9934844970703125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t1970-01-07T23:30:44.680+01:00\t0.012542724609375\t0.015472412109375\t-0.9945831298828125\n",
+        "msg": "deviceid\tdate\tpressure\trelativealtitude\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:32:13.187+02:00\t96.51868438720703\t6.045745849609375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:32:11.866+02:00\t96.51873779296875\t6.04156494140625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:32:10.549+02:00\t96.51873779296875\t6.04156494140625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:32:09.231+02:00\t96.51719665527344\t6.174896240234375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:32:07.918+02:00\t96.51717376708984\t6.176971435546875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:32:06.589+02:00\t96.51651000976562\t6.2344970703125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:32:05.271+02:00\t96.51651000976562\t6.2344970703125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:32:03.952+02:00\t96.51588439941406\t6.288360595703125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:32:02.632+02:00\t96.51588439941406\t6.288360595703125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:32:01.312+02:00\t96.51629638671875\t6.2528076171875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:59.991+02:00\t96.5164566040039\t6.239227294921875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:58.673+02:00\t96.51669311523438\t6.218292236328125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:57.354+02:00\t96.51679229736328\t6.209930419921875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:56.036+02:00\t96.51679229736328\t6.209930419921875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:54.717+02:00\t96.51573944091797\t6.300384521484375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:53.398+02:00\t96.51573944091797\t6.300384521484375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:52.080+02:00\t96.51838684082031\t6.07135009765625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:50.758+02:00\t96.51841735839844\t6.06927490234375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:49.439+02:00\t96.51868438720703\t6.045745849609375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:48.129+02:00\t96.51872253417969\t6.043121337890625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:46.806+02:00\t96.51872253417969\t6.043121337890625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:45.486+02:00\t96.51981353759766\t5.948486328125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:44.169+02:00\t96.52107238769531\t5.83917236328125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:42.853+02:00\t96.5217514038086\t5.780609130859375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:41.533+02:00\t96.5231704711914\t5.6572265625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:40.216+02:00\t96.5231704711914\t5.6572265625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:38.895+02:00\t96.5231704711914\t5.6572265625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:37.575+02:00\t96.52318572998047\t5.656158447265625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:36.259+02:00\t96.52351379394531\t5.627410888671875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:34.936+02:00\t96.52397918701172\t5.587677001953125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:33.619+02:00\t96.52433013916016\t5.557342529296875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:32.298+02:00\t96.52435302734375\t5.555267333984375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:30.977+02:00\t96.52433013916016\t5.557342529296875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:29.657+02:00\t96.52360534667969\t5.620086669921875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:28.339+02:00\t96.52314758300781\t5.6593017578125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:27.020+02:00\t96.52360534667969\t5.620086669921875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:25.698+02:00\t96.52361297607422\t5.61956787109375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:24.373+02:00\t96.52398681640625\t5.587158203125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:23.058+02:00\t96.52398681640625\t5.587158203125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:21.736+02:00\t96.52396392822266\t5.5892333984375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:20.415+02:00\t96.52084350585938\t5.85906982421875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:19.093+02:00\t96.52017211914062\t5.917083740234375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:17.775+02:00\t96.51971435546875\t5.95684814453125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:16.454+02:00\t96.51971435546875\t5.95684814453125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:15.134+02:00\t96.5199966430664\t5.931732177734375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:13.813+02:00\t96.52037048339844\t5.900360107421875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:12.497+02:00\t96.52019500732422\t5.915008544921875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:11.185+02:00\t96.52058410644531\t5.881011962890625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:09.856+02:00\t96.52019500732422\t5.915008544921875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:08.534+02:00\t96.52058410644531\t5.881011962890625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:07.213+02:00\t96.5201644897461\t5.917633056640625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:05.896+02:00\t96.51978302001953\t5.951080322265625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:04.578+02:00\t96.51978302001953\t5.951080322265625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:03.255+02:00\t96.52017974853516\t5.91656494140625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:01.937+02:00\t96.52017974853516\t5.91656494140625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:31:00.621+02:00\t96.5181655883789\t6.0906982421875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:30:59.301+02:00\t96.51518249511719\t6.34954833984375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:30:58.025+02:00\t96.51518249511719\t6.34954833984375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:30:57.953+02:00\t96.52175903320312\t5.779571533203125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:14:53.852+02:00\t96.52175903320312\t5.779571533203125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:14:52.817+02:00\t96.52127075195312\t5.821929931640625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:14:19.601+02:00\t96.52127075195312\t5.821929931640625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:14:18.283+02:00\t96.52145385742188\t5.806243896484375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:14:16.964+02:00\t96.52240753173828\t5.7236328125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:14:15.654+02:00\t96.52246856689453\t5.7183837890625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:14:14.324+02:00\t96.52246856689453\t5.7183837890625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:14:13.006+02:00\t96.52203369140625\t5.75604248046875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:14:11.688+02:00\t96.52139282226562\t5.81146240234375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:14:10.371+02:00\t96.51766204833984\t6.13409423828125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:14:09.051+02:00\t96.51728820800781\t6.166534423828125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:14:07.727+02:00\t96.51663208007812\t6.223541259765625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:14:06.406+02:00\t96.51663208007812\t6.223541259765625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:14:05.089+02:00\t96.51795959472656\t6.108489990234375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:14:03.768+02:00\t96.51824188232422\t6.084442138671875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:14:02.445+02:00\t96.51858520507812\t6.05462646484375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:14:01.122+02:00\t96.51858520507812\t6.05462646484375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:59.802+02:00\t96.51858520507812\t6.05462646484375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:58.481+02:00\t96.5198745727539\t5.942718505859375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:57.160+02:00\t96.52075958251953\t5.866363525390625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:55.841+02:00\t96.52075958251953\t5.866363525390625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:54.521+02:00\t96.51985168457031\t5.94482421875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:53.199+02:00\t96.51985168457031\t5.94482421875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:51.879+02:00\t96.52070617675781\t5.87109375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:50.561+02:00\t96.52095031738281\t5.849639892578125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:49.244+02:00\t96.52129364013672\t5.81982421875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:47.919+02:00\t96.52095031738281\t5.849639892578125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:46.600+02:00\t96.52079772949219\t5.863250732421875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:45.280+02:00\t96.52061462402344\t5.87841796875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:43.963+02:00\t96.52061462402344\t5.87841796875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:42.641+02:00\t96.52113342285156\t5.833953857421875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:41.323+02:00\t96.52113342285156\t5.833953857421875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:40.007+02:00\t96.52091979980469\t5.852264404296875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:38.690+02:00\t96.52091979980469\t5.852264404296875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:37.376+02:00\t96.52079010009766\t5.86376953125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:36.055+02:00\t96.52008819580078\t5.924407958984375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:34.736+02:00\t96.52008819580078\t5.924407958984375\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:33.425+02:00\t96.52046203613281\t5.891998291015625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:32.101+02:00\t96.52085876464844\t5.85748291015625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:30.786+02:00\t96.52104949951172\t5.841278076171875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-13T17:13:29.464+02:00\t96.52104949951172\t5.841278076171875\n",
         "comment": "",
         "msgTable": [
           [
@@ -424,85 +497,51 @@
             },
             {
               "key": "date",
-              "value": "1970-01-07T23:30:45.565+01:00"
+              "value": "2016-09-13T17:32:13.187+02:00"
             },
             {
               "key": "date",
-              "value": "0.012664794921875"
+              "value": "96.51868438720703"
             },
             {
               "key": "date",
-              "value": "0.0185546875"
-            },
-            {
-              "key": "date",
-              "value": "-0.992401123046875"
+              "value": "6.045745849609375"
             }
           ],
           [
             {
-              "key": "x",
+              "key": "pressure",
               "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
             },
             {
-              "key": "x",
-              "value": "1970-01-07T23:30:45.467+01:00"
+              "key": "pressure",
+              "value": "2016-09-13T17:32:11.866+02:00"
             },
             {
-              "key": "x",
-              "value": "0.0117034912109375"
+              "key": "pressure",
+              "value": "96.51873779296875"
             },
             {
-              "key": "x",
-              "value": "0.016326904296875"
-            },
-            {
-              "key": "x",
-              "value": "-0.997467041015625"
+              "key": "pressure",
+              "value": "6.04156494140625"
             }
           ],
           [
             {
-              "key": "y",
+              "key": "relativealtitude",
               "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
             },
             {
-              "key": "y",
-              "value": "1970-01-07T23:30:45.368+01:00"
+              "key": "relativealtitude",
+              "value": "2016-09-13T17:32:10.549+02:00"
             },
             {
-              "key": "y",
-              "value": "0.011566162109375"
+              "key": "relativealtitude",
+              "value": "96.51873779296875"
             },
             {
-              "key": "y",
-              "value": "0.0166168212890625"
-            },
-            {
-              "key": "y",
-              "value": "-0.9966583251953125"
-            }
-          ],
-          [
-            {
-              "key": "z",
-              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
-            },
-            {
-              "key": "z",
-              "value": "1970-01-07T23:30:45.270+01:00"
-            },
-            {
-              "key": "z",
-              "value": "0.013671875"
-            },
-            {
-              "key": "z",
-              "value": "0.0159759521484375"
-            },
-            {
-              "key": "z",
-              "value": "-0.997314453125"
+              "key": "relativealtitude",
+              "value": "6.04156494140625"
             }
           ],
           [
@@ -510,16 +549,13 @@
               "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
             },
             {
-              "value": "1970-01-07T23:30:45.172+01:00"
+              "value": "2016-09-13T17:32:09.231+02:00"
             },
             {
-              "value": "0.01336669921875"
+              "value": "96.51719665527344"
             },
             {
-              "value": "0.0184173583984375"
-            },
-            {
-              "value": "-0.99517822265625"
+              "value": "6.174896240234375"
             }
           ],
           [
@@ -527,16 +563,13 @@
               "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
             },
             {
-              "value": "1970-01-07T23:30:45.073+01:00"
+              "value": "2016-09-13T17:32:07.918+02:00"
             },
             {
-              "value": "0.011566162109375"
+              "value": "96.51717376708984"
             },
             {
-              "value": "0.0161285400390625"
-            },
-            {
-              "value": "-0.9949951171875"
+              "value": "6.176971435546875"
             }
           ],
           [
@@ -544,16 +577,13 @@
               "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
             },
             {
-              "value": "1970-01-07T23:30:44.975+01:00"
+              "value": "2016-09-13T17:32:06.589+02:00"
             },
             {
-              "value": "0.0137176513671875"
+              "value": "96.51651000976562"
             },
             {
-              "value": "0.017303466796875"
-            },
-            {
-              "value": "-0.9957275390625"
+              "value": "6.2344970703125"
             }
           ],
           [
@@ -561,16 +591,13 @@
               "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
             },
             {
-              "value": "1970-01-07T23:30:44.877+01:00"
+              "value": "2016-09-13T17:32:05.271+02:00"
             },
             {
-              "value": "0.0130767822265625"
+              "value": "96.51651000976562"
             },
             {
-              "value": "0.0170440673828125"
-            },
-            {
-              "value": "-0.9949188232421875"
+              "value": "6.2344970703125"
             }
           ],
           [
@@ -578,16 +605,13 @@
               "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
             },
             {
-              "value": "1970-01-07T23:30:44.779+01:00"
+              "value": "2016-09-13T17:32:03.952+02:00"
             },
             {
-              "value": "0.01251220703125"
+              "value": "96.51588439941406"
             },
             {
-              "value": "0.018585205078125"
-            },
-            {
-              "value": "-0.9934844970703125"
+              "value": "6.288360595703125"
             }
           ],
           [
@@ -595,16 +619,1287 @@
               "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
             },
             {
-              "value": "1970-01-07T23:30:44.680+01:00"
+              "value": "2016-09-13T17:32:02.632+02:00"
             },
             {
-              "value": "0.012542724609375"
+              "value": "96.51588439941406"
             },
             {
-              "value": "0.015472412109375"
+              "value": "6.288360595703125"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
             },
             {
-              "value": "-0.9945831298828125"
+              "value": "2016-09-13T17:32:01.312+02:00"
+            },
+            {
+              "value": "96.51629638671875"
+            },
+            {
+              "value": "6.2528076171875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:59.991+02:00"
+            },
+            {
+              "value": "96.5164566040039"
+            },
+            {
+              "value": "6.239227294921875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:58.673+02:00"
+            },
+            {
+              "value": "96.51669311523438"
+            },
+            {
+              "value": "6.218292236328125"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:57.354+02:00"
+            },
+            {
+              "value": "96.51679229736328"
+            },
+            {
+              "value": "6.209930419921875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:56.036+02:00"
+            },
+            {
+              "value": "96.51679229736328"
+            },
+            {
+              "value": "6.209930419921875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:54.717+02:00"
+            },
+            {
+              "value": "96.51573944091797"
+            },
+            {
+              "value": "6.300384521484375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:53.398+02:00"
+            },
+            {
+              "value": "96.51573944091797"
+            },
+            {
+              "value": "6.300384521484375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:52.080+02:00"
+            },
+            {
+              "value": "96.51838684082031"
+            },
+            {
+              "value": "6.07135009765625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:50.758+02:00"
+            },
+            {
+              "value": "96.51841735839844"
+            },
+            {
+              "value": "6.06927490234375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:49.439+02:00"
+            },
+            {
+              "value": "96.51868438720703"
+            },
+            {
+              "value": "6.045745849609375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:48.129+02:00"
+            },
+            {
+              "value": "96.51872253417969"
+            },
+            {
+              "value": "6.043121337890625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:46.806+02:00"
+            },
+            {
+              "value": "96.51872253417969"
+            },
+            {
+              "value": "6.043121337890625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:45.486+02:00"
+            },
+            {
+              "value": "96.51981353759766"
+            },
+            {
+              "value": "5.948486328125"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:44.169+02:00"
+            },
+            {
+              "value": "96.52107238769531"
+            },
+            {
+              "value": "5.83917236328125"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:42.853+02:00"
+            },
+            {
+              "value": "96.5217514038086"
+            },
+            {
+              "value": "5.780609130859375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:41.533+02:00"
+            },
+            {
+              "value": "96.5231704711914"
+            },
+            {
+              "value": "5.6572265625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:40.216+02:00"
+            },
+            {
+              "value": "96.5231704711914"
+            },
+            {
+              "value": "5.6572265625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:38.895+02:00"
+            },
+            {
+              "value": "96.5231704711914"
+            },
+            {
+              "value": "5.6572265625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:37.575+02:00"
+            },
+            {
+              "value": "96.52318572998047"
+            },
+            {
+              "value": "5.656158447265625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:36.259+02:00"
+            },
+            {
+              "value": "96.52351379394531"
+            },
+            {
+              "value": "5.627410888671875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:34.936+02:00"
+            },
+            {
+              "value": "96.52397918701172"
+            },
+            {
+              "value": "5.587677001953125"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:33.619+02:00"
+            },
+            {
+              "value": "96.52433013916016"
+            },
+            {
+              "value": "5.557342529296875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:32.298+02:00"
+            },
+            {
+              "value": "96.52435302734375"
+            },
+            {
+              "value": "5.555267333984375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:30.977+02:00"
+            },
+            {
+              "value": "96.52433013916016"
+            },
+            {
+              "value": "5.557342529296875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:29.657+02:00"
+            },
+            {
+              "value": "96.52360534667969"
+            },
+            {
+              "value": "5.620086669921875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:28.339+02:00"
+            },
+            {
+              "value": "96.52314758300781"
+            },
+            {
+              "value": "5.6593017578125"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:27.020+02:00"
+            },
+            {
+              "value": "96.52360534667969"
+            },
+            {
+              "value": "5.620086669921875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:25.698+02:00"
+            },
+            {
+              "value": "96.52361297607422"
+            },
+            {
+              "value": "5.61956787109375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:24.373+02:00"
+            },
+            {
+              "value": "96.52398681640625"
+            },
+            {
+              "value": "5.587158203125"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:23.058+02:00"
+            },
+            {
+              "value": "96.52398681640625"
+            },
+            {
+              "value": "5.587158203125"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:21.736+02:00"
+            },
+            {
+              "value": "96.52396392822266"
+            },
+            {
+              "value": "5.5892333984375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:20.415+02:00"
+            },
+            {
+              "value": "96.52084350585938"
+            },
+            {
+              "value": "5.85906982421875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:19.093+02:00"
+            },
+            {
+              "value": "96.52017211914062"
+            },
+            {
+              "value": "5.917083740234375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:17.775+02:00"
+            },
+            {
+              "value": "96.51971435546875"
+            },
+            {
+              "value": "5.95684814453125"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:16.454+02:00"
+            },
+            {
+              "value": "96.51971435546875"
+            },
+            {
+              "value": "5.95684814453125"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:15.134+02:00"
+            },
+            {
+              "value": "96.5199966430664"
+            },
+            {
+              "value": "5.931732177734375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:13.813+02:00"
+            },
+            {
+              "value": "96.52037048339844"
+            },
+            {
+              "value": "5.900360107421875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:12.497+02:00"
+            },
+            {
+              "value": "96.52019500732422"
+            },
+            {
+              "value": "5.915008544921875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:11.185+02:00"
+            },
+            {
+              "value": "96.52058410644531"
+            },
+            {
+              "value": "5.881011962890625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:09.856+02:00"
+            },
+            {
+              "value": "96.52019500732422"
+            },
+            {
+              "value": "5.915008544921875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:08.534+02:00"
+            },
+            {
+              "value": "96.52058410644531"
+            },
+            {
+              "value": "5.881011962890625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:07.213+02:00"
+            },
+            {
+              "value": "96.5201644897461"
+            },
+            {
+              "value": "5.917633056640625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:05.896+02:00"
+            },
+            {
+              "value": "96.51978302001953"
+            },
+            {
+              "value": "5.951080322265625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:04.578+02:00"
+            },
+            {
+              "value": "96.51978302001953"
+            },
+            {
+              "value": "5.951080322265625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:03.255+02:00"
+            },
+            {
+              "value": "96.52017974853516"
+            },
+            {
+              "value": "5.91656494140625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:01.937+02:00"
+            },
+            {
+              "value": "96.52017974853516"
+            },
+            {
+              "value": "5.91656494140625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:31:00.621+02:00"
+            },
+            {
+              "value": "96.5181655883789"
+            },
+            {
+              "value": "6.0906982421875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:30:59.301+02:00"
+            },
+            {
+              "value": "96.51518249511719"
+            },
+            {
+              "value": "6.34954833984375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:30:58.025+02:00"
+            },
+            {
+              "value": "96.51518249511719"
+            },
+            {
+              "value": "6.34954833984375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:30:57.953+02:00"
+            },
+            {
+              "value": "96.52175903320312"
+            },
+            {
+              "value": "5.779571533203125"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:14:53.852+02:00"
+            },
+            {
+              "value": "96.52175903320312"
+            },
+            {
+              "value": "5.779571533203125"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:14:52.817+02:00"
+            },
+            {
+              "value": "96.52127075195312"
+            },
+            {
+              "value": "5.821929931640625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:14:19.601+02:00"
+            },
+            {
+              "value": "96.52127075195312"
+            },
+            {
+              "value": "5.821929931640625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:14:18.283+02:00"
+            },
+            {
+              "value": "96.52145385742188"
+            },
+            {
+              "value": "5.806243896484375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:14:16.964+02:00"
+            },
+            {
+              "value": "96.52240753173828"
+            },
+            {
+              "value": "5.7236328125"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:14:15.654+02:00"
+            },
+            {
+              "value": "96.52246856689453"
+            },
+            {
+              "value": "5.7183837890625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:14:14.324+02:00"
+            },
+            {
+              "value": "96.52246856689453"
+            },
+            {
+              "value": "5.7183837890625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:14:13.006+02:00"
+            },
+            {
+              "value": "96.52203369140625"
+            },
+            {
+              "value": "5.75604248046875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:14:11.688+02:00"
+            },
+            {
+              "value": "96.52139282226562"
+            },
+            {
+              "value": "5.81146240234375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:14:10.371+02:00"
+            },
+            {
+              "value": "96.51766204833984"
+            },
+            {
+              "value": "6.13409423828125"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:14:09.051+02:00"
+            },
+            {
+              "value": "96.51728820800781"
+            },
+            {
+              "value": "6.166534423828125"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:14:07.727+02:00"
+            },
+            {
+              "value": "96.51663208007812"
+            },
+            {
+              "value": "6.223541259765625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:14:06.406+02:00"
+            },
+            {
+              "value": "96.51663208007812"
+            },
+            {
+              "value": "6.223541259765625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:14:05.089+02:00"
+            },
+            {
+              "value": "96.51795959472656"
+            },
+            {
+              "value": "6.108489990234375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:14:03.768+02:00"
+            },
+            {
+              "value": "96.51824188232422"
+            },
+            {
+              "value": "6.084442138671875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:14:02.445+02:00"
+            },
+            {
+              "value": "96.51858520507812"
+            },
+            {
+              "value": "6.05462646484375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:14:01.122+02:00"
+            },
+            {
+              "value": "96.51858520507812"
+            },
+            {
+              "value": "6.05462646484375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:59.802+02:00"
+            },
+            {
+              "value": "96.51858520507812"
+            },
+            {
+              "value": "6.05462646484375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:58.481+02:00"
+            },
+            {
+              "value": "96.5198745727539"
+            },
+            {
+              "value": "5.942718505859375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:57.160+02:00"
+            },
+            {
+              "value": "96.52075958251953"
+            },
+            {
+              "value": "5.866363525390625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:55.841+02:00"
+            },
+            {
+              "value": "96.52075958251953"
+            },
+            {
+              "value": "5.866363525390625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:54.521+02:00"
+            },
+            {
+              "value": "96.51985168457031"
+            },
+            {
+              "value": "5.94482421875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:53.199+02:00"
+            },
+            {
+              "value": "96.51985168457031"
+            },
+            {
+              "value": "5.94482421875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:51.879+02:00"
+            },
+            {
+              "value": "96.52070617675781"
+            },
+            {
+              "value": "5.87109375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:50.561+02:00"
+            },
+            {
+              "value": "96.52095031738281"
+            },
+            {
+              "value": "5.849639892578125"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:49.244+02:00"
+            },
+            {
+              "value": "96.52129364013672"
+            },
+            {
+              "value": "5.81982421875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:47.919+02:00"
+            },
+            {
+              "value": "96.52095031738281"
+            },
+            {
+              "value": "5.849639892578125"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:46.600+02:00"
+            },
+            {
+              "value": "96.52079772949219"
+            },
+            {
+              "value": "5.863250732421875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:45.280+02:00"
+            },
+            {
+              "value": "96.52061462402344"
+            },
+            {
+              "value": "5.87841796875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:43.963+02:00"
+            },
+            {
+              "value": "96.52061462402344"
+            },
+            {
+              "value": "5.87841796875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:42.641+02:00"
+            },
+            {
+              "value": "96.52113342285156"
+            },
+            {
+              "value": "5.833953857421875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:41.323+02:00"
+            },
+            {
+              "value": "96.52113342285156"
+            },
+            {
+              "value": "5.833953857421875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:40.007+02:00"
+            },
+            {
+              "value": "96.52091979980469"
+            },
+            {
+              "value": "5.852264404296875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:38.690+02:00"
+            },
+            {
+              "value": "96.52091979980469"
+            },
+            {
+              "value": "5.852264404296875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:37.376+02:00"
+            },
+            {
+              "value": "96.52079010009766"
+            },
+            {
+              "value": "5.86376953125"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:36.055+02:00"
+            },
+            {
+              "value": "96.52008819580078"
+            },
+            {
+              "value": "5.924407958984375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:34.736+02:00"
+            },
+            {
+              "value": "96.52008819580078"
+            },
+            {
+              "value": "5.924407958984375"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:33.425+02:00"
+            },
+            {
+              "value": "96.52046203613281"
+            },
+            {
+              "value": "5.891998291015625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:32.101+02:00"
+            },
+            {
+              "value": "96.52085876464844"
+            },
+            {
+              "value": "5.85748291015625"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:30.786+02:00"
+            },
+            {
+              "value": "96.52104949951172"
+            },
+            {
+              "value": "5.841278076171875"
+            }
+          ],
+          [
+            {
+              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
+            },
+            {
+              "value": "2016-09-13T17:13:29.464+02:00"
+            },
+            {
+              "value": "96.52104949951172"
+            },
+            {
+              "value": "5.841278076171875"
             }
           ]
         ],
@@ -612,109 +1907,637 @@
           {
             "name": "deviceid",
             "index": 0,
-            "aggr": "sum"
+            "aggr": "sum",
+            "$$hashKey": "object:9743"
           },
           {
             "name": "date",
             "index": 1,
-            "aggr": "sum"
+            "aggr": "sum",
+            "$$hashKey": "object:9744"
           },
           {
-            "name": "x",
+            "name": "pressure",
             "index": 2,
-            "aggr": "sum"
+            "aggr": "sum",
+            "$$hashKey": "object:9745"
           },
           {
-            "name": "y",
+            "name": "relativealtitude",
             "index": 3,
-            "aggr": "sum"
-          },
-          {
-            "name": "z",
-            "index": 4,
-            "aggr": "sum"
+            "aggr": "sum",
+            "$$hashKey": "object:9746"
           }
         ],
         "rows": [
           [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
-            "1970-01-07T23:30:45.565+01:00",
-            "0.012664794921875",
-            "0.0185546875",
-            "-0.992401123046875"
+            "2016-09-13T17:32:13.187+02:00",
+            "96.51868438720703",
+            "6.045745849609375"
           ],
           [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
-            "1970-01-07T23:30:45.467+01:00",
-            "0.0117034912109375",
-            "0.016326904296875",
-            "-0.997467041015625"
+            "2016-09-13T17:32:11.866+02:00",
+            "96.51873779296875",
+            "6.04156494140625"
           ],
           [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
-            "1970-01-07T23:30:45.368+01:00",
-            "0.011566162109375",
-            "0.0166168212890625",
-            "-0.9966583251953125"
+            "2016-09-13T17:32:10.549+02:00",
+            "96.51873779296875",
+            "6.04156494140625"
           ],
           [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
-            "1970-01-07T23:30:45.270+01:00",
-            "0.013671875",
-            "0.0159759521484375",
-            "-0.997314453125"
+            "2016-09-13T17:32:09.231+02:00",
+            "96.51719665527344",
+            "6.174896240234375"
           ],
           [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
-            "1970-01-07T23:30:45.172+01:00",
-            "0.01336669921875",
-            "0.0184173583984375",
-            "-0.99517822265625"
+            "2016-09-13T17:32:07.918+02:00",
+            "96.51717376708984",
+            "6.176971435546875"
           ],
           [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
-            "1970-01-07T23:30:45.073+01:00",
-            "0.011566162109375",
-            "0.0161285400390625",
-            "-0.9949951171875"
+            "2016-09-13T17:32:06.589+02:00",
+            "96.51651000976562",
+            "6.2344970703125"
           ],
           [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
-            "1970-01-07T23:30:44.975+01:00",
-            "0.0137176513671875",
-            "0.017303466796875",
-            "-0.9957275390625"
+            "2016-09-13T17:32:05.271+02:00",
+            "96.51651000976562",
+            "6.2344970703125"
           ],
           [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
-            "1970-01-07T23:30:44.877+01:00",
-            "0.0130767822265625",
-            "0.0170440673828125",
-            "-0.9949188232421875"
+            "2016-09-13T17:32:03.952+02:00",
+            "96.51588439941406",
+            "6.288360595703125"
           ],
           [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
-            "1970-01-07T23:30:44.779+01:00",
-            "0.01251220703125",
-            "0.018585205078125",
-            "-0.9934844970703125"
+            "2016-09-13T17:32:02.632+02:00",
+            "96.51588439941406",
+            "6.288360595703125"
           ],
           [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
-            "1970-01-07T23:30:44.680+01:00",
-            "0.012542724609375",
-            "0.015472412109375",
-            "-0.9945831298828125"
+            "2016-09-13T17:32:01.312+02:00",
+            "96.51629638671875",
+            "6.2528076171875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:59.991+02:00",
+            "96.5164566040039",
+            "6.239227294921875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:58.673+02:00",
+            "96.51669311523438",
+            "6.218292236328125"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:57.354+02:00",
+            "96.51679229736328",
+            "6.209930419921875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:56.036+02:00",
+            "96.51679229736328",
+            "6.209930419921875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:54.717+02:00",
+            "96.51573944091797",
+            "6.300384521484375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:53.398+02:00",
+            "96.51573944091797",
+            "6.300384521484375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:52.080+02:00",
+            "96.51838684082031",
+            "6.07135009765625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:50.758+02:00",
+            "96.51841735839844",
+            "6.06927490234375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:49.439+02:00",
+            "96.51868438720703",
+            "6.045745849609375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:48.129+02:00",
+            "96.51872253417969",
+            "6.043121337890625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:46.806+02:00",
+            "96.51872253417969",
+            "6.043121337890625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:45.486+02:00",
+            "96.51981353759766",
+            "5.948486328125"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:44.169+02:00",
+            "96.52107238769531",
+            "5.83917236328125"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:42.853+02:00",
+            "96.5217514038086",
+            "5.780609130859375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:41.533+02:00",
+            "96.5231704711914",
+            "5.6572265625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:40.216+02:00",
+            "96.5231704711914",
+            "5.6572265625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:38.895+02:00",
+            "96.5231704711914",
+            "5.6572265625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:37.575+02:00",
+            "96.52318572998047",
+            "5.656158447265625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:36.259+02:00",
+            "96.52351379394531",
+            "5.627410888671875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:34.936+02:00",
+            "96.52397918701172",
+            "5.587677001953125"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:33.619+02:00",
+            "96.52433013916016",
+            "5.557342529296875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:32.298+02:00",
+            "96.52435302734375",
+            "5.555267333984375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:30.977+02:00",
+            "96.52433013916016",
+            "5.557342529296875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:29.657+02:00",
+            "96.52360534667969",
+            "5.620086669921875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:28.339+02:00",
+            "96.52314758300781",
+            "5.6593017578125"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:27.020+02:00",
+            "96.52360534667969",
+            "5.620086669921875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:25.698+02:00",
+            "96.52361297607422",
+            "5.61956787109375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:24.373+02:00",
+            "96.52398681640625",
+            "5.587158203125"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:23.058+02:00",
+            "96.52398681640625",
+            "5.587158203125"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:21.736+02:00",
+            "96.52396392822266",
+            "5.5892333984375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:20.415+02:00",
+            "96.52084350585938",
+            "5.85906982421875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:19.093+02:00",
+            "96.52017211914062",
+            "5.917083740234375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:17.775+02:00",
+            "96.51971435546875",
+            "5.95684814453125"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:16.454+02:00",
+            "96.51971435546875",
+            "5.95684814453125"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:15.134+02:00",
+            "96.5199966430664",
+            "5.931732177734375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:13.813+02:00",
+            "96.52037048339844",
+            "5.900360107421875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:12.497+02:00",
+            "96.52019500732422",
+            "5.915008544921875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:11.185+02:00",
+            "96.52058410644531",
+            "5.881011962890625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:09.856+02:00",
+            "96.52019500732422",
+            "5.915008544921875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:08.534+02:00",
+            "96.52058410644531",
+            "5.881011962890625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:07.213+02:00",
+            "96.5201644897461",
+            "5.917633056640625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:05.896+02:00",
+            "96.51978302001953",
+            "5.951080322265625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:04.578+02:00",
+            "96.51978302001953",
+            "5.951080322265625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:03.255+02:00",
+            "96.52017974853516",
+            "5.91656494140625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:01.937+02:00",
+            "96.52017974853516",
+            "5.91656494140625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:31:00.621+02:00",
+            "96.5181655883789",
+            "6.0906982421875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:30:59.301+02:00",
+            "96.51518249511719",
+            "6.34954833984375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:30:58.025+02:00",
+            "96.51518249511719",
+            "6.34954833984375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:30:57.953+02:00",
+            "96.52175903320312",
+            "5.779571533203125"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:14:53.852+02:00",
+            "96.52175903320312",
+            "5.779571533203125"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:14:52.817+02:00",
+            "96.52127075195312",
+            "5.821929931640625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:14:19.601+02:00",
+            "96.52127075195312",
+            "5.821929931640625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:14:18.283+02:00",
+            "96.52145385742188",
+            "5.806243896484375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:14:16.964+02:00",
+            "96.52240753173828",
+            "5.7236328125"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:14:15.654+02:00",
+            "96.52246856689453",
+            "5.7183837890625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:14:14.324+02:00",
+            "96.52246856689453",
+            "5.7183837890625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:14:13.006+02:00",
+            "96.52203369140625",
+            "5.75604248046875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:14:11.688+02:00",
+            "96.52139282226562",
+            "5.81146240234375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:14:10.371+02:00",
+            "96.51766204833984",
+            "6.13409423828125"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:14:09.051+02:00",
+            "96.51728820800781",
+            "6.166534423828125"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:14:07.727+02:00",
+            "96.51663208007812",
+            "6.223541259765625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:14:06.406+02:00",
+            "96.51663208007812",
+            "6.223541259765625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:14:05.089+02:00",
+            "96.51795959472656",
+            "6.108489990234375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:14:03.768+02:00",
+            "96.51824188232422",
+            "6.084442138671875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:14:02.445+02:00",
+            "96.51858520507812",
+            "6.05462646484375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:14:01.122+02:00",
+            "96.51858520507812",
+            "6.05462646484375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:59.802+02:00",
+            "96.51858520507812",
+            "6.05462646484375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:58.481+02:00",
+            "96.5198745727539",
+            "5.942718505859375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:57.160+02:00",
+            "96.52075958251953",
+            "5.866363525390625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:55.841+02:00",
+            "96.52075958251953",
+            "5.866363525390625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:54.521+02:00",
+            "96.51985168457031",
+            "5.94482421875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:53.199+02:00",
+            "96.51985168457031",
+            "5.94482421875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:51.879+02:00",
+            "96.52070617675781",
+            "5.87109375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:50.561+02:00",
+            "96.52095031738281",
+            "5.849639892578125"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:49.244+02:00",
+            "96.52129364013672",
+            "5.81982421875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:47.919+02:00",
+            "96.52095031738281",
+            "5.849639892578125"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:46.600+02:00",
+            "96.52079772949219",
+            "5.863250732421875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:45.280+02:00",
+            "96.52061462402344",
+            "5.87841796875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:43.963+02:00",
+            "96.52061462402344",
+            "5.87841796875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:42.641+02:00",
+            "96.52113342285156",
+            "5.833953857421875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:41.323+02:00",
+            "96.52113342285156",
+            "5.833953857421875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:40.007+02:00",
+            "96.52091979980469",
+            "5.852264404296875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:38.690+02:00",
+            "96.52091979980469",
+            "5.852264404296875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:37.376+02:00",
+            "96.52079010009766",
+            "5.86376953125"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:36.055+02:00",
+            "96.52008819580078",
+            "5.924407958984375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:34.736+02:00",
+            "96.52008819580078",
+            "5.924407958984375"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:33.425+02:00",
+            "96.52046203613281",
+            "5.891998291015625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:32.101+02:00",
+            "96.52085876464844",
+            "5.85748291015625"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:30.786+02:00",
+            "96.52104949951172",
+            "5.841278076171875"
+          ],
+          [
+            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
+            "2016-09-13T17:13:29.464+02:00",
+            "96.52104949951172",
+            "5.841278076171875"
           ]
         ]
       },
       "dateCreated": "Sep 12, 2016 6:26:09 AM",
-      "dateStarted": "Sep 13, 2016 11:58:36 AM",
-      "dateFinished": "Sep 13, 2016 11:58:36 AM",
+      "dateStarted": "Sep 13, 2016 3:38:51 PM",
+      "dateFinished": "Sep 13, 2016 3:38:51 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:1710",
-      "focus": true
+      "$$hashKey": "object:8844"
     },
     {
       "title": "Show maximum date of all other phones. Why? Because that can be an indication of progress of messages...",
@@ -784,7 +2607,7 @@
       "dateFinished": "Sep 13, 2016 9:25:37 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:1711"
+      "$$hashKey": "object:8845"
     },
     {
       "title": "Table not filled with regular data yet...",
@@ -822,7 +2645,7 @@
       "dateFinished": "Sep 9, 2016 9:25:52 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:1712"
+      "$$hashKey": "object:8846"
     },
     {
       "title": "If it didn't exist, zero results should get returned. Otherwise there might be some leftovers...",
@@ -892,7 +2715,7 @@
       "dateFinished": "Sep 12, 2016 8:50:03 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:1713"
+      "$$hashKey": "object:8847"
     },
     {
       "title": "Inserting some test numbers - with deviceid testfile to easily identify",
@@ -931,7 +2754,7 @@
       "dateFinished": "Sep 9, 2016 9:26:12 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:1714"
+      "$$hashKey": "object:8848"
     },
     {
       "text": "%cassandra\nSELECT * FROM sensordata.sensorreading_by_device_sensortype WHERE deviceid='testfile' AND sensortype='Gyro';",
@@ -1085,7 +2908,7 @@
       "dateFinished": "Sep 9, 2016 9:27:04 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:1715"
+      "$$hashKey": "object:8849"
     },
     {
       "dateUpdated": "Sep 9, 2016 7:53:12 AM",
@@ -1100,7 +2923,8 @@
           "groups": [],
           "scatter": {}
         },
-        "enabled": true
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
       },
       "settings": {
         "params": {},
@@ -1112,7 +2936,7 @@
       "status": "READY",
       "errorMessage": "",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:1716"
+      "$$hashKey": "object:8850"
     }
   ],
   "name": "Sensor Data in Cassandra",
