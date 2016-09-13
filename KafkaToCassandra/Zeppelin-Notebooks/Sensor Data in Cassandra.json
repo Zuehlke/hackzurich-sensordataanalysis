@@ -35,7 +35,7 @@
       "dateFinished": "Sep 9, 2016 8:01:11 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:8020"
+      "$$hashKey": "object:1703"
     },
     {
       "title": "WARNING: Don't clean up accidentally",
@@ -73,7 +73,7 @@
       "dateFinished": "Sep 9, 2016 9:25:41 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:8021"
+      "$$hashKey": "object:1704"
     },
     {
       "text": "%cassandra\nDROP TABLE  sensordata.gyro;",
@@ -109,7 +109,7 @@
       "dateFinished": "Sep 12, 2016 4:39:32 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:8022"
+      "$$hashKey": "object:1705"
     },
     {
       "title": "Create a place to store key/value pairs (if it doesn't exists)",
@@ -147,7 +147,7 @@
       "dateFinished": "Sep 9, 2016 9:25:47 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:8023"
+      "$$hashKey": "object:1706"
     },
     {
       "text": "%cassandra\nCREATE TABLE IF NOT EXISTS sensordata.gyro(\n    date text, \n    deviceid text, \n    x double, \n    y double, \n    z double,\n    PRIMARY KEY (deviceid, date)\n) WITH CLUSTERING ORDER BY (date DESC);",
@@ -183,7 +183,7 @@
       "dateFinished": "Sep 12, 2016 4:39:41 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:8024"
+      "$$hashKey": "object:1707"
     },
     {
       "text": "%cassandra\nuse sensordata;\ndescribe table gyro;",
@@ -219,13 +219,84 @@
       "dateFinished": "Sep 12, 2016 6:07:20 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:8025",
-      "focus": true
+      "$$hashKey": "object:1708"
     },
     {
-      "text": "%cassandra\nSELECT DISTINCT deviceid FROM gyro;",
+      "config": {
+        "colWidth": 12,
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1473766693932_-270467637",
+      "id": "20160913-113813_1871198124",
+      "dateCreated": "Sep 13, 2016 11:38:13 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "focus": true,
+      "$$hashKey": "object:2573",
+      "text": "%cassandra\nCREATE TABLE IF NOT EXISTS sensordata.accelerometer(\n    date text, \n    deviceid text, \n    x double, \n    y double, \n    z double,\n    PRIMARY KEY (deviceid, date)\n) WITH CLUSTERING ORDER BY (date DESC);",
+      "dateUpdated": "Sep 13, 2016 11:38:31 AM",
+      "dateFinished": "Sep 13, 2016 11:38:34 AM",
+      "dateStarted": "Sep 13, 2016 11:38:31 AM",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\n\n<div class=\"container\">\n<div class=\"row text-center\">\n<h4>No Result</h4>\n</div>\n<br/>\n    <div class=\"row\">\n    <div class=\"col-md-3\"></div>\n    <div class=\"col-md-6 col-offset-md-3 table-responsive table-bordered\">\n        <table class=\"table\">\n            <caption><h5>Last query execution info</h5></caption>\n            <thead>\n                <tr>\n                    <th>Info</th>\n                    <th>Value</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <td>Statement</td>\n                    <td>CREATE TABLE IF NOT EXISTS sensordata.accelerometer(\n    date text, \n    deviceid text, \n    x double, \n    y double, \n    z double,\n    PRIMARY KEY (deviceid, date)\n) WITH CLUSTERING ORDER BY (date DESC);</td>\n                </tr>\n                <tr>\n                    <td>Achieved Consistency</td>\n                    <td>N/A</td>\n                </tr>\n                <tr>\n                    <td>Tried Hosts</td>\n                    <td>node-1.cassandra.mesos10.0.4.234:9042</td>\n                </tr>\n                <tr>\n                    <td>Queried Hosts</td>\n                    <td>node-1.cassandra.mesos10.0.4.234:9042</td>\n                </tr>\n                <tr>\n                    <td>Schema In Agreement</td>\n                    <td>true</td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n    </div>\n</div>"
+      }
+    },
+    {
+      "config": {
+        "colWidth": 12,
+        "graph": {
+          "mode": "table",
+          "height": 300,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "jobName": "paragraph_1473766724444_-491652282",
+      "id": "20160913-113844_862869997",
+      "dateCreated": "Sep 13, 2016 11:38:44 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "focus": true,
+      "$$hashKey": "object:2650",
+      "text": "%cassandra\ndescribe table accelerometer;",
+      "dateUpdated": "Sep 13, 2016 11:39:24 AM",
+      "dateFinished": "Sep 13, 2016 11:39:24 AM",
+      "dateStarted": "Sep 13, 2016 11:39:24 AM",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\n\n<br/>\n<br/>\n<nav class=\"navbar navbar-default\">\n    <ul class=\"nav navbar-nav\">\n        \n        <li>\n            <a><strong>DESCRIBE TABLE accelerometer;</strong></a>\n        </li>\n    </ul>\n    <ul class=\"nav navbar-nav navbar-right\">\n        <li class=\"dropdown\">\n            <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                <strong>Legend</strong>\n                <span class=\"caret\"></span>\n            </a>\n            <ul class=\"dropdown-menu\">\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-dashboard text-muted\" />&nbsp;Cluster\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-folder-open text-danger\" />&nbsp;&nbsp;Keyspace\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-copyright-mark text-warning\" />&nbsp;&nbsp;UDT\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-th-list text-primary\" />&nbsp;&nbsp;Table\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-eye-open text-primary\" />&nbsp;&nbsp;Materialized View\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-random text-success\" />&nbsp;&nbsp;Function\n                    </a>\n                </li>\n                <li>\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-retweet text-success\" />&nbsp;&nbsp;Aggregate\n                    </a>\n                </li>\n                <li role=\"separator\" class=\"divider text-muted\"></li>\n                <li class=\"dropdown-header\"><span class=\"text-primary\">Table icons</span></li>\n                <li class=\"bg-info\">\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-fullscreen\" />&nbsp;&nbsp;Partition Key\n                    </a>\n                </li>\n                <li class=\"bg-warning\">\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-pushpin\" />&nbsp;&nbsp;Static Column\n                    </a>\n                </li>\n                <li class=\"bg-success\">\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-sort\" />&nbsp;&nbsp;Clustering Column\n                    </a>\n                </li>\n                <li class=\"bg-success\">\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-sort-by-attributes\" />&nbsp;&nbsp;Clustering Order ASC\n                    </a>\n                </li>\n                <li class=\"bg-success\">\n                    <a role=\"button\">\n                        <i class=\"glyphicon glyphicon-sort-by-attributes-alt\" />&nbsp;&nbsp;Clustering Order DESC\n                    </a>\n                </li>\n            </ul>\n        </li>\n        <li>\n            <a href=\"#\"></a>\n        </li>\n    </ul>\n</nav>\n<hr/>\n\n<div class=\"row\">\n    <div class=\"col-md-2\"/>\n    <div class=\"col-md-8 col-offset-md-2\">\n        <div class=\"panel panel-default table-responsive table-bordered\">\n            <table class=\"table\">\n                \n                <caption><h4 class=\"text-primary\"><i class=\"glyphicon glyphicon-th-list\"/>&nbsp;accelerometer</h4></caption>\n                                <thead>\n                    <tr>\n                        <th class=\"col-md-4\">Column Type</th>\n                        <th class=\"col-md-4\">Column Name</th>\n                        <th class=\"col-md-4\">Data Type</th>\n                    </tr>\n                </thead>\n                <tbody>\n                                            \n\n                    <tr class=\"info\">\n                        <td class=\"col-md-4\">\n                            <i class=\"glyphicon glyphicon-fullscreen\" title=\"Partition Key\"/>\n                        </td>\n                        <td class=\"col-md-4\">deviceid</td>\n                        <td class=\"col-md-4\">text</td>\n                    </tr>\n                                                                    \n                    <tr class=\"success\">\n                        <td class=\"col-md-4\">\n                            <i class=\"glyphicon glyphicon-sort\" title=\"Clustering Column\"/>\n                            &nbsp;\n                            <i class=\"glyphicon glyphicon-sort-by-attributes-alt\" title=\"Sort DESC\"/>\n                        </td>\n                        <td class=\"col-md-4\">date</td>\n                        <td class=\"col-md-4\">text</td>\n                    </tr>\n                                                                    \n                    <tr>\n                        <td class=\"col-md-4\"></td>\n                        <td class=\"col-md-4\">x</td>\n                        <td class=\"col-md-4\">double</td>\n                    </tr>\n                                                                    \n                    <tr>\n                        <td class=\"col-md-4\"></td>\n                        <td class=\"col-md-4\">y</td>\n                        <td class=\"col-md-4\">double</td>\n                    </tr>\n                                                                    \n                    <tr>\n                        <td class=\"col-md-4\"></td>\n                        <td class=\"col-md-4\">z</td>\n                        <td class=\"col-md-4\">double</td>\n                    </tr>\n                                            \n                </tbody>\n            </table>\n            <div class=\"panel-footer\">\n                <a data-toggle=\"collapse\" data-target=\"#b867a0f0-79a6-11e6-aff9-8d522ad11762_asCQL\" class=\"text-primary\">\n                    <strong>As CQL statement</strong>\n                    <span class=\"caret\"></span>\n                </a>\n                <br/><br/>\n                <div class=\"collapse\" id=\"b867a0f0-79a6-11e6-aff9-8d522ad11762_asCQL\">\n                    <pre class=\"well\">CREATE TABLE sensordata.accelerometer (\n    deviceid text,\n    date text,\n    x double,\n    y double,\n    z double,\n    PRIMARY KEY (deviceid, date)\n) WITH CLUSTERING ORDER BY (date DESC)\n   AND read_repair_chance = 0.0\n   AND dclocal_read_repair_chance = 0.1\n   AND gc_grace_seconds = 864000\n   AND bloom_filter_fp_chance = 0.01\n   AND caching = { 'keys' : 'ALL', 'rows_per_partition' : 'NONE' }\n   AND comment = ''\n   AND compaction = { 'class' : 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold' : 32, 'min_threshold' : 4 }\n   AND compression = { 'chunk_length_in_kb' : 64, 'class' : 'org.apache.cassandra.io.compress.LZ4Compressor' }\n   AND default_time_to_live = 0\n   AND speculative_retry = '99PERCENTILE'\n   AND min_index_interval = 128\n   AND max_index_interval = 2048\n   AND crc_check_chance = 1.0;</pre>\n                </div>\n            </div>\n        </div>\n            </div>\n    <div class=\"col-md-2\"></div>\n</div>"
+      }
+    },
+    {
+      "text": "%cassandra\nSELECT DISTINCT deviceid FROM accelerometer;",
       "authenticationInfo": {},
-      "dateUpdated": "Sep 12, 2016 6:28:44 PM",
+      "dateUpdated": "Sep 13, 2016 11:55:41 AM",
       "config": {
         "colWidth": 12,
         "graph": {
@@ -261,47 +332,12 @@
       "result": {
         "code": "SUCCESS",
         "type": "TABLE",
-        "msg": "deviceid\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS\n0C09B0A6-87DA-4CC4-A553-5C53A0B60914_iPhone OS\n72ED0416-739D-49DD-92CC-CC442A6E6C0B_iPhone OS\n4085211A-AEE5-48B8-B8E6-A96A5BD47D8F_iPhone OS\n748790E7-1639-44C7-9D6C-423BCA5D611D_iPhone OS\n6EC09F7D-9479-4C1F-90D4-1B95546802D3_iPhone OS\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\n4DF5779D-2B39-469B-928C-B6DBA7849E25_iPhone OS\n",
+        "msg": "deviceid\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\n",
         "comment": "",
         "msgTable": [
           [
             {
-              "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS"
-            }
-          ],
-          [
-            {
-              "value": "0C09B0A6-87DA-4CC4-A553-5C53A0B60914_iPhone OS"
-            }
-          ],
-          [
-            {
-              "value": "72ED0416-739D-49DD-92CC-CC442A6E6C0B_iPhone OS"
-            }
-          ],
-          [
-            {
-              "value": "4085211A-AEE5-48B8-B8E6-A96A5BD47D8F_iPhone OS"
-            }
-          ],
-          [
-            {
-              "value": "748790E7-1639-44C7-9D6C-423BCA5D611D_iPhone OS"
-            }
-          ],
-          [
-            {
-              "value": "6EC09F7D-9479-4C1F-90D4-1B95546802D3_iPhone OS"
-            }
-          ],
-          [
-            {
               "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
-            }
-          ],
-          [
-            {
-              "value": "4DF5779D-2B39-469B-928C-B6DBA7849E25_iPhone OS"
             }
           ]
         ],
@@ -314,43 +350,23 @@
         ],
         "rows": [
           [
-            "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS"
-          ],
-          [
-            "0C09B0A6-87DA-4CC4-A553-5C53A0B60914_iPhone OS"
-          ],
-          [
-            "72ED0416-739D-49DD-92CC-CC442A6E6C0B_iPhone OS"
-          ],
-          [
-            "4085211A-AEE5-48B8-B8E6-A96A5BD47D8F_iPhone OS"
-          ],
-          [
-            "748790E7-1639-44C7-9D6C-423BCA5D611D_iPhone OS"
-          ],
-          [
-            "6EC09F7D-9479-4C1F-90D4-1B95546802D3_iPhone OS"
-          ],
-          [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
-          ],
-          [
-            "4DF5779D-2B39-469B-928C-B6DBA7849E25_iPhone OS"
           ]
         ]
       },
       "dateCreated": "Sep 12, 2016 5:14:03 AM",
-      "dateStarted": "Sep 12, 2016 6:28:44 PM",
-      "dateFinished": "Sep 12, 2016 6:28:44 PM",
+      "dateStarted": "Sep 13, 2016 11:55:41 AM",
+      "dateFinished": "Sep 13, 2016 11:55:41 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:8026",
+      "$$hashKey": "object:1709",
       "focus": true
     },
     {
-      "text": "%cassandra\nSELECT * FROM gyro WHERE deviceid = '9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS' LIMIT 10;",
+      "title": "Show the 10 most recent measurements of one iPhone",
+      "text": "%cassandra\nSELECT * FROM accelerometer WHERE deviceid = '9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS' LIMIT 10;",
       "authenticationInfo": {},
-      "dateUpdated": "Sep 12, 2016 8:49:09 PM",
+      "dateUpdated": "Sep 13, 2016 11:58:36 AM",
       "config": {
         "colWidth": 12,
         "graph": {
@@ -398,7 +414,7 @@
       "result": {
         "code": "SUCCESS",
         "type": "TABLE",
-        "msg": "deviceid\tdate\tx\ty\tz\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-12T22:48:15.002+02:00\t0.008665127238790817\t0.03309936392415882\t-0.00754367010375845\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-12T22:48:14.901+02:00\t0.007577492249602457\t0.03307939021598322\t-0.006491987789286159\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-12T22:48:14.801+02:00\t0.008685100946966411\t0.03205380688019371\t-0.008605206114264035\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-12T22:48:14.701+02:00\t0.007597465957778051\t0.03203383317201812\t-0.007553523799791744\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-12T22:48:14.602+02:00\t0.007578024881820473\t0.03201625630882359\t-0.006485596202669969\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-12T22:48:14.502+02:00\t0.008665127238790817\t0.03309936392415882\t-0.00754367010375845\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-12T22:48:14.402+02:00\t0.007597465957778051\t0.03203383317201812\t-0.007553523799791744\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-12T22:48:14.302+02:00\t0.008665127238790817\t0.03309936392415882\t-0.00754367010375845\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-12T22:48:14.202+02:00\t0.008665127238790817\t0.03309936392415882\t-0.00754367010375845\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t2016-09-12T22:48:14.102+02:00\t0.006528739412329253\t0.03309457023419668\t-0.007576160669057416\n",
+        "msg": "deviceid\tdate\tx\ty\tz\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t1970-01-07T23:30:45.565+01:00\t0.012664794921875\t0.0185546875\t-0.992401123046875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t1970-01-07T23:30:45.467+01:00\t0.0117034912109375\t0.016326904296875\t-0.997467041015625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t1970-01-07T23:30:45.368+01:00\t0.011566162109375\t0.0166168212890625\t-0.9966583251953125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t1970-01-07T23:30:45.270+01:00\t0.013671875\t0.0159759521484375\t-0.997314453125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t1970-01-07T23:30:45.172+01:00\t0.01336669921875\t0.0184173583984375\t-0.99517822265625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t1970-01-07T23:30:45.073+01:00\t0.011566162109375\t0.0161285400390625\t-0.9949951171875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t1970-01-07T23:30:44.975+01:00\t0.0137176513671875\t0.017303466796875\t-0.9957275390625\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t1970-01-07T23:30:44.877+01:00\t0.0130767822265625\t0.0170440673828125\t-0.9949188232421875\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t1970-01-07T23:30:44.779+01:00\t0.01251220703125\t0.018585205078125\t-0.9934844970703125\n9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS\t1970-01-07T23:30:44.680+01:00\t0.012542724609375\t0.015472412109375\t-0.9945831298828125\n",
         "comment": "",
         "msgTable": [
           [
@@ -408,19 +424,19 @@
             },
             {
               "key": "date",
-              "value": "2016-09-12T22:48:15.002+02:00"
+              "value": "1970-01-07T23:30:45.565+01:00"
             },
             {
               "key": "date",
-              "value": "0.008665127238790817"
+              "value": "0.012664794921875"
             },
             {
               "key": "date",
-              "value": "0.03309936392415882"
+              "value": "0.0185546875"
             },
             {
               "key": "date",
-              "value": "-0.00754367010375845"
+              "value": "-0.992401123046875"
             }
           ],
           [
@@ -430,19 +446,19 @@
             },
             {
               "key": "x",
-              "value": "2016-09-12T22:48:14.901+02:00"
+              "value": "1970-01-07T23:30:45.467+01:00"
             },
             {
               "key": "x",
-              "value": "0.007577492249602457"
+              "value": "0.0117034912109375"
             },
             {
               "key": "x",
-              "value": "0.03307939021598322"
+              "value": "0.016326904296875"
             },
             {
               "key": "x",
-              "value": "-0.006491987789286159"
+              "value": "-0.997467041015625"
             }
           ],
           [
@@ -452,19 +468,19 @@
             },
             {
               "key": "y",
-              "value": "2016-09-12T22:48:14.801+02:00"
+              "value": "1970-01-07T23:30:45.368+01:00"
             },
             {
               "key": "y",
-              "value": "0.008685100946966411"
+              "value": "0.011566162109375"
             },
             {
               "key": "y",
-              "value": "0.03205380688019371"
+              "value": "0.0166168212890625"
             },
             {
               "key": "y",
-              "value": "-0.008605206114264035"
+              "value": "-0.9966583251953125"
             }
           ],
           [
@@ -474,19 +490,19 @@
             },
             {
               "key": "z",
-              "value": "2016-09-12T22:48:14.701+02:00"
+              "value": "1970-01-07T23:30:45.270+01:00"
             },
             {
               "key": "z",
-              "value": "0.007597465957778051"
+              "value": "0.013671875"
             },
             {
               "key": "z",
-              "value": "0.03203383317201812"
+              "value": "0.0159759521484375"
             },
             {
               "key": "z",
-              "value": "-0.007553523799791744"
+              "value": "-0.997314453125"
             }
           ],
           [
@@ -494,16 +510,16 @@
               "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
             },
             {
-              "value": "2016-09-12T22:48:14.602+02:00"
+              "value": "1970-01-07T23:30:45.172+01:00"
             },
             {
-              "value": "0.007578024881820473"
+              "value": "0.01336669921875"
             },
             {
-              "value": "0.03201625630882359"
+              "value": "0.0184173583984375"
             },
             {
-              "value": "-0.006485596202669969"
+              "value": "-0.99517822265625"
             }
           ],
           [
@@ -511,16 +527,16 @@
               "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
             },
             {
-              "value": "2016-09-12T22:48:14.502+02:00"
+              "value": "1970-01-07T23:30:45.073+01:00"
             },
             {
-              "value": "0.008665127238790817"
+              "value": "0.011566162109375"
             },
             {
-              "value": "0.03309936392415882"
+              "value": "0.0161285400390625"
             },
             {
-              "value": "-0.00754367010375845"
+              "value": "-0.9949951171875"
             }
           ],
           [
@@ -528,16 +544,16 @@
               "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
             },
             {
-              "value": "2016-09-12T22:48:14.402+02:00"
+              "value": "1970-01-07T23:30:44.975+01:00"
             },
             {
-              "value": "0.007597465957778051"
+              "value": "0.0137176513671875"
             },
             {
-              "value": "0.03203383317201812"
+              "value": "0.017303466796875"
             },
             {
-              "value": "-0.007553523799791744"
+              "value": "-0.9957275390625"
             }
           ],
           [
@@ -545,16 +561,16 @@
               "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
             },
             {
-              "value": "2016-09-12T22:48:14.302+02:00"
+              "value": "1970-01-07T23:30:44.877+01:00"
             },
             {
-              "value": "0.008665127238790817"
+              "value": "0.0130767822265625"
             },
             {
-              "value": "0.03309936392415882"
+              "value": "0.0170440673828125"
             },
             {
-              "value": "-0.00754367010375845"
+              "value": "-0.9949188232421875"
             }
           ],
           [
@@ -562,16 +578,16 @@
               "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
             },
             {
-              "value": "2016-09-12T22:48:14.202+02:00"
+              "value": "1970-01-07T23:30:44.779+01:00"
             },
             {
-              "value": "0.008665127238790817"
+              "value": "0.01251220703125"
             },
             {
-              "value": "0.03309936392415882"
+              "value": "0.018585205078125"
             },
             {
-              "value": "-0.00754367010375845"
+              "value": "-0.9934844970703125"
             }
           ],
           [
@@ -579,16 +595,16 @@
               "value": "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS"
             },
             {
-              "value": "2016-09-12T22:48:14.102+02:00"
+              "value": "1970-01-07T23:30:44.680+01:00"
             },
             {
-              "value": "0.006528739412329253"
+              "value": "0.012542724609375"
             },
             {
-              "value": "0.03309457023419668"
+              "value": "0.015472412109375"
             },
             {
-              "value": "-0.007576160669057416"
+              "value": "-0.9945831298828125"
             }
           ]
         ],
@@ -622,86 +638,89 @@
         "rows": [
           [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
-            "2016-09-12T22:48:15.002+02:00",
-            "0.008665127238790817",
-            "0.03309936392415882",
-            "-0.00754367010375845"
+            "1970-01-07T23:30:45.565+01:00",
+            "0.012664794921875",
+            "0.0185546875",
+            "-0.992401123046875"
           ],
           [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
-            "2016-09-12T22:48:14.901+02:00",
-            "0.007577492249602457",
-            "0.03307939021598322",
-            "-0.006491987789286159"
+            "1970-01-07T23:30:45.467+01:00",
+            "0.0117034912109375",
+            "0.016326904296875",
+            "-0.997467041015625"
           ],
           [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
-            "2016-09-12T22:48:14.801+02:00",
-            "0.008685100946966411",
-            "0.03205380688019371",
-            "-0.008605206114264035"
+            "1970-01-07T23:30:45.368+01:00",
+            "0.011566162109375",
+            "0.0166168212890625",
+            "-0.9966583251953125"
           ],
           [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
-            "2016-09-12T22:48:14.701+02:00",
-            "0.007597465957778051",
-            "0.03203383317201812",
-            "-0.007553523799791744"
+            "1970-01-07T23:30:45.270+01:00",
+            "0.013671875",
+            "0.0159759521484375",
+            "-0.997314453125"
           ],
           [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
-            "2016-09-12T22:48:14.602+02:00",
-            "0.007578024881820473",
-            "0.03201625630882359",
-            "-0.006485596202669969"
+            "1970-01-07T23:30:45.172+01:00",
+            "0.01336669921875",
+            "0.0184173583984375",
+            "-0.99517822265625"
           ],
           [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
-            "2016-09-12T22:48:14.502+02:00",
-            "0.008665127238790817",
-            "0.03309936392415882",
-            "-0.00754367010375845"
+            "1970-01-07T23:30:45.073+01:00",
+            "0.011566162109375",
+            "0.0161285400390625",
+            "-0.9949951171875"
           ],
           [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
-            "2016-09-12T22:48:14.402+02:00",
-            "0.007597465957778051",
-            "0.03203383317201812",
-            "-0.007553523799791744"
+            "1970-01-07T23:30:44.975+01:00",
+            "0.0137176513671875",
+            "0.017303466796875",
+            "-0.9957275390625"
           ],
           [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
-            "2016-09-12T22:48:14.302+02:00",
-            "0.008665127238790817",
-            "0.03309936392415882",
-            "-0.00754367010375845"
+            "1970-01-07T23:30:44.877+01:00",
+            "0.0130767822265625",
+            "0.0170440673828125",
+            "-0.9949188232421875"
           ],
           [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
-            "2016-09-12T22:48:14.202+02:00",
-            "0.008665127238790817",
-            "0.03309936392415882",
-            "-0.00754367010375845"
+            "1970-01-07T23:30:44.779+01:00",
+            "0.01251220703125",
+            "0.018585205078125",
+            "-0.9934844970703125"
           ],
           [
             "9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7_iPhone OS",
-            "2016-09-12T22:48:14.102+02:00",
-            "0.006528739412329253",
-            "0.03309457023419668",
-            "-0.007576160669057416"
+            "1970-01-07T23:30:44.680+01:00",
+            "0.012542724609375",
+            "0.015472412109375",
+            "-0.9945831298828125"
           ]
         ]
       },
       "dateCreated": "Sep 12, 2016 6:26:09 AM",
-      "dateStarted": "Sep 12, 2016 8:48:24 PM",
-      "dateFinished": "Sep 12, 2016 8:48:24 PM",
+      "dateStarted": "Sep 13, 2016 11:58:36 AM",
+      "dateFinished": "Sep 13, 2016 11:58:36 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:8027",
-      "title": "Show the 10 most recent measurements of one iPhone",
+      "$$hashKey": "object:1710",
       "focus": true
     },
     {
+      "title": "Show maximum date of all other phones. Why? Because that can be an indication of progress of messages...",
+      "text": "%cassandra\nSELECT MAX(date) FROM gyro WHERE deviceid IN ('9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS', '748790E7-1639-44C7-9D6C-423BCA5D611D_iPhone OS',\n'72ED0416-739D-49DD-92CC-CC442A6E6C0B_iPhone OS', '6EC09F7D-9479-4C1F-90D4-1B95546802D3_iPhone OS', '4DF5779D-2B39-469B-928C-B6DBA7849E25_iPhone OS',\n'4085211A-AEE5-48B8-B8E6-A96A5BD47D8F_iPhone OS', '0C09B0A6-87DA-4CC4-A553-5C53A0B60914_iPhone OS');",
+      "authenticationInfo": {},
+      "dateUpdated": "Sep 13, 2016 9:25:33 AM",
       "config": {
         "colWidth": 12,
         "graph": {
@@ -735,25 +754,15 @@
       },
       "jobName": "paragraph_1473704290062_591719437",
       "id": "20160912-181810_1803382840",
-      "dateCreated": "Sep 12, 2016 6:18:10 PM",
-      "status": "FINISHED",
-      "progressUpdateIntervalMs": 500,
-      "focus": true,
-      "$$hashKey": "object:9017",
-      "text": "%cassandra\nSELECT MAX(date) FROM gyro WHERE deviceid IN ('9EF6C34F-FA17-4910-8AC0-B8E6DA29A2D7iPhone OS', '748790E7-1639-44C7-9D6C-423BCA5D611D_iPhone OS',\n'72ED0416-739D-49DD-92CC-CC442A6E6C0B_iPhone OS', '6EC09F7D-9479-4C1F-90D4-1B95546802D3_iPhone OS', '4DF5779D-2B39-469B-928C-B6DBA7849E25_iPhone OS',\n'4085211A-AEE5-48B8-B8E6-A96A5BD47D8F_iPhone OS', '0C09B0A6-87DA-4CC4-A553-5C53A0B60914_iPhone OS');",
-      "dateUpdated": "Sep 12, 2016 8:49:53 PM",
-      "dateFinished": "Sep 12, 2016 8:48:36 PM",
-      "dateStarted": "Sep 12, 2016 8:48:34 PM",
-      "title": "Show maximum date of all other phones. Why? Because that can be an indication of progress of messages...",
       "result": {
         "code": "SUCCESS",
         "type": "TABLE",
-        "msg": "system.max(date)\n2016-09-12T13:05:46.686+02:00\n",
+        "msg": "system.max(date)\n2016-09-13T11:25:18.520+02:00\n",
         "comment": "",
         "msgTable": [
           [
             {
-              "value": "2016-09-12T13:05:46.686+02:00"
+              "value": "2016-09-13T11:25:18.520+02:00"
             }
           ]
         ],
@@ -766,12 +775,19 @@
         ],
         "rows": [
           [
-            "2016-09-12T13:05:46.686+02:00"
+            "2016-09-13T11:25:18.520+02:00"
           ]
         ]
-      }
+      },
+      "dateCreated": "Sep 12, 2016 6:18:10 PM",
+      "dateStarted": "Sep 13, 2016 9:25:33 AM",
+      "dateFinished": "Sep 13, 2016 9:25:37 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500,
+      "$$hashKey": "object:1711"
     },
     {
+      "title": "Table not filled with regular data yet...",
       "text": "%cassandra\nuse sensordata;\ndescribe table sensordata.sensorreading_by_device_sensortype;",
       "authenticationInfo": {},
       "dateUpdated": "Sep 12, 2016 8:51:09 PM",
@@ -806,8 +822,7 @@
       "dateFinished": "Sep 9, 2016 9:25:52 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:8029",
-      "title": "Table not filled with regular data yet..."
+      "$$hashKey": "object:1712"
     },
     {
       "title": "If it didn't exist, zero results should get returned. Otherwise there might be some leftovers...",
@@ -877,10 +892,10 @@
       "dateFinished": "Sep 12, 2016 8:50:03 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:8030",
-      "focus": true
+      "$$hashKey": "object:1713"
     },
     {
+      "title": "Inserting some test numbers - with deviceid testfile to easily identify",
       "text": "%cassandra\nINSERT INTO sensordata.sensorreading_by_device_sensortype(date, deviceid, sensortype, x, y, z) \nVALUES ( '2016-09-03T08:40:27.152+02:00', 'testfile', 'Gyro', -0.06179758783085269, 0.0700928019942315, -0.005263737894541614);\nINSERT INTO sensordata.sensorreading_by_device_sensortype(date, deviceid, sensortype, x, y, z) \nVALUES ('2016-09-03T08:40:27.251+02:00', 'testfile', 'Gyro', -0.004201669251818014, -0.0607256654920958, 0.07010052516139273);",
       "authenticationInfo": {},
       "dateUpdated": "Sep 12, 2016 8:50:42 PM",
@@ -916,8 +931,7 @@
       "dateFinished": "Sep 9, 2016 9:26:12 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:8031",
-      "title": "Inserting some test numbers - with deviceid testfile to easily identify"
+      "$$hashKey": "object:1714"
     },
     {
       "text": "%cassandra\nSELECT * FROM sensordata.sensorreading_by_device_sensortype WHERE deviceid='testfile' AND sensortype='Gyro';",
@@ -1071,7 +1085,7 @@
       "dateFinished": "Sep 9, 2016 9:27:04 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:8032"
+      "$$hashKey": "object:1715"
     },
     {
       "dateUpdated": "Sep 9, 2016 7:53:12 AM",
@@ -1098,7 +1112,7 @@
       "status": "READY",
       "errorMessage": "",
       "progressUpdateIntervalMs": 500,
-      "$$hashKey": "object:8033"
+      "$$hashKey": "object:1716"
     }
   ],
   "name": "Sensor Data in Cassandra",

@@ -2,7 +2,7 @@ package com.zuehlke.hackzurich
 
 import com.datastax.spark.connector.SomeColumns
 import com.datastax.spark.connector.streaming._
-import com.zuehlke.hackzurich.common.dataformats.{BatteryReading, GyrometerReading, SensorReadingJSONParser, SensorTypeFilter}
+import com.zuehlke.hackzurich.common.dataformats._
 import com.zuehlke.hackzurich.common.kafkautils.MessageStream
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.streaming._
@@ -37,17 +37,17 @@ object KafkaToCassandra {
       .filter(keyFilter(_))
       .flatMap(SensorReadingJSONParser.parseReadingsUsingScalaJSONParser)
 
-    // save Gyro
-    val gyroFilter = new SensorTypeFilter("Gyro")
+    // save Accelerometer
+    val accelerometerFilter = new SensorTypeFilter("Accelerometer")
     parsedMessages
-      .filter(gyroFilter(_))
-      .map(t => GyrometerReading(
+      .filter(accelerometerFilter(_))
+      .map(t => AccelerometerReading(
         t._1,
         t._2.get("date").get.asInstanceOf[String],
         t._2.get("x").get.asInstanceOf[Double],
         t._2.get("y").get.asInstanceOf[Double],
         t._2.get("z").get.asInstanceOf[Double]))
-     .saveToCassandra("sensordata", "gyro", SomeColumns("date", "deviceid", "x", "y", "z"))
+      .saveToCassandra("sensordata", "accelerometer", SomeColumns("date", "deviceid", "x", "y", "z"))
 
     // save Battery
     val batteryFilter = new SensorTypeFilter("Battery")
@@ -63,6 +63,18 @@ object KafkaToCassandra {
       .saveToCassandra("sensordata", "batteryhistory", SomeColumns("date", "deviceid", "batterystate", "batterylevel"))
     batteryReadings
       .saveToCassandra("sensordata", "batterycurrent", SomeColumns("date", "deviceid", "batterystate", "batterylevel"))
+
+    // save Gyro
+    val gyroFilter = new SensorTypeFilter("Gyro")
+    parsedMessages
+      .filter(gyroFilter(_))
+      .map(t => GyrometerReading(
+        t._1,
+        t._2.get("date").get.asInstanceOf[String],
+        t._2.get("x").get.asInstanceOf[Double],
+        t._2.get("y").get.asInstanceOf[Double],
+        t._2.get("z").get.asInstanceOf[Double]))
+      .saveToCassandra("sensordata", "gyro", SomeColumns("date", "deviceid", "x", "y", "z"))
 
     // Start the computation
     ssc.start()
