@@ -1,6 +1,6 @@
 package com.zuehlke.hackzurich.common.kafkautils
 
-import com.zuehlke.hackzurich.common.kafkautils.MessageStream.OffsetRestConfig.OffsetRestConfig
+import com.zuehlke.hackzurich.common.kafkautils.MessageStream.OffsetResetConfig.OffsetResetConfig
 import org.apache.kafka.clients.consumer.{ConsumerConfig, ConsumerRecord}
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
@@ -16,13 +16,13 @@ class ReasonableKeyFilter extends Serializable {
 }
 
 object MessageStream {
-  object OffsetRestConfig extends Enumeration {
-    type OffsetRestConfig = Value
+  object OffsetResetConfig extends Enumeration {
+    type OffsetResetConfig = Value
     val Earliest, Latest, None = Value
   }
 
   def directMessageStream(ssc : StreamingContext, consumerGroupID : String,
-                          topics : String = Topics.SENSOR_READING, startAt : OffsetRestConfig = OffsetRestConfig.Latest)
+                          topics : String = Topics.SENSOR_READING, startAt : OffsetResetConfig = OffsetResetConfig.Latest)
   : InputDStream[ConsumerRecord[String, String]] = {
     // Create direct kafka stream with brokers and topics
     val kafkaBrokers = MesosKafkaBootstrapper.mkBootstrapServersString

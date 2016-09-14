@@ -18,7 +18,7 @@ object KafkaToS3 {
       System.err.println(s"""
                             |Usage: KafkaToS3 <topics> <s3bucket> <awsAccessKeyId> <awsAccesKeySecret>
                             |  <topics> is a list of one or more kafka topics to consume from
-                            |  <s3bucket> the s3bucket to store the files into (s3bucket may contain subfolders, will get created if needed)
+                            |  <s3bucket> the s3bucket without s3://-prefix to store the files into (s3bucket may contain subfolders, will get created if needed)
                             |  <awsAccessKeyId> the aws access key
                             |  <awsAccesKeySecret> the aws access secret
         """.stripMargin)

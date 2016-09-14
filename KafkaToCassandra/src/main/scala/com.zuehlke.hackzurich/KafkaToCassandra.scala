@@ -13,7 +13,7 @@ import org.apache.spark.streaming._
   *
   * Run in dcos with:
   *
-  * dcos spark run --submit-args="--supervise ---class com.zuehlke.hackzurich.KafkaToCassandra <jar_location>"
+  * dcos spark run --submit-args="--supervise --class com.zuehlke.hackzurich.KafkaToCassandra <jar_location>"
   */
 object KafkaToCassandra {
 
@@ -29,7 +29,7 @@ object KafkaToCassandra {
     val ssc = new StreamingContext(spark.sparkContext, Seconds(5))
 
     val messages = MessageStream.directMessageStream(ssc, executionName)
-    // More config options:, Topics.SENSOR_READING, OffsetRestConfig.Earliest)
+    // More config options:, Topics.SENSOR_READING, OffsetResetConfig.Earliest)
 
     val keyFilter = MessageStream.filterKey
 
