@@ -1,0 +1,35 @@
+apply plugin: 'scala'
+
+group = "mhaspra"
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    provided
+    compile.extendsFrom provided
+}
+
+task fatJarForSparkSubmit(type: Jar) {
+
+    baseName = project.name + '-all'
+    from {
+        (configurations.compile - configurations.provided).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    with jar
+}
+
+dependencies {
+    provided 'org.apache.spark:spark-core_2.11:2.0.0'
+    provided 'org.apache.spark:spark-streaming_2.11:2.0.0'
+    provided 'org.apache.spark:spark-sql_2.11:2.0.0'
+    provided 'org.apache.hadoop:hadoop-client:2.7.3'
+
+    compile project(':common-utils')
+
+    compile 'org.apache.spark:spark-streaming-kafka-0-10_2.11:2.0.0'
+    compile "net.databinder.dispatch:dispatch-core_2.11:0.11.2"
+}
