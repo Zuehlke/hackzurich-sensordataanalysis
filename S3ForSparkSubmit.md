@@ -32,3 +32,10 @@ Upload the file from commandline directly making it readable to everyone:
 The uploaded file is now accessible via a URL like `https://s3-us-west-1.amazonaws.com/<bucketname>/<your.jar>`
 
 This URL can get used in `dcos spark run --submit-args=" https://s3-us-west-1.amazonaws.com/<bucketname>/<your.jar>"`
+
+# Optional: When done, delete bucket
+
+To remove a bucket, execute `aws s3 rb s3://<bucketname>`
+You may add `--force` if you feel confident enough.
+
+(See <http://docs.aws.amazon.com/cli/latest/userguide/using-s3-commands.html> for details.)

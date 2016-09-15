@@ -26,7 +26,7 @@ See <https://github.com/Zuehlke/SHMACK/blob/master/Docker.md> for details!
    * `docker run -it mesosphere/kafka-client`
    * `./kafka-console-consumer.sh --zookeeper master.mesos:2181/dcos-service-kafka --topic sensor-reading`
 * Optional: Install Zeppelin and import [zeppelin-notebooks/Check Sensor Data Ingestion.json](https://www.zeppelinhub.com/viewer/notebooks/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1p1ZWhsa2UvaGFja3p1cmljaC1zZW5zb3JkYXRhYW5hbHlzaXMvbWFzdGVyL3NlbnNvci1pbmdlc3Rpb24vemVwcGVsaW4tbm90ZWJvb2tzL0NoZWNrJTIwU2Vuc29yJTIwRGF0YSUyMEluZ2VzdGlvbi5qc29u) 
-  following these insctructions.
+  following [these insctructions](https://github.com/Zuehlke/hackzurich-sensordataanalysis/tree/master/KafkaToCassandra).
 ## Running a local server that allows testing the endpoint
 * Check out the repository as usual
 * `./gradlew runLocalTestServer`
