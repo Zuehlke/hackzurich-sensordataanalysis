@@ -3,8 +3,8 @@ To test the KafkaToS3 Streaming job do:
 1. Start the Mesos cluster
 2. Install Spark and Kafka ... and HDFS, since its tools provide basic S3 support
 3. Add a topic
-4. Create a fat jar containing all dependencies defined in Gradle with `./gradlew fatJar`
-5. Upload the fat jar to a place accessible from the cluster e.g. S3
+4. Create a fat jar containing all dependencies defined in Gradle with `./gradlew fatJarForSparkSubmit`
+5. Upload the fat jar to a place accessible from the cluster e.g. [using S3](https://github.com/Zuehlke/hackzurich-sensordataanalysis/blob/master/S3ForSparkSubmit.md)
 6. Create an [S3 bucket](https://console.aws.amazon.com/s3/home?region=us-west-1#) to store the backups and copy its URL 
 6. Submit the spark job with:
 

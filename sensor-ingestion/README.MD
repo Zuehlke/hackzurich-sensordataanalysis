@@ -6,19 +6,27 @@ See <https://github.com/Zuehlke/SHMACK/blob/master/Docker.md> for details!
 
 ## Regular deployment into a [SHMACK DC/OS Cluster](https://github.com/Zuehlke/SHMACK)
 
-* `./gradlew distDocker --stacktrace` (or trigger this in your IDE of choice)
-* `docker push mspringma1/sensor-ingestion:latest` to publish the updated image
-* `dcos marathon app add sensor-ingestion-options.json` to deploy the application on DC/OS
-* to be sure: `open-shmack-haproxy-stats.sh` and search for port of sensor-ingestion, should be 8083; copy hostname from URL.
-* `~/shmack/repo/04_implementation/scripts/helpers/open-browser.sh  http://ec2-54-183-172-209.us-west-1.compute.amazonaws.com:8083/hello` with a corrected hostname from the HAProxy stats provides a healthcheck
-* `curl --data '{"sensor":"dummy", "data":"nothing"}' --request POST --basic --user hackzurich http://ec2-54-183-172-209.us-west-1.compute.amazonaws.com:8083/sensorReading/curl`
-  Will ask for password, then post some data, should return: **Sent msg to kafka topic sensor-reading with key  curl!**
-* `~/shmack/repo/04_implementation/scripts/helpers/open-browser.sh  http://ec2-54-183-172-209.us-west-1.compute.amazonaws.com:8083/sensorReading/`
-  Should tell you after login just in a single number how many messages have been processed since last restart
-* To monitor incoming data, most basic but very reliable way is:
+* Preparing Kafka:
+  * Make sure Kafka is ready to use on your cluster, so at least `dcos package install kafka` must be finished
+  * Optional: Create the topic to use for ingestion with multiple partitions, so assignment of partitions to brokers is possible: `dcos kafka topic create sensor-reading --partitions 20 --replication 3`
+  * Optional: Check it is configured as desired: `dcos kafka topic describe sensor-reading`
+* Optional: Change username and password in [resources/application.conf](https://github.com/Zuehlke/hackzurich-sensordataanalysis/blob/master/sensor-ingestion/src/main/resources/application.conf) 
+* Build the app with `./gradlew distDocker --stacktrace` (or trigger this in your IDE of choice)
+* Publish the updated image with `docker push <your_dockerhub_user>/sensor-ingestion:latest` 
+* Finally, deploy the application on DC/OS with `dcos marathon app add sensor-ingestion-options.json` 
+* Optional: Check if everything works
+  * `open-shmack-haproxy-stats.sh` and search for port of sensor-ingestion, should be 8083; copy hostname from URL.
+  * `~/shmack/repo/04_implementation/scripts/helpers/open-browser.sh  <hostname:port>/hello` with a corrected hostname from the HAProxy stats provides a healthcheck
+  * `curl --data '"{"z" : -0.1, "x" : -0.2, "y" : 0.1, "date" : "2016-09-03T08:40:17.552+02:00", "type" : "Gyro"}"' --request POST --basic --user hackzurich <hostname:port>/sensorReading/curl`
+    will ask for password, then post some data, should return: **Sent msg to kafka topic sensor-reading with key  curl!**
+  * `~/shmack/repo/04_implementation/scripts/helpers/open-browser.sh  http://<hostname:port>/sensorReading/`
+    should tell you after login just in a single number how many messages have been processed since last restart
+* Optional: To monitor incoming data, most basic but very reliable way is:
    * `ssh-into-dcos-master.sh`
    * `docker run -it mesosphere/kafka-client`
    * `./kafka-console-consumer.sh --zookeeper master.mesos:2181/dcos-service-kafka --topic sensor-reading`
+* Optional: Install Zeppelin and import [zeppelin-notebooks/Check Sensor Data Ingestion.json](https://www.zeppelinhub.com/viewer/notebooks/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1p1ZWhsa2UvaGFja3p1cmljaC1zZW5zb3JkYXRhYW5hbHlzaXMvbWFzdGVyL3NlbnNvci1pbmdlc3Rpb24vemVwcGVsaW4tbm90ZWJvb2tzL0NoZWNrJTIwU2Vuc29yJTIwRGF0YSUyMEluZ2VzdGlvbi5qc29u) 
+  following these insctructions.
 ## Running a local server that allows testing the endpoint
 * Check out the repository as usual
 * `./gradlew runLocalTestServer`
