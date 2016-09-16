@@ -22,8 +22,8 @@ class HTTPForwarder(user: String, password: String, endpoint: String) extends Se
         List(1)
       }
       case Failure(t) => {
-        println(s"Failed to send message to $endpoint: " + t.getMessage)
-        throw t
+        System.err.println(s"Failed to send message to $endpoint: " + t.getMessage)
+        System.exit(1) // Akka "Let it crash!" mentality terminate - up to the supervisor to restart job if desired.
       }
       case _ => List.empty
     }
