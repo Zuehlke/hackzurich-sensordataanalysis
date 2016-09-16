@@ -3,7 +3,8 @@ package com.zuehlke.hackzurich
 import com.datastax.spark.connector.SomeColumns
 import com.datastax.spark.connector.streaming._
 import com.zuehlke.hackzurich.common.dataformats._
-import com.zuehlke.hackzurich.common.kafkautils.MessageStream
+import com.zuehlke.hackzurich.common.kafkautils.MessageStream.OffsetResetConfig
+import com.zuehlke.hackzurich.common.kafkautils.{MessageStream, Topics}
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.streaming._
@@ -30,8 +31,7 @@ object KafkaToCassandra {
     // Create context with 5 second batch interval
     val ssc = new StreamingContext(spark.sparkContext, Seconds(5))
 
-    val messages: InputDStream[ConsumerRecord[String, String]] = MessageStream.directMessageStream(ssc, executionName)
-    // More config options:, Topics.SENSOR_READING, OffsetResetConfig.Earliest)
+    val messages: InputDStream[ConsumerRecord[String, String]] = MessageStream.directMessageStream(ssc, executionName,Topics.SENSOR_READING, OffsetResetConfig.Earliest)
 
     val keyFilter = MessageStream.filterKey
 

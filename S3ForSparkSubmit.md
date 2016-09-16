@@ -18,7 +18,7 @@ You can make a new bucket with `aws s3 mb s3://<bucketname>`
 Keep in mind that buckets are assigned a region, and this command will make the bucket in your default region - which should be `us-west-1`, which is fine.
  
 Now make this bucket readable by everyone:
-`aws s3api put-bucket-acl --bucket shmack23 --grant-read 'uri="http://acs.amazonaws.com/groups/global/AllUsers"'`
+`aws s3api put-bucket-acl --bucket <bucketname> --grant-read 'uri="http://acs.amazonaws.com/groups/global/AllUsers"'`
 
 (See <http://docs.aws.amazon.com/cli/latest/userguide/using-s3api-commands.html> for details.)
 

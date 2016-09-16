@@ -11,7 +11,14 @@ So far, we are expecting and prepared to receive the different data described he
 # Getting started
  
 In order to be able to run the sensor data analysis in the cloud, you need a running cluster. 
-This works best using [SHMACK](https://github.com/Zuehlke/SHMACK) with the following settings:
+
+*For HackZurich*: Please form teams and share a cluster. We will provide you with credentials each team can use to start up your cluster.
+Each team should decide on a team name - so we can identify the credentials and resources asigned to you.
+We will also assist you in the process of getting your environment ready to work, so don't hesitate to ask us for help.
+
+Setting up a DC/OS cluster for this purpose works best using [SHMACK](https://github.com/Zuehlke/SHMACK) with the following settings:
+* Stick to DC/OS 1.7; the newer version 1.8 has been released September 15 2016 ... it is bleeding edge and may bleed a little too much for now :-) 
+  By using `TEMPLATE_URL="https://s3-us-west-1.amazonaws.com/shmack/single-master.cloudformation.json"` in `shmack_env` you will use DC/OS 1.7.
 * Since Spark proposes In Memory computation and Cassandra/Kafka/HDFS provide their own redundancy, 
   better switch to memory-optimized EC2 `SLAVE_INSTANCE_TYPE` in `shmack_env`, e.g. [r3.xlarge](https://aws.amazon.com/ec2/pricing/).
   They are a bit more expensive, but significantly increase the data you can handle per node compared to the default (m3.xlarge).
@@ -22,9 +29,19 @@ This works best using [SHMACK](https://github.com/Zuehlke/SHMACK) with the follo
   from [Installation](https://github.com/Zuehlke/SHMACK#installation) to [Stack Creation](https://github.com/Zuehlke/SHMACK#stack-creation-from-now-on-you-pay-for-usage).
 * Once the stack is up-and-running an you see on the DC/OS master dashboard that services are healthy,
   you can deploy the [Sensor Ingestion Akka REST Service](https://github.com/Zuehlke/hackzurich-sensordataanalysis/tree/master/sensor-ingestion#regular-deployment-into-a-shmack-dcos-cluster)
-  
-  
-
+* *For HackZurich*: When you have assured that in principle Sensor Ingestion is running properly, tell us your endpoint URL, 
+  so we can forward you the sensor readings we receive at the main ingestion cluster.
+* Run the [KafkaToCassandra Spark streaming](https://github.com/Zuehlke/hackzurich-sensordataanalysis/tree/master/KafkaToCassandra) job, 
+  in the process of which Cassandra tables will get created to make it much nicer to query and visulize data in Zeppelin.
+* Now you are basically done - you have a cluster running Mesos, 
+  an reactive Akka Web Service to store incoming data to Kafka, 
+  a Spark Streaming job reading from Kafka and writing to Cassandra, 
+  and Zeppelin to interactively explore the recorded data.
+  In addition, you find some more examples in this repository, 
+  e.g. a [Simple Spark Testrun](https://github.com/Zuehlke/hackzurich-sensordataanalysis/tree/master/simple-spark-testrun) that can be a basis for your own jobs 
+  and [KafkaS3Backup](https://github.com/Zuehlke/hackzurich-sensordataanalysis/tree/master/kafka-s3-backup) that illustrates how to access external resources - in particular of AWS.
+* *For HackZurich*: You may now focus on the challenge, good luck!
+ 
   
 
 # Affiliation within Zühlke
