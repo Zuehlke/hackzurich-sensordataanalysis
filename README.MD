@@ -28,7 +28,7 @@ Setting up a DC/OS cluster for this purpose works best using [SHMACK](https://gi
     Spot instances are always a good choice if you want to save money and don't care if you may loose part of or your entire cluster if you get outbid.
   * You may add all the packages you will need anyway in `create-stack.sh`: `INSTALL_PACKAGES="spark cassandra kafka marathon marathon-lb"`, 
     so they already get installed when you create your cluster using the CloudFormation template.
-  * *For HackZurich*: Set `STACK_NAME` in `shmack_env`
+  * *For HackZurich*: Set `STACK_NAME` in `shmack_env` to your team's name.
 * Now you can go through the steps described in <https://github.com/Zuehlke/SHMACK> 
   from [Installation](https://github.com/Zuehlke/SHMACK#installation) to [Stack Creation](https://github.com/Zuehlke/SHMACK#stack-creation-from-now-on-you-pay-for-usage).
 * Once the stack is up-and-running an you see on the DC/OS master dashboard that services are healthy,
