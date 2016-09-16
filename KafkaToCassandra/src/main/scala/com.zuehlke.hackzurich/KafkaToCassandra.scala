@@ -3,8 +3,7 @@ package com.zuehlke.hackzurich
 import com.datastax.spark.connector.SomeColumns
 import com.datastax.spark.connector.streaming._
 import com.zuehlke.hackzurich.common.dataformats._
-import com.zuehlke.hackzurich.common.kafkautils.MessageStream.OffsetResetConfig
-import com.zuehlke.hackzurich.common.kafkautils.{MessageStream, Topics}
+import com.zuehlke.hackzurich.common.kafkautils.MessageStream
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.streaming._
@@ -31,7 +30,8 @@ object KafkaToCassandra {
     // Create context with 5 second batch interval
     val ssc = new StreamingContext(spark.sparkContext, Seconds(5))
 
-    val messages: InputDStream[ConsumerRecord[String, String]] = MessageStream.directMessageStream(ssc, executionName,Topics.SENSOR_READING, OffsetResetConfig.Earliest)
+    val messages: InputDStream[ConsumerRecord[String, String]] = MessageStream.directMessageStream(ssc, executionName)
+    // More config options:, Topics.SENSOR_READING, OffsetResetConfig.Earliest)
 
     val keyFilter = MessageStream.filterKey
 
@@ -89,6 +89,19 @@ object KafkaToCassandra {
         t._2.get("z").get.asInstanceOf[Double]))
       .saveToCassandra("sensordata", "gyro", SomeColumns("date", "deviceid", "x", "y", "z"))
 
+    // save Magnetometer
+    val magnetoFilter = new SensorTypeFilter("Magnetometer")
+    parsedMessages
+      .filter(magnetoFilter(_))
+      .map(t => MagnetometerReading(
+        t._1,
+        t._2("date").asInstanceOf[String],
+        t._2.get("x").get.asInstanceOf[Double],
+        t._2.get("y").get.asInstanceOf[Double],
+        t._2.get("z").get.asInstanceOf[Double]))
+      .saveToCassandra("sensordata", "magnetometer", SomeColumns("date", "deviceid", "x", "y", "z"))
+
+    // save DeviceMotion
     val motionFilter = new SensorTypeFilter("DeviceMotion")
     parsedMessages
       .filter(motionFilter(_))
@@ -110,6 +123,27 @@ object KafkaToCassandra {
         t._2.get("attitude").flatMap { case p2: Map[String, _] => p2.get("rotationMatrix").flatMap { case p3: Map[String, _] => p3.get("m23")} }.get.asInstanceOf[Double],
         t._2.get("attitude").flatMap { case p2: Map[String, _] => p2.get("pitch")}.get.asInstanceOf[Double]))
       .saveToCassandra("sensordata", "motion", SomeColumns("date", "deviceid","x", "w", "y", "z", "m13", "m12", "m33", "m32", "m31", "m21", "m11", "m22", "m23", "pitch"))
+
+    // save Microphone
+    val micFilter = new SensorTypeFilter("Microphone")
+    parsedMessages
+      .filter(micFilter(_))
+      .map(t => MicrophoneReading(
+        t._1,
+        t._2("date").asInstanceOf[String],
+        t._2.get("peakPower").get.asInstanceOf[Double],
+        t._2.get("averagePower").get.asInstanceOf[Double]))
+      .saveToCassandra("sensordata", "microphone", SomeColumns("date", "deviceid", "peakpower", "averagepower"))
+
+    // save Microphone
+    val lightFilter = new SensorTypeFilter("Light")
+    parsedMessages
+      .filter(lightFilter(_))
+      .map(t => LightReading(
+        t._1,
+        t._2("date").asInstanceOf[String],
+        t._2.get("brightnes").get.asInstanceOf[Double]))
+      .saveToCassandra("sensordata", "light", SomeColumns("date", "deviceid", "brightnes"))
 
     // Start the computation
     ssc.start()

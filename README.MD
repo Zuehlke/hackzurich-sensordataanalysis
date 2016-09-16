@@ -15,6 +15,9 @@ In order to be able to run the sensor data analysis in the cloud, you need a run
 *For HackZurich*: Please form teams and share a cluster. We will provide you with credentials each team can use to start up your cluster.
 Each team should decide on a team name - so we can identify the credentials and resources asigned to you.
 We will also assist you in the process of getting your environment ready to work, so don't hesitate to ask us for help.
+Most likely you will avoid plenty of problems of you run SHMACK in an Ubuntu 16.04 VM and 
+use [IntelliJ IDEA](https://github.com/Zuehlke/SHMACK#optional-use-intellij-idea-for-shmack) as IDE instead of Eclipse 
+as it still has an edge over Eclipse with ScalaIDE when it comes to supporting language features of Scala and integrating Gradle.
 
 Setting up a DC/OS cluster for this purpose works best using [SHMACK](https://github.com/Zuehlke/SHMACK) with the following settings:
 * Stick to DC/OS 1.7; the newer version 1.8 has been released September 15 2016 ... it is bleeding edge and may bleed a little too much for now :-) 
