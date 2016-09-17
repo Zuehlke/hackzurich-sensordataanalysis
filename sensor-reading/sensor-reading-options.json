@@ -1,0 +1,44 @@
+{
+  "id": "sensor-reading",
+  "instances": 1,
+  "cpus":1,
+  "mem":512,
+  "disk": 100,
+  "container":{
+    "docker":{
+      "forcePullImage":true,
+      "image":"mhaspra/sensor-reading",
+      "network":"HOST",
+      "privileged": false
+    },
+    "type":"DOCKER"
+  },
+  "labels":{
+    "HAPROXY_GROUP":"external",
+    "HAPROXY_0_PORT": "8383"
+  },
+  "portDefinitions": [
+    {
+      "port": 10101,
+      "protocol": "tcp",
+      "labels": {}
+    },
+    {
+      "port": 10102,
+      "protocol": "tcp",
+      "labels": {}
+    }
+  ],
+  "healthChecks": [
+    {
+      "protocol": "TCP",
+      "path": "/read",
+      "portIndex": 0,
+      "gracePeriodSeconds": 300,
+      "intervalSeconds": 60,
+      "timeoutSeconds": 15,
+      "maxConsecutiveFailures": 3,
+      "ignoreHttp1xx": false
+    }
+  ]
+}
