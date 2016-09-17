@@ -12,45 +12,42 @@ import org.apache.spark.streaming.dstream.InputDStream
 
 
 /**
-  * Consumes messages from one or more topics in Kafka and stores only most recent battery readings
+  * Consumes messages from one or more topics in Kafka and puts them into a cassandra table
   *
   * Run in dcos with:
   *
-  * dcos spark run --submit-args="--supervise --class com.zuehlke.hackzurich.BatteryFasttrack <jar_location>"
+  * dcos spark run --submit-args="--supervise --class com.zuehlke.hackzurich.KafkaToCassandra <jar_location>"
   */
-object BatteryFasttrack {
+object KafkaToCassandraGyro {
 
   def main(args: Array[String]) {
-    val executionName = "BatteryFasttrack"
+    val executionName = "KafkaToCassandraGyro"
 
     val spark = SparkSession.builder()
       .appName(executionName)
       .config("spark.cassandra.connection.host", "node-0.cassandra.mesos,node-1.cassandra.mesos,node-2.cassandra.mesos")
       .getOrCreate()
 
-    // Create context with 10 second batch interval
-    val ssc = new StreamingContext(spark.sparkContext, Seconds(10))
+    // Create context with 30 second batch interval
+    val ssc = new StreamingContext(spark.sparkContext, Seconds(30))
 
-    val messages: InputDStream[ConsumerRecord[String, String]] = MessageStream.directMessageStream(ssc, executionName, Topics.SENSOR_READING, OffsetResetConfig.Latest)
+    val messages: InputDStream[ConsumerRecord[String, String]] = MessageStream.directMessageStream(ssc, executionName, Topics.SENSOR_READING, OffsetResetConfig.Earliest)
+    // More config options:, Topics.SENSOR_READING, OffsetResetConfig.Earliest)
 
     val keyFilter = MessageStream.filterKey
+    val gyroFilter = new SensorTypeFilter("Gyro")
 
     val parsedMessages = messages
       .filter(keyFilter(_))
       .flatMap(SensorReadingJSONParser.parseReadingsUsingScalaJSONParser)
-
-    // save Battery
-    val batteryFilter = new SensorTypeFilter("Battery")
-    val batteryReadings = parsedMessages
-      .filter(batteryFilter(_)).repartition(1)
-      .map(t => BatteryReading(
+      .filter(gyroFilter(_))
+      .map(t => GyrometerReading(
         t._1,
-        t._2.get("date").get.asInstanceOf[String],
-        t._2.get("batteryState").get.asInstanceOf[String],
-        t._2.get("batteryLevel").get.asInstanceOf[Double]))
-
-    batteryReadings
-      .saveToCassandra("sensordata", "batterycurrent", SomeColumns("date", "deviceid", "batterystate", "batterylevel"))
+        t._2("date").asInstanceOf[String],
+        t._2.get("x").get.asInstanceOf[Double],
+        t._2.get("y").get.asInstanceOf[Double],
+        t._2.get("z").get.asInstanceOf[Double]))
+      .saveToCassandra("sensordata", "gyro", SomeColumns("date", "deviceid", "x", "y", "z"))
 
     // Start the computation
     ssc.start()

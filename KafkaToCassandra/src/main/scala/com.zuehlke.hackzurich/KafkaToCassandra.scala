@@ -28,7 +28,7 @@ object KafkaToCassandra {
       .getOrCreate()
 
     // Create context with 30 second batch interval
-    val ssc = new StreamingContext(spark.sparkContext, Seconds(30))
+    val ssc = new StreamingContext(spark.sparkContext, Seconds(1 * 60))
 
     val messages: InputDStream[ConsumerRecord[String, String]] = MessageStream.directMessageStream(ssc, executionName)
     // More config options:, Topics.SENSOR_READING, OffsetResetConfig.Earliest)
@@ -37,7 +37,7 @@ object KafkaToCassandra {
 
     val parsedMessages = messages
       .filter(keyFilter(_))
-      .flatMap(SensorReadingJSONParser.parseReadingsUsingScalaJSONParser)
+      .flatMap(SensorReadingJSONParser.parseReadingsUsingScalaJSONParser).cache()
 
     // spent some time to print debugging information
 //    parsedMessages.foreachRDD(

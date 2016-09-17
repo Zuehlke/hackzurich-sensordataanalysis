@@ -18,10 +18,10 @@ import org.apache.spark.streaming.dstream.InputDStream
   *
   * dcos spark run --submit-args="--supervise --class com.zuehlke.hackzurich.BatteryFasttrack <jar_location>"
   */
-object BatteryFasttrack {
+object GyroFasttrack {
 
   def main(args: Array[String]) {
-    val executionName = "BatteryFasttrack"
+    val executionName = "GyroFasttrack"
 
     val spark = SparkSession.builder()
       .appName(executionName)
@@ -40,17 +40,16 @@ object BatteryFasttrack {
       .flatMap(SensorReadingJSONParser.parseReadingsUsingScalaJSONParser)
 
     // save Battery
-    val batteryFilter = new SensorTypeFilter("Battery")
-    val batteryReadings = parsedMessages
-      .filter(batteryFilter(_)).repartition(1)
-      .map(t => BatteryReading(
+    val gyroFilter = new SensorTypeFilter("Gyro")
+    parsedMessages
+      .filter(gyroFilter(_))
+      .map(t => GyrometerReading(
         t._1,
-        t._2.get("date").get.asInstanceOf[String],
-        t._2.get("batteryState").get.asInstanceOf[String],
-        t._2.get("batteryLevel").get.asInstanceOf[Double]))
-
-    batteryReadings
-      .saveToCassandra("sensordata", "batterycurrent", SomeColumns("date", "deviceid", "batterystate", "batterylevel"))
+        t._2("date").asInstanceOf[String],
+        t._2.get("x").get.asInstanceOf[Double],
+        t._2.get("y").get.asInstanceOf[Double],
+        t._2.get("z").get.asInstanceOf[Double]))
+      .saveToCassandra("sensordata", "gyrocurrent", SomeColumns("date", "deviceid", "x", "y", "z"))
 
     // Start the computation
     ssc.start()

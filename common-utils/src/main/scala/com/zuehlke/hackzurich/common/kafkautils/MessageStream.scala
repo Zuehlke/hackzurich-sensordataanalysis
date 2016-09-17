@@ -1,6 +1,7 @@
 package com.zuehlke.hackzurich.common.kafkautils
 
 import com.zuehlke.hackzurich.common.kafkautils.MessageStream.OffsetResetConfig.OffsetResetConfig
+import kafka.consumer
 import org.apache.kafka.clients.consumer.{ConsumerConfig, ConsumerRecord}
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
@@ -36,7 +37,8 @@ object MessageStream {
       ConsumerConfig.AUTO_OFFSET_RESET_CONFIG -> startAt.toString.toLowerCase,
       ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG -> defaultDeserializer,
       ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG -> defaultDeserializer,
-      ConsumerConfig.GROUP_ID_CONFIG -> consumerGroupID
+      ConsumerConfig.GROUP_ID_CONFIG -> consumerGroupID,
+      ConsumerConfig.MAX_POLL_RECORDS_CONFIG -> "10000"
     )
 
     KafkaUtils.createDirectStream[String, String](ssc, LocationStrategies.PreferConsistent, ConsumerStrategies.Subscribe[String, String](topicsSet, kafkaParams))
