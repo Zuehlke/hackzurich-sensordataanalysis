@@ -27,8 +27,8 @@ object KafkaToCassandra {
       .config("spark.cassandra.connection.host", "node-0.cassandra.mesos,node-1.cassandra.mesos,node-2.cassandra.mesos")
       .getOrCreate()
 
-    // Create context with 5 second batch interval
-    val ssc = new StreamingContext(spark.sparkContext, Seconds(5))
+    // Create context with 30 second batch interval
+    val ssc = new StreamingContext(spark.sparkContext, Seconds(30))
 
     val messages: InputDStream[ConsumerRecord[String, String]] = MessageStream.directMessageStream(ssc, executionName)
     // More config options:, Topics.SENSOR_READING, OffsetResetConfig.Earliest)
@@ -38,6 +38,15 @@ object KafkaToCassandra {
     val parsedMessages = messages
       .filter(keyFilter(_))
       .flatMap(SensorReadingJSONParser.parseReadingsUsingScalaJSONParser)
+
+    // spent some time to print debugging information
+//    parsedMessages.foreachRDD(
+//        rdd => {
+//          rdd.take(1).toDebug
+//            .map(firstElem => "Processing elements staring with key" + firstElem._1 + " at " + firstElem._2.get("date").getOrElse("no time"))
+//                  .collectFirst(case s:String => s).
+//        }
+//    )
 
     // save Accelerometer
     val accelerometerFilter = new SensorTypeFilter("Accelerometer")
