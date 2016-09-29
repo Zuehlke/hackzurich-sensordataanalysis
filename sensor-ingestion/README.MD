@@ -10,6 +10,9 @@ See <https://github.com/Zuehlke/SHMACK/blob/master/Docker.md> for details!
   * Make sure Kafka is ready to use on your cluster, so at least `dcos package install kafka` must be finished
   * Optional: Create the topic to use for ingestion with multiple partitions, so assignment of partitions to brokers is possible: `dcos kafka topic create sensor-reading --partitions 20 --replication 3`
   * Optional: Check it is configured as desired: `dcos kafka topic describe sensor-reading`
+* Preparing Marathon:
+  * Make sure Marathon and Mathon-LB are installed: `dcos package install marathon` and `dcos package install marathon-lb`
+  * Check Marathon-LB HAProxy is running: `open-shmack-haproxy-stats.sh`
 * Optional: Change username and password in [resources/application.conf](https://github.com/Zuehlke/hackzurich-sensordataanalysis/blob/master/sensor-ingestion/src/main/resources/application.conf) 
 * Build the app with `./gradlew distDocker --stacktrace` (or trigger this in your IDE of choice)
 * Publish the updated image with `docker push <your_dockerhub_user>/sensor-ingestion:latest` 
@@ -27,6 +30,7 @@ See <https://github.com/Zuehlke/SHMACK/blob/master/Docker.md> for details!
    * `./kafka-console-consumer.sh --zookeeper master.mesos:2181/dcos-service-kafka --topic sensor-reading`
 * Optional: Install Zeppelin and import [zeppelin-notebooks/Check Sensor Data Ingestion.json](https://www.zeppelinhub.com/viewer/notebooks/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1p1ZWhsa2UvaGFja3p1cmljaC1zZW5zb3JkYXRhYW5hbHlzaXMvbWFzdGVyL3NlbnNvci1pbmdlc3Rpb24vemVwcGVsaW4tbm90ZWJvb2tzL0NoZWNrJTIwU2Vuc29yJTIwRGF0YSUyMEluZ2VzdGlvbi5qc29u) 
   following [these insctructions](https://github.com/Zuehlke/hackzurich-sensordataanalysis/tree/master/KafkaToCassandra).
+
 ## Running a local server that allows testing the endpoint
 * Check out the repository as usual
 * `./gradlew runLocalTestServer`
