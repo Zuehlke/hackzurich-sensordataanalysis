@@ -10,6 +10,12 @@ To test the KafkaToS3 Streaming job do:
 
 `dcos spark run --submit-args="--supervise --total-executor-cores 1 --conf spark.mesos.uris=http://hdfs.marathon.mesos:9000/v1/connect/hdfs-site.xml,http://hdfs.marathon.mesos:9000/v1/connect/core-site.xml --class com.zuehlke.hackzurich.KafkaToS3 jar-location topicName bucketName awsId awsSecret"`
 
+The `spark.mesos.uris` may vary depending on the hdfs package version. Currently either of these should work:
+http://hdfs.marathon.mesos:9000/v1/connect/hdfs-site.xml
+http://hdfs.marathon.mesos:9000/v1/connection/hdfs-site.xml
+http://hdfs.marathon.mesos:9000/config/hdfs-site.xml
+
+
 Hint for streaming jobs: 
 `--supervise` will let Spark restart the job whenever it failed.
 
