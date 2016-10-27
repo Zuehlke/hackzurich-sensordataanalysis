@@ -27,6 +27,7 @@ dependencies {
     provided 'org.apache.spark:spark-streaming_2.11:2.0.0'
     provided 'org.apache.spark:spark-sql_2.11:2.0.0'
     provided 'org.apache.hadoop:hadoop-client:2.7.3'
+    compile 'org.apache.hadoop:hadoop-aws:2.7.3'
 
     compile project(':common-utils')
 

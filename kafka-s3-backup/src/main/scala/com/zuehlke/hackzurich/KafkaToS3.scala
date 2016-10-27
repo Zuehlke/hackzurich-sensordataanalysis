@@ -1,5 +1,7 @@
 package com.zuehlke.hackzurich
 
+import java.time.{ZoneId, ZonedDateTime}
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 
 import com.zuehlke.hackzurich.common.kafkautils.MessageStream
@@ -41,10 +43,27 @@ object KafkaToS3 {
 
     // Save to S3
     messages.foreachRDD(rdd => {
-      println("\n\nNumber of records in this batch : " + rdd.count())
-        if(rdd.count() > 0){
-          rdd.flatMap(record => s"${record.key} : ${record.value()}")
-          .repartition(1).saveAsTextFile("s3n://" + s3bucket + "/" + Calendar.getInstance().getTime())
+      val rddCount: Long = rdd.count()
+      println("\n\nNumber of records in this batch : " + rddCount)
+        if(rddCount > 0){
+          (ssc.sparkContext.makeRDD(Seq("[")) ++
+            rdd // must convert to String first because ConsumerRecord can not be easily repartitioned (no serializer)
+              .map(record => {
+              val valueWithoutWhitespaces: String = record.value().replaceAll("\\s+","")
+                s"""{\"${record.key}\" : ${valueWithoutWhitespaces}}"""
+              })
+              .repartition(1)
+                .zipWithIndex()
+                .map(recordWithIndex =>{
+                  if(rddCount-1 > recordWithIndex._2) {
+                    recordWithIndex._1 + ','
+                  } else {
+                    recordWithIndex._1
+                  }
+                })
+            ++ ssc.sparkContext.makeRDD(Seq("]")))
+            .repartition(1)
+            .saveAsTextFile("s3n://" + s3bucket + "/" + ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC+2")).format(DateTimeFormatter.ofPattern("YYYY-MM-dd'T'HH-mm-ssZ")))
         }
     })
 
