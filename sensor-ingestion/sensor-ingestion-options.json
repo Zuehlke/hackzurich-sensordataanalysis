@@ -1,8 +1,8 @@
 {
   "id": "sensor-ingestion",
   "instances": 1,
-  "cpus":1,
-  "mem":512,
+  "cpus":2,
+  "mem":4096,
   "disk": 100,
   "container":{
     "docker":{
