@@ -11,7 +11,6 @@ import dispatch._
 import scala.collection.mutable.ListBuffer
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, ExecutionContext}
-import scala.util.parsing.json.JSON
 import scala.util.{Failure, Success}
 
 object ClientSimulator {
@@ -60,7 +59,8 @@ object ClientSimulator {
     var next = reader.readNext()
     var futures = new ListBuffer[Future[Response]];
     while(next.nonEmpty){
-      val path = URLEncoder.encode(next.get._1,"utf-8")
+      Thread.sleep(40)
+      val path = URLEncoder.encode(next.get._1,"utf-8").replaceAll("\\+", "%20")
       val request: Req = (service.auth match {
         case Some(auth) => url(service.url + path).as_!(auth.user, auth.password)
         case _ => url(service.url + path)
