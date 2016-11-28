@@ -2,7 +2,7 @@ package com.zuehlke.hackzurich.common.dataformats
 
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.junit.runner.RunWith
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.FlatSpec
 import org.scalatest.junit.JUnitRunner
 
 
@@ -11,7 +11,7 @@ import org.scalatest.junit.JUnitRunner
   * Expand to fix problematic cases found in actual data.
   */
 @RunWith(classOf[JUnitRunner])
-class SensorReadingJSONParserTest extends FlatSpec with Matchers {
+class SensorReadingJSONParserTest extends FlatSpec {
 
   "The JSON parser" should "parse single JSON string" in {
     val singleGyroJsonObject = "{\"z\" : -0.1, \"x\" : -0.2, \"y\" : 0.1, \"date\" : \"2016-09-03T08:40:17.552+02:00\", \"type\" : \"Gyro\"}"
