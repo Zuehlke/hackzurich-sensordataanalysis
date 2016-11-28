@@ -52,23 +52,14 @@ object KafkaToCassandra {
     val accelerometerFilter = new SensorTypeFilter("Accelerometer")
     parsedMessages
       .filter(accelerometerFilter(_))
-      .map(t => AccelerometerReading(
-        t._1,
-        t._2.get("date").get.asInstanceOf[String],
-        t._2.get("x").get.asInstanceOf[Double],
-        t._2.get("y").get.asInstanceOf[Double],
-        t._2.get("z").get.asInstanceOf[Double]))
+      .flatMap(AccelerometerReading.from(_))
       .saveToCassandra("sensordata", "accelerometer", SomeColumns("date", "deviceid", "x", "y", "z"))
 
     // save Battery
     val batteryFilter = new SensorTypeFilter("Battery")
     val batteryReadings = parsedMessages
       .filter(batteryFilter(_))
-      .map(t => BatteryReading(
-        t._1,
-        t._2.get("date").get.asInstanceOf[String],
-        t._2.get("batteryState").get.asInstanceOf[String],
-        t._2.get("batteryLevel").get.asInstanceOf[Double]))
+      .flatMap(BatteryReading.from(_))
 
     batteryReadings
       .saveToCassandra("sensordata", "batteryhistory", SomeColumns("date", "deviceid", "batterystate", "batterylevel"))
@@ -79,79 +70,42 @@ object KafkaToCassandra {
     val barometerFilter = new SensorTypeFilter("Barometer")
     parsedMessages
       .filter(barometerFilter(_))
-      .map(t => BarometerReading(
-        t._1,
-        t._2.get("date").get.asInstanceOf[String],
-        t._2.get("relativeAltitude").get.asInstanceOf[Double],
-        t._2.get("pressure").get.asInstanceOf[Double]))
+      .flatMap(BarometerReading.from(_))
       .saveToCassandra("sensordata", "barometer", SomeColumns("date", "deviceid", "relativealtitude", "pressure"))
 
     // save Gyro
     val gyroFilter = new SensorTypeFilter("Gyro")
     parsedMessages
       .filter(gyroFilter(_))
-      .map(t => GyrometerReading(
-        t._1,
-        t._2("date").asInstanceOf[String],
-        t._2.get("x").get.asInstanceOf[Double],
-        t._2.get("y").get.asInstanceOf[Double],
-        t._2.get("z").get.asInstanceOf[Double]))
+      .flatMap(GyrometerReading.from(_))
       .saveToCassandra("sensordata", "gyro", SomeColumns("date", "deviceid", "x", "y", "z"))
 
     // save Magnetometer
     val magnetoFilter = new SensorTypeFilter("Magnetometer")
     parsedMessages
       .filter(magnetoFilter(_))
-      .map(t => MagnetometerReading(
-        t._1,
-        t._2("date").asInstanceOf[String],
-        t._2.get("x").get.asInstanceOf[Double],
-        t._2.get("y").get.asInstanceOf[Double],
-        t._2.get("z").get.asInstanceOf[Double]))
+      .flatMap(MagnetometerReading.from(_))
       .saveToCassandra("sensordata", "magnetometer", SomeColumns("date", "deviceid", "x", "y", "z"))
 
     // save DeviceMotion
     val motionFilter = new SensorTypeFilter("DeviceMotion")
     parsedMessages
       .filter(motionFilter(_))
-      .map(t => MotionReading(
-        t._1,
-        t._2.get("date").get.asInstanceOf[String],
-        t._2.get("attitude").flatMap { case p2: Map[String, _] => p2.get("quaternion").flatMap { case p3: Map[String, _] => p3.get("x")} }.get.asInstanceOf[Double],
-        t._2.get("attitude").flatMap { case p2: Map[String, _] => p2.get("quaternion").flatMap { case p3: Map[String, _] => p3.get("w")} }.get.asInstanceOf[Double],
-        t._2.get("attitude").flatMap { case p2: Map[String, _] => p2.get("quaternion").flatMap { case p3: Map[String, _] => p3.get("y")} }.get.asInstanceOf[Double],
-        t._2.get("attitude").flatMap { case p2: Map[String, _] => p2.get("quaternion").flatMap { case p3: Map[String, _] => p3.get("z")} }.get.asInstanceOf[Double],
-        t._2.get("attitude").flatMap { case p2: Map[String, _] => p2.get("rotationMatrix").flatMap { case p3: Map[String, _] => p3.get("m13")} }.get.asInstanceOf[Double],
-        t._2.get("attitude").flatMap { case p2: Map[String, _] => p2.get("rotationMatrix").flatMap { case p3: Map[String, _] => p3.get("m12")} }.get.asInstanceOf[Double],
-        t._2.get("attitude").flatMap { case p2: Map[String, _] => p2.get("rotationMatrix").flatMap { case p3: Map[String, _] => p3.get("m33")} }.get.asInstanceOf[Double],
-        t._2.get("attitude").flatMap { case p2: Map[String, _] => p2.get("rotationMatrix").flatMap { case p3: Map[String, _] => p3.get("m32")} }.get.asInstanceOf[Double],
-        t._2.get("attitude").flatMap { case p2: Map[String, _] => p2.get("rotationMatrix").flatMap { case p3: Map[String, _] => p3.get("m31")} }.get.asInstanceOf[Double],
-        t._2.get("attitude").flatMap { case p2: Map[String, _] => p2.get("rotationMatrix").flatMap { case p3: Map[String, _] => p3.get("m21")} }.get.asInstanceOf[Double],
-        t._2.get("attitude").flatMap { case p2: Map[String, _] => p2.get("rotationMatrix").flatMap { case p3: Map[String, _] => p3.get("m11")} }.get.asInstanceOf[Double],
-        t._2.get("attitude").flatMap { case p2: Map[String, _] => p2.get("rotationMatrix").flatMap { case p3: Map[String, _] => p3.get("m22")} }.get.asInstanceOf[Double],
-        t._2.get("attitude").flatMap { case p2: Map[String, _] => p2.get("rotationMatrix").flatMap { case p3: Map[String, _] => p3.get("m23")} }.get.asInstanceOf[Double],
-        t._2.get("attitude").flatMap { case p2: Map[String, _] => p2.get("pitch")}.get.asInstanceOf[Double]))
+      .flatMap(MotionReading.from(_))
       .saveToCassandra("sensordata", "motion", SomeColumns("date", "deviceid","x", "w", "y", "z", "m13", "m12", "m33", "m32", "m31", "m21", "m11", "m22", "m23", "pitch"))
 
     // save Microphone
     val micFilter = new SensorTypeFilter("Microphone")
     parsedMessages
       .filter(micFilter(_))
-      .map(t => MicrophoneReading(
-        t._1,
-        t._2("date").asInstanceOf[String],
-        t._2.get("peakPower").get.asInstanceOf[Double],
-        t._2.get("averagePower").get.asInstanceOf[Double]))
+      .flatMap(MicrophoneReading.from(_))
       .saveToCassandra("sensordata", "microphone", SomeColumns("date", "deviceid", "peakpower", "averagepower"))
 
     // save Microphone
     val lightFilter = new SensorTypeFilter("Light")
     parsedMessages
       .filter(lightFilter(_))
-      .map(t => LightReading(
-        t._1,
-        t._2("date").asInstanceOf[String],
-        t._2.get("brightnes").get.asInstanceOf[Double]))
+      .flatMap(LightReading.from(_))
       .saveToCassandra("sensordata", "light", SomeColumns("date", "deviceid", "brightnes"))
 
     // Start the computation
