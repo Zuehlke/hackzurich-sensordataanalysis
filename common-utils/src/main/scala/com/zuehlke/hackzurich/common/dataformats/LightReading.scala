@@ -1,5 +1,7 @@
 package com.zuehlke.hackzurich.common.dataformats
 
+import org.apache.log4j.LogManager
+
 import scala.util.control.NonFatal
 
 // Hint: Use only lowercase characters in case classes to avoid trouble when storing data in Cassandra,
@@ -14,7 +16,7 @@ object LightReading {
       t._2("date").asInstanceOf[String],
       t._2("brightnes").asInstanceOf[Double]))
     catch {
-      case NonFatal(e) => println("Failed to get data from json. Possible wrong format: " + e); None
+      case NonFatal(e) => LogManager.getLogger(LightReading.getClass).warn("Failed to get data from json. Possible wrong format: " + e); None
     }
   }
 }

@@ -1,5 +1,7 @@
 package com.zuehlke.hackzurich.common.dataformats
 
+import org.apache.log4j.LogManager
+
 import scala.util.control.NonFatal
 
 // Hint: Use only lowercase characters in case classes to avoid trouble when storing data in Cassandra,
@@ -27,7 +29,7 @@ object MotionReading {
       t._2.get("attitude").flatMap { case p2: Map[String, _] => p2.get("rotationMatrix").flatMap { case p3: Map[String, _] => p3.get("m23")} }.get.asInstanceOf[Double],
       t._2.get("attitude").flatMap { case p2: Map[String, _] => p2.get("pitch")}.get.asInstanceOf[Double]))
     catch {
-      case NonFatal(e) => println("Failed to get data from json. Possible wrong format: " + e); None
+      case NonFatal(e) => LogManager.getLogger(MotionReading.getClass).warn("Failed to get data from json. Possible wrong format: " + e); None
     }
   }
 }
