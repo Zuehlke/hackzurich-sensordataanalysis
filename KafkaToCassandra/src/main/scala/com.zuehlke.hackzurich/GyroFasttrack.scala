@@ -43,12 +43,7 @@ object GyroFasttrack {
     val gyroFilter = new SensorTypeFilter("Gyro")
     parsedMessages
       .filter(gyroFilter(_))
-      .map(t => GyrometerReading(
-        t._1,
-        t._2("date").asInstanceOf[String],
-        t._2.get("x").get.asInstanceOf[Double],
-        t._2.get("y").get.asInstanceOf[Double],
-        t._2.get("z").get.asInstanceOf[Double]))
+      .flatMap(GyrometerReading.from(_))
       .saveToCassandra("sensordata", "gyrocurrent", SomeColumns("date", "deviceid", "x", "y", "z"))
 
     // Start the computation

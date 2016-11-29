@@ -41,12 +41,7 @@ object KafkaToCassandraGyro {
       .filter(keyFilter(_))
       .flatMap(SensorReadingJSONParser.parseReadingsUsingScalaJSONParser)
       .filter(gyroFilter(_))
-      .map(t => GyrometerReading(
-        t._1,
-        t._2("date").asInstanceOf[String],
-        t._2.get("x").get.asInstanceOf[Double],
-        t._2.get("y").get.asInstanceOf[Double],
-        t._2.get("z").get.asInstanceOf[Double]))
+      .flatMap(GyrometerReading.from(_))
       .saveToCassandra("sensordata", "gyro", SomeColumns("date", "deviceid", "x", "y", "z"))
 
     // Start the computation

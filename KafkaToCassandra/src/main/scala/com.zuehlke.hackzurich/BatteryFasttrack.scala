@@ -43,11 +43,7 @@ object BatteryFasttrack {
     val batteryFilter = new SensorTypeFilter("Battery")
     val batteryReadings = parsedMessages
       .filter(batteryFilter(_)).repartition(1)
-      .map(t => BatteryReading(
-        t._1,
-        t._2.get("date").get.asInstanceOf[String],
-        t._2.get("batteryState").get.asInstanceOf[String],
-        t._2.get("batteryLevel").get.asInstanceOf[Double]))
+      .flatMap(BarometerReading.from(_))
 
     batteryReadings
       .saveToCassandra("sensordata", "batterycurrent", SomeColumns("date", "deviceid", "batterystate", "batterylevel"))

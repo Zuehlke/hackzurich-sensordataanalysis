@@ -41,12 +41,7 @@ object KafkaToCassandraAccelerommeter {
       .filter(keyFilter(_))
       .flatMap(SensorReadingJSONParser.parseReadingsUsingScalaJSONParser)
       .filter(accelerometerFilter(_))
-      .map(t => AccelerometerReading(
-        t._1,
-        t._2.get("date").get.asInstanceOf[String],
-        t._2.get("x").get.asInstanceOf[Double],
-        t._2.get("y").get.asInstanceOf[Double],
-        t._2.get("z").get.asInstanceOf[Double]))
+      .flatMap(AccelerometerReading.from(_))
       .saveToCassandra("sensordata", "accelerometer", SomeColumns("date", "deviceid", "x", "y", "z"))
 
     // Start the computation
