@@ -27,6 +27,7 @@ dependencies {
     provided 'org.apache.spark:spark-sql_2.11:2.0.0'
     provided 'org.apache.hadoop:hadoop-client:2.7.3'
 
+    compile 'org.json4s:json4s-native_2.11:3.2.10' // why the fuck does 3.5.0 not work??? using 3.2.10 for now
     compile 'org.apache.kafka:kafka_2.11:0.10.0.1'
     compile 'org.apache.spark:spark-streaming-kafka-0-10_2.11:2.0.0'
 
