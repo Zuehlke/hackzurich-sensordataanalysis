@@ -18,7 +18,7 @@ object ReadJSONFromFileToRDD {
     val sc = spark.sparkContext
     val ssql = spark.sqlContext
 
-    val messages = SensorReadingJSONParser.parseUsingSparkSQL(ssql, sc.makeRDD(Array(validJson, invalidJson)))
+    val messages = ssql.read.json(sc.makeRDD(Array(validJson, invalidJson)))
 
     val gyroFilter = new SensorTypeFilter("Gyro")
 

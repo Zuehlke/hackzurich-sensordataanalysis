@@ -42,9 +42,4 @@ object SensorReadingJSONParser {
       case Failure(f) => println("Cannot parse data: " + f); List.empty
     }
   }
-
-  def parseUsingSparkSQL(ssql: SQLContext, unparsedJsonContent: RDD[String]): DataFrame = {
-    ssql.read.json(unparsedJsonContent)
-  }
-
 }
