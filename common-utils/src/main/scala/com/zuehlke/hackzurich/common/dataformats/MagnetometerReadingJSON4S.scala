@@ -21,7 +21,7 @@ object MagnetometerReadingJSON4S {
       (t._2 \ "y").extract[Double],
       (t._2 \"z").extract[Double]))
     catch {
-      case NonFatal(e) => LogManager.getLogger(MagnetometerReading.getClass).warn("Failed to get data from json. Possible wrong format: " + e); None
+      case NonFatal(e) => LogManager.getLogger(MagnetometerReadingJSON4S.getClass).warn("Failed to get data from json. Possible wrong format: " + e); None
     }
   }
 }

@@ -21,7 +21,7 @@ object BarometerReadingJSON4S {
       (t._2 \ "relativeAltitude").extract[Double],
       (t._2 \ "pressure").extract[Double]))
     catch {
-      case NonFatal(e) => LogManager.getLogger(BarometerReading.getClass).warn("Failed to get data from json. Possible wrong format: " + e); None
+      case NonFatal(e) => LogManager.getLogger(BarometerReadingJSON4S.getClass).warn("Failed to get data from json. Possible wrong format: " + e); None
     }
   }
 }

@@ -28,7 +28,7 @@ object ReadJSONFromFileMap {
     val gyroFilter = new SensorTypeFilter("Gyro")
 
     rdd
-      .flatMap(com.zuehlke.hackzurich.common.dataformats.SensorReadingJSONParser.parseReadingsUsingScalaJSONParser)
+      .flatMap(SensorReadingJSON4SParser.parseWithJson4s)
       .filter(gyroFilter(_))
       .foreach(println)
 

@@ -19,7 +19,7 @@ object MicrophoneReadingJSON4S {
       (t._2 \ "peakPower").extract[Double],
       (t._2 \ "averagePower").extract[Double]))
     catch {
-      case NonFatal(e) => LogManager.getLogger(MicrophoneReading.getClass).warn("Failed to get data from json. Possible wrong format: " + e); None
+      case NonFatal(e) => LogManager.getLogger(MicrophoneReadingJSON4S.getClass).warn("Failed to get data from json. Possible wrong format: " + e); None
     }
   }
 }

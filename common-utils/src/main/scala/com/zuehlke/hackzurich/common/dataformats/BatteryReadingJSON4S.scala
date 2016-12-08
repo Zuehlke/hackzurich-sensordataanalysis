@@ -19,7 +19,7 @@ object BatteryReadingJSON4S {
       (t._2 \ "batteryState").extract[String],
       (t._2 \ "batteryLevel").extract[Double]))
     catch {
-      case NonFatal(e) => LogManager.getLogger(BatteryReading.getClass).warn("Failed to get data from json. Possible wrong format: " + e); None
+      case NonFatal(e) => LogManager.getLogger(BatteryReadingJSON4S.getClass).warn("Failed to get data from json. Possible wrong format: " + e); None
     }
   }
 }

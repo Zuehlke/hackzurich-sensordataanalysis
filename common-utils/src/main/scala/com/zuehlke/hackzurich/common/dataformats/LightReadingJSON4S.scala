@@ -18,7 +18,7 @@ object LightReadingJSON4S {
       (t._2 \ "date").extract[String],
       (t._2 \ "brightnes").extract[Double]))
     catch {
-      case NonFatal(e) => LogManager.getLogger(LightReading.getClass).warn("Failed to get data from json. Possible wrong format: " + e); None
+      case NonFatal(e) => LogManager.getLogger(LightReadingJSON4S.getClass).warn("Failed to get data from json. Possible wrong format: " + e); None
     }
   }
 }

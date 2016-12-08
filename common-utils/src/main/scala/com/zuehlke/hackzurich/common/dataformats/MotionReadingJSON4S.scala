@@ -31,7 +31,7 @@ object MotionReadingJSON4S {
       (t._2 \ "attitude" \ "rotationMatrix" \ "m23").extract[Double],
       (t._2 \ "attitude" \ "pitch").extract[Double]))
     catch {
-      case NonFatal(e) => LogManager.getLogger(MotionReading.getClass).warn("Failed to get data from json. Possible wrong format: " + e); None
+      case NonFatal(e) => LogManager.getLogger(MotionReadingJSON4S.getClass).warn("Failed to get data from json. Possible wrong format: " + e); None
     }
   }
 }

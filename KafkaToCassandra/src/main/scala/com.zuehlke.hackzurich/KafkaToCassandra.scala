@@ -49,14 +49,14 @@ object KafkaToCassandra {
 //    )
 
     // save Accelerometer
-    val accelerometerFilter = new SensorTypeFilterJSON4S("Accelerometer")
+    val accelerometerFilter = new SensorTypeFilter("Accelerometer")
     parsedMessages
       .filter(accelerometerFilter(_))
       .flatMap(AccelerometerReadingJSON4S.from(_))
       .saveToCassandra("sensordata", "accelerometer", SomeColumns("date", "deviceid", "x", "y", "z"))
 
     // save Battery
-    val batteryFilter = new SensorTypeFilterJSON4S("Battery")
+    val batteryFilter = new SensorTypeFilter("Battery")
     val batteryReadings = parsedMessages
       .filter(batteryFilter(_))
       .flatMap(BatteryReadingJSON4S.from(_))
@@ -67,42 +67,42 @@ object KafkaToCassandra {
       .saveToCassandra("sensordata", "batterycurrent", SomeColumns("date", "deviceid", "batterystate", "batterylevel"))
 
     // save Barometer
-    val barometerFilter = new SensorTypeFilterJSON4S("Barometer")
+    val barometerFilter = new SensorTypeFilter("Barometer")
     parsedMessages
       .filter(barometerFilter(_))
       .flatMap(BarometerReadingJSON4S.from(_))
       .saveToCassandra("sensordata", "barometer", SomeColumns("date", "deviceid", "relativealtitude", "pressure"))
 
     // save Gyro
-    val gyroFilter = new SensorTypeFilterJSON4S("Gyro")
+    val gyroFilter = new SensorTypeFilter("Gyro")
     parsedMessages
       .filter(gyroFilter(_))
       .flatMap(GyrometerReadingJSON4S.from(_))
       .saveToCassandra("sensordata", "gyro", SomeColumns("date", "deviceid", "x", "y", "z"))
 
     // save Magnetometer
-    val magnetoFilter = new SensorTypeFilterJSON4S("Magnetometer")
+    val magnetoFilter = new SensorTypeFilter("Magnetometer")
     parsedMessages
       .filter(magnetoFilter(_))
       .flatMap(MagnetometerReadingJSON4S.from(_))
       .saveToCassandra("sensordata", "magnetometer", SomeColumns("date", "deviceid", "x", "y", "z"))
 
     // save DeviceMotion
-    val motionFilter = new SensorTypeFilterJSON4S("DeviceMotion")
+    val motionFilter = new SensorTypeFilter("DeviceMotion")
     parsedMessages
       .filter(motionFilter(_))
       .flatMap(MotionReadingJSON4S.from(_))
       .saveToCassandra("sensordata", "motion", SomeColumns("date", "deviceid","x", "w", "y", "z", "m13", "m12", "m33", "m32", "m31", "m21", "m11", "m22", "m23", "pitch"))
 
     // save Microphone
-    val micFilter = new SensorTypeFilterJSON4S("Microphone")
+    val micFilter = new SensorTypeFilter("Microphone")
     parsedMessages
       .filter(micFilter(_))
       .flatMap(MicrophoneReadingJSON4S.from(_))
       .saveToCassandra("sensordata", "microphone", SomeColumns("date", "deviceid", "peakpower", "averagepower"))
 
     // save Microphone
-    val lightFilter = new SensorTypeFilterJSON4S("Light")
+    val lightFilter = new SensorTypeFilter("Light")
     parsedMessages
       .filter(lightFilter(_))
       .flatMap(LightReadingJSON4S.from(_))

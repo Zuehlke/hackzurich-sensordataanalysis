@@ -20,7 +20,7 @@ object GyrometerReadingJSON4S {
       (t._2 \ "y").extract[Double],
       (t._2 \ "z").extract[Double]))
     catch {
-      case NonFatal(e) => LogManager.getLogger(GyrometerReading.getClass).warn("Failed to get data from json. Possible wrong format: " + e); None
+      case NonFatal(e) => LogManager.getLogger(GyrometerReadingJSON4S.getClass).warn("Failed to get data from json. Possible wrong format: " + e); None
     }
   }
 }

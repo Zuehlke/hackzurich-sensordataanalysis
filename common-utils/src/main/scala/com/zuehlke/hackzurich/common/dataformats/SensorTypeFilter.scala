@@ -12,14 +12,16 @@ class SensorTypeFilter(sensortype : String) extends Serializable {
     }
   }
 
-  def apply(row: Map[String, Any]) : Boolean = {
-    Try (row.get("type").asInstanceOf[Some[Any]]) match {
-      case Success(rowsensortype) =>   rowsensortype.get == sensortype
+  import org.json4s._
+  def apply(row: JValue) : Boolean = {
+    implicit val formats = DefaultFormats
+    Try ((row \ ("type")).extract[String]) match {
+      case Success(rowsensortype) =>   rowsensortype == sensortype
       case Failure(f)             =>   println("Failed determine type: "+f); false
     }
   }
 
-  def apply(tuple: Tuple2[String, Map[String, Any]]) : Boolean  = {
+  def apply(tuple: Tuple2[String, JValue]) : Boolean  = {
     apply(tuple._2)
   }
 }

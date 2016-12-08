@@ -39,9 +39,9 @@ object KafkaToCassandraGyro {
 
     val parsedMessages = messages
       .filter(keyFilter(_))
-      .flatMap(SensorReadingJSONParser.parseReadingsUsingScalaJSONParser)
+      .flatMap(SensorReadingJSON4SParser.parseWithJson4s)
       .filter(gyroFilter(_))
-      .flatMap(GyrometerReading.from(_))
+      .flatMap(GyrometerReadingJSON4S.from(_))
       .saveToCassandra("sensordata", "gyro", SomeColumns("date", "deviceid", "x", "y", "z"))
 
     // Start the computation
