@@ -5,7 +5,10 @@ import java.io.Reader
 class JSONObjectReader(reader: Reader) {
 
   def readNext(): Option[(String,String)] = {
-    skipUntilAppearanceOf('"')
+    val skip = skipUntilAppearanceOf('"')
+    if(skip == -1){
+      return None
+    }
     val keyBuffer = new StringBuffer()
     var readInt = reader.read()
     while(readInt != -1 && readInt.asInstanceOf[Char] != '"'){
