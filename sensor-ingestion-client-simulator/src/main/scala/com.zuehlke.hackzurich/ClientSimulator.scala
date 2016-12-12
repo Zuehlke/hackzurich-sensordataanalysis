@@ -29,7 +29,7 @@ object ClientSimulator {
     configuration match {
       case KafkaDataSourceConfiguration(service, jsonSourceRoot) => {
         val jsonFiles: List[File] = collectJsonFiles(jsonSourceRoot)
-        val futureList: List[Future[Res]] = jsonFiles.flatMap(sendRequests(service, _))
+        val futureList: List[Future[Int]] = jsonFiles.flatMap(sendRequests(service, _))
         Await.ready(Future.sequence(futureList), Duration.Inf)
       }
       case RandomSimulatorConfiguration(service, messageCount) => {
@@ -53,13 +53,13 @@ object ClientSimulator {
     }
   }
 
-  def sendRequests(service: ServiceUrlConfiguration, file: File): List[Future[Response]] = {
+  def sendRequests(service: ServiceUrlConfiguration, file: File): List[Future[Int]] = {
     import ExecutionContext.Implicits.global
     val reader = new JSONObjectReader(new BufferedReader(new FileReader(file)))
     var next = reader.readNext()
-    var futures = new ListBuffer[Future[Response]];
+    var futures = new ListBuffer[Future[Int]];
     while(next.nonEmpty){
-      Thread.sleep(40)
+      Thread.sleep(20)
       val path = URLEncoder.encode(next.get._1,"utf-8").replaceAll("\\+", "%20")
       val request: Req = (service.auth match {
         case Some(auth) => url(service.url + path).as_!(auth.user, auth.password)
@@ -70,7 +70,7 @@ object ClientSimulator {
         case Success(response) => System.out.println(s"${response.getStatusCode} : ${response.getResponseBody}")
         case Failure(t) => System.err.println(t);
       }
-      futures += future
+      futures += future map { response => response.getStatusCode }
       next = reader.readNext()
     }
     reader.close()
