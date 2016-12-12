@@ -30,7 +30,8 @@ object ClientSimulator {
       case KafkaDataSourceConfiguration(service, jsonSourceRoot) => {
         val jsonFiles: List[File] = collectJsonFiles(jsonSourceRoot)
         val futureList: List[Future[Int]] = jsonFiles.flatMap(sendRequests(service, _))
-        Await.ready(Future.sequence(futureList), Duration.Inf)
+        val ready = Await.result(Future.sequence(futureList), Duration.Inf)
+        System.out.println(s"${ready.count(_ == 200)} of total ${ready.size} request were successfull (status code 200)")
       }
       case RandomSimulatorConfiguration(service, messageCount) => {
         val request: Req = (service.auth match {
