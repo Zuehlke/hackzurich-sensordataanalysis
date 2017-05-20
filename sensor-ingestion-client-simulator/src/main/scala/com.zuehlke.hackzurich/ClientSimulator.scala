@@ -15,6 +15,8 @@ import scala.util.{Failure, Success}
 
 object ClientSimulator {
 
+  var millisOffset = 0
+
   def main(args: Array[String]) {
     if (!SimulatorConfigurationArgumentValidator.isValid(args)) {
       printUsage
@@ -39,7 +41,10 @@ object ClientSimulator {
           case _ => url(service.url)
         })
         val dateTime: String = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now())
-        val futureList: List[Future[Res]] = (1 to messageCount).toList.map(_ => sendRequest(request << s"""{"z" : -0.1, "x" : -0.2, "y" : 0.1, "date" : "$dateTime", "type" : "Gyro"}"""))
+        val futureList: List[Future[Res]] = (1 to messageCount).toList.map { _ =>
+          millisOffset = millisOffset + 1
+          sendRequest(request << s"""{"z" : -0.1, "x" : -0.2, "y" : 0.1, "date" : "${dateTime+millisOffset}", "type" : "Gyro"}""")
+        }
         Await.ready(Future.sequence(futureList), Duration.Inf)
       }
     }
