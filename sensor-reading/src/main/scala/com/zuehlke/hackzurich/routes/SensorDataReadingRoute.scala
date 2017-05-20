@@ -51,9 +51,9 @@ class SensorDataReadingRoute(val producerActor: ActorRef) {
       props.put("group.id", "sensor-reader")
       val consumer = new KafkaConsumer[String, String](props)
       val topic = "sensor-reading"
-      consumer.subscribe(topic.toList)
+      consumer.subscribe(java.util.Arrays.asList(topic))
 
-      ConsumerRecords[String, String] records = consumer.poll(1000)
+      val records: ConsumerRecords[String, String] = consumer.poll(1000)
 
         //val futureCount = (producerActor ? RequestMessagesProcessed).mapTo[MessagesProcessedResponse]
         //val result = Await.result(futureCount, timeout.duration)
