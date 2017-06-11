@@ -11,7 +11,7 @@ buildscript {
 
 mainClassName = "com.zuehlke.hackzurich.RestReadingLauncher"
 
-group = "mhaspra"
+group = "bwedenik"
 
 docker {
     baseImage "java"

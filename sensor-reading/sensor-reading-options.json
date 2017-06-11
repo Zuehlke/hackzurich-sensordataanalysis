@@ -7,7 +7,7 @@
   "container":{
     "docker":{
       "forcePullImage":true,
-      "image":"mhaspra/sensor-reading",
+      "image":"bwedenik/sensor-reading",
       "network":"HOST",
       "privileged": false
     },

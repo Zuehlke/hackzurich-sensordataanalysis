@@ -1,7 +1,7 @@
 apply plugin: 'scala'
 apply plugin: 'application'
 
-group = "mhaspra"
+group = "bwedenik"
 mainClassName = "com.zuehlke.hackzurich.KafkaToCassandra"
 
 repositories {
@@ -25,15 +25,15 @@ task fatJarForSparkSubmit(type: Jar) {
 }
 
 dependencies {
-    provided 'org.apache.spark:spark-core_2.11:2.0.0'
-    provided 'org.apache.spark:spark-streaming_2.11:2.0.0'
-    provided 'org.apache.spark:spark-sql_2.11:2.0.0'
+    provided 'org.apache.spark:spark-core_2.11:2.1.0'
+    provided 'org.apache.spark:spark-streaming_2.11:2.1.0'
+    provided 'org.apache.spark:spark-sql_2.11:2.1.0'
     provided 'org.apache.hadoop:hadoop-client:2.7.3'
 
     compile project(':common-utils')
 
-    compile 'com.datastax.spark:spark-cassandra-connector_2.11:2.0.0-M3'
-    compile 'org.apache.spark:spark-streaming-kafka-0-10_2.11:2.0.0'
+    compile 'com.datastax.spark:spark-cassandra-connector_2.11:2.0.2'
+    compile 'org.apache.spark:spark-streaming-kafka-0-10_2.11:2.1.0'
 }
 
 

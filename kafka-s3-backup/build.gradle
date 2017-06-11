@@ -1,6 +1,6 @@
 apply plugin: 'scala'
 
-group = "mhaspra"
+group = "bwedenik"
 
 repositories {
     mavenCentral()

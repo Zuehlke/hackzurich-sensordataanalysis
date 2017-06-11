@@ -1,5 +1,28 @@
 apply plugin: 'scala'
 
+buildscript {
+    repositories { jcenter() }
+    dependencies {
+        classpath 'se.transmode.gradle:gradle-docker:1.2'
+    }
+}
+
+dependencies {
+    runtime files('src/main/resources')
+}
+
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'SMACK Load Simulator',
+                'Implementation-Version': 1,
+                'Main-Class': 'com.zuehlke.hackzurich.ClientSimulator'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 repositories {
     mavenCentral()
 }
