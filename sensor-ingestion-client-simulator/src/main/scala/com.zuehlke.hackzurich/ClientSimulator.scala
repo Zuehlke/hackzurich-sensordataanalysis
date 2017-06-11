@@ -99,6 +99,7 @@ object ClientSimulator {
     * @return List of Future
     */
   def sendRequestsPreformatted(service: ServiceUrlConfiguration, file: File): List[Future[Int]] = {
+    import ExecutionContext.Implicits.global
     var futures = new ListBuffer[Future[Int]]
     for (line <- Source.fromFile(file).getLines()) {
       val split = line.split(";")
@@ -114,6 +115,7 @@ object ClientSimulator {
     * Takes one line of data and submits the request
     */
   private def processRequest(service: ServiceUrlConfiguration, futures: ListBuffer[Future[Int]], name: String, json: String, printSuccessMessage: Boolean = false) = {
+    import ExecutionContext.Implicits.global
     Thread.sleep(20)
     val path = URLEncoder.encode(name, "utf-8").replaceAll("\\+", "%20")
     val request: Req = service.auth match {
