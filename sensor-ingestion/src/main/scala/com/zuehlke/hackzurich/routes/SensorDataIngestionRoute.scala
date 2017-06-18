@@ -1,20 +1,21 @@
 package com.zuehlke.hackzurich.routes
 
 import akka.actor.ActorRef
-import akka.http.scaladsl.model.{ContentTypes, HttpEntity, HttpResponse}
 import akka.http.scaladsl.model.StatusCodes._
+import akka.http.scaladsl.model.{ContentTypes, HttpEntity, HttpResponse}
 import akka.http.scaladsl.server.Directives._
-import akka.http.scaladsl.server.{ExceptionHandler, Route}
-import akka.http.scaladsl.server.directives.{Credentials,ParameterDirectives}
+import akka.http.scaladsl.server.ExceptionHandler
+import akka.http.scaladsl.server.directives.Credentials
 import akka.pattern.ask
 import akka.util.Timeout
+import com.zuehlke.hackzurich.configuration.RestIngestionConfiguration
+import com.zuehlke.hackzurich.routes.SensorDataIngestionRoute.BasicAuthPassword
+import com.zuehlke.hackzurich.service.IngestionStatistics
+import com.zuehlke.hackzurich.service.ProducerActor.{Message, RequestMessagesProcessed}
+import org.apache.commons.lang3.StringUtils
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
-import com.zuehlke.hackzurich.configuration.RestIngestionConfiguration
-import com.zuehlke.hackzurich.routes.SensorDataIngestionRoute.BasicAuthPassword
-import com.zuehlke.hackzurich.service.ProducerActor.{Message, MessagesProcessedResponse, RequestMessagesProcessed}
-import org.apache.commons.lang3.StringUtils
 
 /** Defines how / which requests are routed and handled
   * using the Akka HTTP Routing DSL (http://doc.akka.io/docs/akka-stream-and-http-experimental/1.0-RC3/scala/http/routing-dsl/overview.html)
@@ -24,8 +25,6 @@ import org.apache.commons.lang3.StringUtils
   */
 class SensorDataIngestionRoute(val producerActor: ActorRef, password: BasicAuthPassword) {
   implicit val timeout = Timeout(1 seconds)
-
-  import scala.concurrent.ExecutionContext.Implicits.global
 
   implicit def myExceptionHandler: ExceptionHandler =
     ExceptionHandler {
@@ -55,9 +54,14 @@ class SensorDataIngestionRoute(val producerActor: ActorRef, password: BasicAuthP
   def sensorReadingGET() = {
     get {
       authenticateBasic(realm = "get sensor reading", userPassAuthenticator) { user =>
-        val futureCount = (producerActor ? RequestMessagesProcessed).mapTo[MessagesProcessedResponse]
+        val futureCount = (producerActor ? RequestMessagesProcessed).mapTo[IngestionStatistics]
         val result = Await.result(futureCount, timeout.duration)
-        complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, s"${result.count}"))
+        complete(HttpEntity(ContentTypes.`text/html(UTF-8)`,
+          s"Total messages processed: ${result.messageCount} <br />" +
+            s"Messages per second: ${result.messagesPerSecond} <br />" +
+            s"KB/s ${result.kiloBytesPerSecond} <br />" +
+            s"Last updated: ${result.lastUpdated}")
+        )
       }
     }
   }
@@ -66,7 +70,7 @@ class SensorDataIngestionRoute(val producerActor: ActorRef, password: BasicAuthP
   /** Most important operation: Record sensor readings submitted as POST request by storing it in a (Kafka) topic. */
   def sensorReadingPOST(expliciteKey: String) = {
     post {
-      parameters("deviceID" ? "", "deviceType" ? "" ) { (deviceID, deviceType) =>
+      parameters("deviceID" ? "", "deviceType" ? "") { (deviceID, deviceType) =>
         val key = List(expliciteKey, deviceID, deviceType).filter(_.nonEmpty).mkString("_")
         authenticateBasic(realm = "post sensor reading", userPassAuthenticator) { user =>
           entity(as[String]) { messageContent =>

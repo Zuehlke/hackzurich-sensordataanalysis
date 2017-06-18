@@ -1,19 +1,18 @@
 package com.zuehlke.hackzurich.service
 
 import akka.actor.Props
-import ProducerActor.MessagesProcessedResponse
 
 class LocalLoggingActor extends ProducerActor {
-  var messagesProcessed: Long = 0
 
   override def handleMessage(msg: String, topic: String, key: Option[String]): Unit = {
-    log.info(s"Received message with content $msg, topic $topic and key $key.")
-    messagesProcessed += 1
+    log.info(s"Received message with content (size: ${msg.length}) $msg, topic $topic and key $key.")
+    IngestionStatisticsManager.updateStatistics(msg.length)
   }
 
   override def handleMessagesProcessedRequest(): Unit = {
-    log.info(s"Requested count of processed messages, returning $messagesProcessed.")
-    sender ! MessagesProcessedResponse( messagesProcessed )
+    val stats = IngestionStatisticsManager.statistics
+    log.info(s"Requested count of processed messages, returning $stats.")
+    sender ! stats
   }
 }
 

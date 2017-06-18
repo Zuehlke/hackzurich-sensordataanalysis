@@ -3,29 +3,26 @@ package com.zuehlke.hackzurich.service
 import java.util.Properties
 
 import akka.actor.Props
-import ProducerActor.MessagesProcessedResponse
-import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
-
 import com.zuehlke.hackzurich.common.kafkautils.MesosKafkaBootstrapper
+import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 
 class KafkaProducerActor extends ProducerActor {
 
-  var messagesProcessed: Long = 0
 
   val producerProps = new Properties()
   producerProps.put("bootstrap.servers", MesosKafkaBootstrapper.mkBootstrapServersString)
   producerProps.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
   producerProps.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer")
-  val producer =  new KafkaProducer[String, String](producerProps)
+  val producer = new KafkaProducer[String, String](producerProps)
 
   override def handleMessage(msg: String, topic: String, key: Option[String]): Unit = {
     val record = new ProducerRecord(topic, key.getOrElse("(none)"), msg)
-    producer.send( record )
-    messagesProcessed += 1
+    producer.send(record)
+    IngestionStatisticsManager.updateStatistics(msg.length)
   }
 
   override def handleMessagesProcessedRequest(): Unit = {
-    sender ! MessagesProcessedResponse( messagesProcessed )
+    sender ! IngestionStatisticsManager.statistics
   }
 
   @scala.throws[Exception](classOf[Exception])

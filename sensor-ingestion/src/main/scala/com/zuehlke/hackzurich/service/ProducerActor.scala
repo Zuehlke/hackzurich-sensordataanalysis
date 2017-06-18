@@ -17,5 +17,4 @@ trait ProducerActor extends Actor with ActorLogging {
 object ProducerActor {
   case class Message(message: String, topic: String, key: Option[String] )
   case object RequestMessagesProcessed
-  case class MessagesProcessedResponse( count: Long )
 }
