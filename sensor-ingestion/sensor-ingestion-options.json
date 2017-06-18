@@ -7,7 +7,7 @@
   "container":{
     "docker":{
       "forcePullImage":true,
-      "image":"mspringma1/sensor-ingestion",
+      "image":"bwedenik/sensor-ingestion",
       "network":"HOST",
       "privileged": false
     },
