@@ -19,7 +19,10 @@ import scala.util.{Failure, Success}
   */
 object ClientSimulator {
 
-  var millisOffset = 0
+  private val randomPrefix = Math.abs(scala.util.Random.nextInt)
+  private var millisOffset = 0
+  private val jsonDateRegex = "\"date\":\"(.*?)\"".r
+
 
   def main(args: Array[String]) {
     if (!SimulatorConfigurationArgumentValidator.isValid(args)) {
@@ -34,7 +37,7 @@ object ClientSimulator {
     *
     * @param configuration Configuration of which data to use.
     */
-  def simulate(configuration: SimulatorConfiguration): Unit = {
+  private def simulate(configuration: SimulatorConfiguration): Unit = {
     import ExecutionContext.Implicits.global
     configuration match {
       case KafkaDataSourceConfiguration(service, jsonSourceRoot) =>
@@ -78,7 +81,7 @@ object ClientSimulator {
     * Deprecated, please use the preformatted data version.
     */
   @Deprecated
-  def sendRequests(service: ServiceUrlConfiguration, file: File): List[Future[Int]] = {
+  private def sendRequests(service: ServiceUrlConfiguration, file: File): List[Future[Int]] = {
     val reader = new JSONObjectReader(new BufferedReader(new FileReader(file)))
     var next = reader.readNext()
     var futures = new ListBuffer[Future[Int]]
@@ -98,13 +101,16 @@ object ClientSimulator {
     * @param file    File to read from
     * @return List of Future
     */
-  def sendRequestsPreformatted(service: ServiceUrlConfiguration, file: File): List[Future[Int]] = {
+  private def sendRequestsPreformatted(service: ServiceUrlConfiguration, file: File): List[Future[Int]] = {
     import ExecutionContext.Implicits.global
     var futures = new ListBuffer[Future[Int]]
     for (line <- Source.fromFile(file).getLines()) {
       val split = line.split(";")
       val name = split(0)
-      val json = split(1)
+
+      // add random milli seconds offset to date to avoid two entries with the same date if executed multiple times
+      val json = split(1).replaceAll(jsonDateRegex.toString(), "\"date\":\"$1" + (randomPrefix + millisOffset) + "\"")
+      millisOffset += 1
 
       processRequest(service, futures, name, json)
     }
@@ -134,7 +140,7 @@ object ClientSimulator {
   /**
     * Sends the request with random data
     */
-  def sendRequest(request: Req): Future[Response] = {
+  private def sendRequest(request: Req): Future[Response] = {
     import ExecutionContext.Implicits.global
     val future: Future[Res] = Http(request)
     future onComplete {
@@ -147,7 +153,7 @@ object ClientSimulator {
   /**
     * Prints the usage for the ClientSimulator
     */
-  def printUsage(): Unit = {
+  private def printUsage(): Unit = {
     System.err.println(
       s"""
          |Usage: ClientSimulator <options> <service url>
