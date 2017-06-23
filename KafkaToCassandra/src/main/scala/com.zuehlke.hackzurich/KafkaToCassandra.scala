@@ -1,10 +1,12 @@
 package com.zuehlke.hackzurich
 
 import com.datastax.spark.connector.SomeColumns
+import com.datastax.spark.connector.cql.CassandraConnector
 import com.datastax.spark.connector.streaming._
 import com.zuehlke.hackzurich.common.dataformats._
 import com.zuehlke.hackzurich.common.kafkautils.MessageStream
 import org.apache.kafka.clients.consumer.ConsumerRecord
+import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.streaming._
 import org.apache.spark.streaming.dstream.InputDStream
@@ -22,10 +24,21 @@ object KafkaToCassandra {
   def main(args: Array[String]) {
     val executionName = "KafkaToCassandra"
 
+    val sparkConf = new SparkConf(true).set("spark.cassandra.connection.host", "node-0.cassandra.mesos,node-1.cassandra.mesos,node-2.cassandra.mesos")
     val spark = SparkSession.builder()
       .appName(executionName)
-      .config("spark.cassandra.connection.host", "node-0.cassandra.mesos,node-1.cassandra.mesos,node-2.cassandra.mesos")
+      .config(sparkConf)
       .getOrCreate()
+
+
+    val connector = CassandraConnector(sparkConf)
+    try {
+      val session = connector.openSession()
+      CassandraCQL.createSchema(session)
+    }
+    catch {
+      case e: Exception => System.err.println("Could not create Schema: " + e)
+    }
 
     // Create context with 30 second batch interval
     val ssc = new StreamingContext(spark.sparkContext, Seconds(30))
@@ -40,13 +53,13 @@ object KafkaToCassandra {
       .flatMap(SensorReadingJSON4SParser.parseWithJson4s).cache()
 
     // spent some time to print debugging information
-//    parsedMessages.foreachRDD(
-//        rdd => {
-//          rdd.take(1).toDebug
-//            .map(firstElem => "Processing elements staring with key" + firstElem._1 + " at " + firstElem._2.get("date").getOrElse("no time"))
-//                  .collectFirst(case s:String => s).
-//        }
-//    )
+    //    parsedMessages.foreachRDD(
+    //        rdd => {
+    //          rdd.take(1).toDebug
+    //            .map(firstElem => "Processing elements staring with key" + firstElem._1 + " at " + firstElem._2.get("date").getOrElse("no time"))
+    //                  .collectFirst(case s:String => s).
+    //        }
+    //    )
 
     // save Accelerometer
     val accelerometerFilter = new SensorTypeFilter("Accelerometer")
@@ -92,7 +105,7 @@ object KafkaToCassandra {
     parsedMessages
       .filter(motionFilter(_))
       .flatMap(MotionReadingJSON4S.from(_))
-      .saveToCassandra("sensordata", "motion", SomeColumns("date", "deviceid","x", "w", "y", "z", "m13", "m12", "m33", "m32", "m31", "m21", "m11", "m22", "m23", "pitch"))
+      .saveToCassandra("sensordata", "motion", SomeColumns("date", "deviceid", "x", "w", "y", "z", "m13", "m12", "m33", "m32", "m31", "m21", "m11", "m22", "m23", "pitch"))
 
     // save Microphone
     val micFilter = new SensorTypeFilter("Microphone")
