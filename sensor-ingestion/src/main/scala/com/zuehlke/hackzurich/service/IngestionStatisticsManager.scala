@@ -3,6 +3,8 @@ package com.zuehlke.hackzurich.service
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
+import kamon.Kamon
+
 /**
   * Manages and updates the statistics of the ingestion
   *
@@ -22,6 +24,9 @@ object IngestionStatisticsManager {
   private var kiloBytesPerSecond: Double = 0
   private var lastUpdated: String = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now())
 
+  // Histogram to be exposed via JMX
+  private val histogramMessagesPerSec = Kamon.metrics.histogram("custom-messages-per-second")
+  private val histogramKBPerSec = Kamon.metrics.histogram("custom-kbytes-per-second")
 
   /**
     * Updates the statistic.
@@ -43,6 +48,9 @@ object IngestionStatisticsManager {
       lastBytesProcessed = bytesProcessed
       lastUpdated = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now())
       lastTimestamp = System.currentTimeMillis()
+
+      histogramMessagesPerSec.record(messagesPerSecond.toLong)
+      histogramKBPerSec.record(kiloBytesPerSecond.toLong)
     }
   }
 

@@ -29,6 +29,9 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'org.apache.kafka:kafka_2.11:0.10.0.1'
 
+    compile("io.kamon:kamon-akka_2.11:0.6.3")
+    compile("io.kamon:kamon-jmx_2.11:0.6.3")
+
     testCompile "org.scalatest:scalatest_2.11:3.0.0"
     testCompile "net.databinder.dispatch:dispatch-core_2.11:0.11.2"
 
@@ -39,4 +42,20 @@ dependencies {
 task runLocalTestServer(type: JavaExec) {
     main = 'com.zuehlke.hackzurich.RestIngestionLocalLauncher'
     classpath = sourceSets.main.runtimeClasspath
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.zuehlke.hackzurich.RestIngestionKafkaLauncher'
+    }
+}
+
+distDocker {
+    addFile("src/main/resources/aspectjweaver.jar", "/tmp")
+    setEnvironment("JAVA_OPTS", "-javaagent:/tmp/aspectjweaver.jar " +
+            "-Dcom.sun.management.jmxremote " +
+            "-Dcom.sun.management.jmxremote.port=8899 " +
+            "-Dcom.sun.management.jmxremote.local.only=false " +
+            "-Dcom.sun.management.jmxremote.authenticate=false " +
+            "-Dcom.sun.management.jmxremote.ssl=false")
 }
