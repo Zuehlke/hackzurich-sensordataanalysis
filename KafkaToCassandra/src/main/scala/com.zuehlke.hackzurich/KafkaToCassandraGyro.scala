@@ -25,7 +25,7 @@ object KafkaToCassandraGyro {
 
     val spark = SparkSession.builder()
       .appName(executionName)
-      .config("spark.cassandra.connection.host", "node-0.cassandra.mesos,node-1.cassandra.mesos,node-2.cassandra.mesos")
+      .config("spark.cassandra.connection.host", "node-0-server.cassandra.autoip.dcos.thisdcos.directory,node-1-server.cassandra.autoip.dcos.thisdcos.directory,node-2-server.cassandra.autoip.dcos.thisdcos.directory")
       .getOrCreate()
 
     // Create context with 30 second batch interval

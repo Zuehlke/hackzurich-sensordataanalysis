@@ -24,7 +24,7 @@ object KafkaToCassandra {
   def main(args: Array[String]) {
     val executionName = "KafkaToCassandra"
 
-    val sparkConf = new SparkConf(true).set("spark.cassandra.connection.host", "node-0.cassandra.mesos,node-1.cassandra.mesos,node-2.cassandra.mesos")
+    val sparkConf = new SparkConf(true).set("spark.cassandra.connection.host", "node-0-server.cassandra.autoip.dcos.thisdcos.directory,node-1-server.cassandra.autoip.dcos.thisdcos.directory,node-2-server.cassandra.autoip.dcos.thisdcos.directory")
     val spark = SparkSession.builder()
       .appName(executionName)
       .config(sparkConf)
