@@ -22,7 +22,7 @@ object MesosKafkaBootstrapper {
       s"$host:$port"
     }
 
-    val zk = new ZooKeeper("master.mesos:2181", 10000, null)
+    val zk = new ZooKeeper("master.mesos:2181/dcos-service-kafka", 10000, null) // Using package-version=1.1.19.1-0.10.1.0 needs this URL
     val ids = zk.getChildren("/brokers/ids", false)
     val connections = scala.collection.mutable.ListBuffer.empty[String]
 
