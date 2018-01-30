@@ -1,0 +1,40 @@
+apply plugin: 'scala'
+apply plugin: 'application'
+
+group = "bwedenik"
+mainClassName = "com.zuehlke.hackzurich.DataAnalytics"
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    provided
+    compile.extendsFrom provided
+}
+
+task fatJarForSparkSubmit(type: Jar) {
+    
+    baseName = project.name + '-all'
+    from {
+        (configurations.compile - configurations.provided).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    with jar
+}
+
+dependencies {
+    provided 'org.apache.spark:spark-core_2.11:2.1.0'
+    provided 'org.apache.spark:spark-streaming_2.11:2.1.0'
+    provided 'org.apache.spark:spark-sql_2.11:2.1.0'
+    provided 'org.apache.hadoop:hadoop-client:2.7.3'
+
+    compile project(':common-utils')
+
+    compile 'com.datastax.spark:spark-cassandra-connector_2.11:2.0.2'
+    compile 'org.apache.spark:spark-streaming-kafka-0-10_2.11:2.1.0'
+    compile 'com.cloudera.sparkts:sparkts:0.4.1'
+}
+
+
