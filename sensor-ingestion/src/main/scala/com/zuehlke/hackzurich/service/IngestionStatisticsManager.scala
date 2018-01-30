@@ -13,7 +13,7 @@ import kamon.Kamon
   * - Bytes / second
   */
 object IngestionStatisticsManager {
-  private val updatingThreshold = 1000
+  private val updatingThreshold = 2000
 
   private var count: Long = 0
   private var lastCount: Long = 0
@@ -51,6 +51,8 @@ object IngestionStatisticsManager {
 
       histogramMessagesPerSec.record(messagesPerSecond.toLong)
       histogramKBPerSec.record(kiloBytesPerSecond.toLong)
+
+      println("Statistics updated: " + statistics.toString())
     }
   }
 

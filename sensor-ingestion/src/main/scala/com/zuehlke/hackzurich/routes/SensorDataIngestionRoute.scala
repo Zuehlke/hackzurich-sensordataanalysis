@@ -24,7 +24,7 @@ import scala.concurrent.duration._
   * So the IDE my complain about some statements that the Scala compiler within Gradle accepts - and that is the most important thing, I guess.
   */
 class SensorDataIngestionRoute(val producerActor: ActorRef, password: BasicAuthPassword) {
-  implicit val timeout = Timeout(1 seconds)
+  implicit val timeout = Timeout(5 seconds)
 
   implicit def myExceptionHandler: ExceptionHandler =
     ExceptionHandler {
