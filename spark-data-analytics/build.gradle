@@ -14,12 +14,16 @@ configurations {
 }
 
 task fatJarForSparkSubmit(type: Jar) {
-    
+    zip64 true
     baseName = project.name + '-all'
     from {
         (configurations.compile - configurations.provided).collect {
             it.isDirectory() ? it : zipTree(it)
         }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
     }
     with jar
 }
@@ -28,6 +32,7 @@ dependencies {
     provided 'org.apache.spark:spark-core_2.11:2.1.0'
     provided 'org.apache.spark:spark-streaming_2.11:2.1.0'
     provided 'org.apache.spark:spark-sql_2.11:2.1.0'
+    provided 'org.apache.spark:spark-mllib_2.11:2.1.0'
     provided 'org.apache.hadoop:hadoop-client:2.7.3'
 
     compile project(':common-utils')
