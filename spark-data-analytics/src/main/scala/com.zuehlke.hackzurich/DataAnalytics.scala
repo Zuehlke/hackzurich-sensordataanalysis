@@ -1,12 +1,12 @@
 package com.zuehlke.hackzurich
 
 import java.sql.Timestamp
-import java.text.SimpleDateFormat
 import java.time._
 import java.util.Properties
 
 import com.cloudera.sparkts.models.ARIMA
 import com.cloudera.sparkts.{DateTimeIndex, SecondFrequency, TimeSeriesRDD}
+import com.zuehlke.hackzurich.common.dataformats.Prediction
 import com.zuehlke.hackzurich.common.kafkautils.MesosKafkaBootstrapper
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.apache.spark.SparkConf
@@ -160,9 +160,8 @@ object DataAnalytics {
       }
 
       forecast.foreach { x =>
-        val timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(System.currentTimeMillis())
-        val message = s"$timestamp forecast size: ${x._2.size} , $x}"
-        new KafkaProducer[String, String](producerProps).send(new ProducerRecord("data-analytics", x._1, message))
+        val predictionMessage = Prediction(System.currentTimeMillis(), x._1, x._2.toArray)
+        new KafkaProducer[String, String](producerProps).send(new ProducerRecord("data-analytics", x._1, predictionMessage.toCsv))
       }
 
       //////////////////////////////////////////////////////////////////////////
