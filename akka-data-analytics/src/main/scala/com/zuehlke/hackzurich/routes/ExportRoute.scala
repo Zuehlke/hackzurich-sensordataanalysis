@@ -7,7 +7,8 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.{ExceptionHandler, Route}
 import akka.pattern.ask
 import akka.util.Timeout
-import com.zuehlke.hackzurich.service.KafkaConsumerActor.{Prediction, RequestPrediction}
+import com.zuehlke.hackzurich.common.dataformats.Prediction
+import com.zuehlke.hackzurich.service.KafkaConsumerActor.RequestPrediction
 
 import scala.concurrent.Await
 import scala.concurrent.duration._

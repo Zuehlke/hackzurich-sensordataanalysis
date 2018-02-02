@@ -1,15 +1,15 @@
 package com.zuehlke.hackzurich.service
 
-import java.util.Properties
-import java.util.Collections
+import java.util.{Collections, Properties}
 
 import akka.actor.{Actor, Props}
+import com.zuehlke.hackzurich.common.dataformats.Prediction
 import com.zuehlke.hackzurich.common.kafkautils.MesosKafkaBootstrapper
-import com.zuehlke.hackzurich.service.KafkaConsumerActor.{Prediction, RequestPrediction}
+import com.zuehlke.hackzurich.service.KafkaConsumerActor.RequestPrediction
 import org.apache.kafka.clients.consumer.KafkaConsumer
-import scala.collection.JavaConversions._
 
-import scala.collection.mutable.ArrayBuffer
+import scala.collection.JavaConversions._
+import scala.collection.mutable
 
 
 class KafkaConsumerActor extends Actor {
@@ -22,20 +22,20 @@ class KafkaConsumerActor extends Actor {
   val consumer = new KafkaConsumer[String, String](consumerProps)
   consumer.subscribe(Collections.singletonList("data-analytics"))
 
-  val data = ArrayBuffer.empty[Prediction]
+  val map = mutable.Map.empty[String, Prediction]
 
   def readFromKafka(): Unit = {
     val records = consumer.poll(300)
     for (r <- records.iterator()) {
-      val prediction = Prediction(r.topic(), r.key(), r.value())
+      val prediction = Prediction(r.value())
       println("Got this from Kafka: " + prediction)
-      data += prediction
+      map += (prediction.deviceid -> prediction)
     }
   }
 
   override def receive: Receive = {
     case RequestPrediction() =>
-      sender() ! data
+      sender() ! map.values.toSeq
       readFromKafka()
     case x => println(s"I got a weird message: $x")
   }
@@ -44,16 +44,12 @@ class KafkaConsumerActor extends Actor {
   @scala.throws[Exception](classOf[Exception])
   override def postStop(): Unit = {
     super.postStop()
-    //    consumer.close()
+    consumer.close()
   }
 }
 
 object KafkaConsumerActor {
   def mkProps: Props = Props[KafkaConsumerActor]
-
-  case class Prediction(topic: String, key: String, message: String) {
-    override def toString: String = s"Topic: $topic - key: $key - value: $message"
-  }
 
   case class RequestPrediction()
 
