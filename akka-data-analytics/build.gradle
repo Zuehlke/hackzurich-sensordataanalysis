@@ -1,0 +1,42 @@
+apply plugin: 'scala'
+apply plugin: 'application'
+apply plugin: 'docker'
+
+buildscript {
+    repositories { jcenter() }
+    dependencies {
+        classpath 'se.transmode.gradle:gradle-docker:1.2'
+    }
+}
+
+mainClassName = "com.zuehlke.hackzurich.PredictionLauncher"
+
+group = "bwedenik"
+
+docker {
+    baseImage "java"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':common-utils')
+    compile "com.typesafe.akka:akka-actor_2.11:2.4.8"
+    compile "com.typesafe.akka:akka-stream_2.11:2.4.8"
+    compile "com.typesafe.akka:akka-http-experimental_2.11:2.4.8"
+    compile 'org.apache.kafka:kafka_2.11:0.10.0.1'
+
+    testCompile "org.scalatest:scalatest_2.11:3.0.0"
+    testCompile "net.databinder.dispatch:dispatch-core_2.11:0.11.2"
+
+    testCompile "com.typesafe.akka:akka-http-testkit_2.11:2.4.8"
+    testCompile "junit:junit:4.12"
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.zuehlke.hackzurich.PredictionLauncher'
+    }
+}
