@@ -120,17 +120,12 @@ object DataAnalytics {
         observationsDf = observationsDf.union(observations).distinct()
       }
 
-      println(s"observationsDf.count() = ${observationsDf.count()}")
-      observationsDf.show(10, false)
-
       //////////////////////////////////////////////////////////////////////////
       //////////////////////////// PREDICTION PART /////////////////////////////
       //////////////////////////////////////////////////////////////////////////
 
       val firstDate: Timestamp = observationsDf.select("timestamp").orderBy(asc("timestamp")).head().getAs[Timestamp]("timestamp")
       val lastDate: Timestamp = observationsDf.select("timestamp").orderBy(desc("timestamp")).head().getAs[Timestamp]("timestamp")
-
-      println(s"firstDate: $firstDate , lastDate: $lastDate")
 
       // Create a DateTimeIndex over the whole range of input data in seconds interval
       val zone = ZoneId.systemDefault()
@@ -151,22 +146,28 @@ object DataAnalytics {
         * If we are missing some data in the beginning or at the end (so everything we could not interpolate)
         * we just give the prediction based on the latest data we have (which is everything != NaN)
         */
-        val newVec = new DenseVector(vector.toArray.filter(!_.isNaN))
-        require(newVec.size > 0)
+        val doubles = vector.toArray.filter(!_.isNaN)
+        val newVec = if (doubles.length > 0)
+          new DenseVector(doubles)
+        else
+          new DenseVector(Array(0.0))
 
-        val arimaModel = ARIMA.fitModel(1, 1, 0, newVec)
-        val forecasted = arimaModel.forecast(newVec, forecastTime)
-        new DenseVector(forecasted.toArray.slice(forecasted.size - forecastTime, forecasted.size))
+        var returnValue = newVec
+
+        try {
+          val arimaModel = ARIMA.fitModel(1, 1, 0, newVec)
+          val forecasted = arimaModel.forecast(newVec, forecastTime)
+          returnValue = new DenseVector(forecasted.toArray.slice(forecasted.size - forecastTime, forecasted.size))
+        } catch {
+          case e: NegativeArraySizeException => println(s"Error with array: $newVec - ${e.getMessage}")
+        }
+        returnValue
       }
 
       forecast.foreach { x =>
         val predictionMessage = Prediction(System.currentTimeMillis(), x._1, x._2.toArray)
         new KafkaProducer[String, String](producerProps).send(new ProducerRecord("data-analytics", x._1, predictionMessage.toCsv))
       }
-
-      //////////////////////////////////////////////////////////////////////////
-      //////////////////////////// PREDICTION PART /////////////////////////////
-      //////////////////////////////////////////////////////////////////////////
 
       updateLatestDate(lastDate.getTime)
     }
