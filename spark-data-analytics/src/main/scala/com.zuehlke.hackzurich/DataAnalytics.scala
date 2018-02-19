@@ -1,6 +1,7 @@
 package com.zuehlke.hackzurich
 
 import java.sql.Timestamp
+import java.text.SimpleDateFormat
 import java.time._
 import java.util.Properties
 
@@ -11,9 +12,9 @@ import com.zuehlke.hackzurich.common.kafkautils.MesosKafkaBootstrapper
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.apache.spark.SparkConf
 import org.apache.spark.mllib.linalg.DenseVector
+import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.expressions.UserDefinedFunction
 import org.apache.spark.sql.functions._
-import org.apache.spark.sql.{DataFrame, SparkSession}
 
 
 /**
@@ -27,30 +28,19 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
 object DataAnalytics {
 
   /**
-    * Initial value of latest timestamp
+    * Iteration counter
     */
-  var latestDate = 0l
-
-  /**
-    * The global DataFrame which is holding the observations aggregated from the Cassandra DB
-    * This variable is updated after polling by unioning the new data
-    */
-  var observationsDf: DataFrame = null
+  var iteration = 1
 
   /**
     * How far in the future we want to predict
     */
   val forecastTime = 30
 
-
   /**
-    * Updates the latest timestmap
-    *
-    * @param date timestamp to store if later than `currentDate`
+    * Time Formatter for debug output
     */
-  def updateLatestDate(date: Long): Unit = {
-    latestDate = if (date > latestDate) date else latestDate
-  }
+  val timeFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
   /**
     * UserDefinedFunction to create a new Timestamp from given input columns
@@ -81,6 +71,8 @@ object DataAnalytics {
      * We do this whole stuff in a loop because we want to poll Cassandra regularly
      */
     while (true) {
+      println(timeFormatter.format(System.currentTimeMillis()) + s" Starting iteration $iteration")
+      iteration += 1
 
       // Read data from Cassandra
       var barometerDf = spark
@@ -90,12 +82,6 @@ object DataAnalytics {
           "keyspace" -> "sensordata",
           "table" -> "accelerometer"))
         .load()
-
-      // If we've never loaded any data from Cassandra we don't want to filter out anything
-      if (observationsDf != null) {
-        // This filter is pushed down to Cassandra and only serialized the data we need!
-        barometerDf = barometerDf.filter(s"date > '$latestDate'")
-      }
 
       // Aggregate data to a precision of seconds and calculate the mean
       var observations = barometerDf.select("date", "deviceid", "z")
@@ -107,25 +93,13 @@ object DataAnalytics {
         minute(col("date")).alias("minute"),
         second(col("date")).alias("second"),
         col("deviceid")
-      ).agg(
-//        count(col("deviceid")).as("number_of_devices"),
-        mean("z").as("z_average"))
+      ).agg(mean("z").as("z_average"))
 
       // Add converted (aggregated) date back again
       observations = observations.withColumn("timestamp", toDateUdf.apply(col("year"), col("month"), col("day"), col("hour"), col("minute"), col("second")))
 
-      if (observationsDf == null) {
-        observationsDf = observations
-      } else {
-        observationsDf = observationsDf.union(observations).distinct()
-      }
-
-      //////////////////////////////////////////////////////////////////////////
-      //////////////////////////// PREDICTION PART /////////////////////////////
-      //////////////////////////////////////////////////////////////////////////
-
-      val firstDate: Timestamp = observationsDf.select("timestamp").orderBy(asc("timestamp")).head().getAs[Timestamp]("timestamp")
-      val lastDate: Timestamp = observationsDf.select("timestamp").orderBy(desc("timestamp")).head().getAs[Timestamp]("timestamp")
+      val firstDate: Timestamp = observations.select("timestamp").orderBy(asc("timestamp")).head().getAs[Timestamp]("timestamp")
+      val lastDate: Timestamp = observations.select("timestamp").orderBy(desc("timestamp")).head().getAs[Timestamp]("timestamp")
 
       // Create a DateTimeIndex over the whole range of input data in seconds interval
       val zone = ZoneId.systemDefault()
@@ -135,7 +109,7 @@ object DataAnalytics {
         new SecondFrequency(1))
 
       // Align the data on the DateTimeIndex to create a TimeSeriesRDD
-      val timeSeriesrdd = TimeSeriesRDD.timeSeriesRDDFromObservations(dtIndex, observationsDf,
+      val timeSeriesrdd = TimeSeriesRDD.timeSeriesRDDFromObservations(dtIndex, observations,
         "timestamp", "deviceid", "z_average")
 
       // Compute missing values using linear interpolation
@@ -168,8 +142,6 @@ object DataAnalytics {
         val predictionMessage = Prediction(System.currentTimeMillis(), x._1, x._2.toArray)
         new KafkaProducer[String, String](producerProps).send(new ProducerRecord("data-analytics", x._1, predictionMessage.toCsv))
       }
-
-      updateLatestDate(lastDate.getTime)
     }
 
     sc.stop()
