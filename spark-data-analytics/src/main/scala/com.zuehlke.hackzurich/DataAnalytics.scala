@@ -40,7 +40,7 @@ object DataAnalytics {
   /**
     * How far in the future we want to predict
     */
-  val forecastTime = 5
+  val forecastTime = 30
 
 
   /**
@@ -88,7 +88,7 @@ object DataAnalytics {
         .format("org.apache.spark.sql.cassandra")
         .options(Map(
           "keyspace" -> "sensordata",
-          "table" -> "barometer"))
+          "table" -> "accelerometer"))
         .load()
 
       // If we've never loaded any data from Cassandra we don't want to filter out anything
@@ -98,7 +98,7 @@ object DataAnalytics {
       }
 
       // Aggregate data to a precision of seconds and calculate the mean
-      var observations = barometerDf.select("date", "deviceid", "relativealtitude")
+      var observations = barometerDf.select("date", "deviceid", "z")
       observations = observations.groupBy(
         year(col("date")).alias("year"),
         month(col("date")).alias("month"),
@@ -108,8 +108,8 @@ object DataAnalytics {
         second(col("date")).alias("second"),
         col("deviceid")
       ).agg(
-        count(col("deviceid")).as("number_of_devices"),
-        mean("relativealtitude").as("relativealtitude_average"))
+//        count(col("deviceid")).as("number_of_devices"),
+        mean("z").as("z_average"))
 
       // Add converted (aggregated) date back again
       observations = observations.withColumn("timestamp", toDateUdf.apply(col("year"), col("month"), col("day"), col("hour"), col("minute"), col("second")))
@@ -136,7 +136,7 @@ object DataAnalytics {
 
       // Align the data on the DateTimeIndex to create a TimeSeriesRDD
       val timeSeriesrdd = TimeSeriesRDD.timeSeriesRDDFromObservations(dtIndex, observationsDf,
-        "timestamp", "deviceid", "relativealtitude_average")
+        "timestamp", "deviceid", "z_average")
 
       // Compute missing values using linear interpolation
       val interpolatedTimeSeriesrdd = timeSeriesrdd.fill("linear")
