@@ -4,7 +4,7 @@ import java.util.{Collections, Properties}
 
 import akka.actor.{Actor, Props}
 import com.zuehlke.hackzurich.common.dataformats.Prediction
-import com.zuehlke.hackzurich.common.kafkautils.MesosKafkaBootstrapper
+import com.zuehlke.hackzurich.common.kafkautils.{MesosKafkaBootstrapper, Topics}
 import com.zuehlke.hackzurich.service.KafkaConsumerActor.RequestPrediction
 import org.apache.kafka.clients.consumer.KafkaConsumer
 
@@ -20,7 +20,7 @@ class KafkaConsumerActor extends Actor {
   consumerProps.put("group.id", "akka-data-analytics-group")
 
   val consumer = new KafkaConsumer[String, String](consumerProps)
-  consumer.subscribe(Collections.singletonList("data-analytics"))
+  consumer.subscribe(Collections.singletonList(Topics.DATA_ANALYTICS))
 
   val map = mutable.Map.empty[String, Prediction]
 

@@ -8,7 +8,7 @@ import java.util.Properties
 import com.cloudera.sparkts.models.ARIMA
 import com.cloudera.sparkts.{DateTimeIndex, SecondFrequency, TimeSeriesRDD}
 import com.zuehlke.hackzurich.common.dataformats.Prediction
-import com.zuehlke.hackzurich.common.kafkautils.MesosKafkaBootstrapper
+import com.zuehlke.hackzurich.common.kafkautils.{MesosKafkaBootstrapper, Topics}
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.apache.spark.SparkConf
 import org.apache.spark.mllib.linalg.DenseVector
@@ -140,7 +140,7 @@ object DataAnalytics {
 
       forecast.foreach { x =>
         val predictionMessage = Prediction(System.currentTimeMillis(), x._1, x._2.toArray)
-        new KafkaProducer[String, String](producerProps).send(new ProducerRecord("data-analytics", x._1, predictionMessage.toCsv))
+        new KafkaProducer[String, String](producerProps).send(new ProducerRecord(Topics.DATA_ANALYTICS, x._1, predictionMessage.toCsv))
       }
     }
 
