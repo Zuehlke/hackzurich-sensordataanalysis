@@ -69,14 +69,6 @@ object KafkaToCassandra {
     parsedAccelerometerMessages
       .saveToCassandra("sensordata", "accelerometer", SomeColumns("date", "deviceid", "x", "y", "z"))
 
-    // publish latest accelerometer data to Kafka for the data-analytics application
-    parsedAccelerometerMessages.foreachRDD { rdd =>
-      // don't publish everything, just take the newest 10 elements (we can still adjust this value later if needed)
-      rdd.top(10).foreach { accelerometer =>
-        new KafkaProducer[String, String](producerProps).send(new ProducerRecord(Topics.SENSOR_READING_ACCELEROMETER, accelerometer.deviceid, accelerometer.toCsv))
-      }
-    }
-
     // save Battery
     val batteryFilter = new SensorTypeFilter("Battery")
     val batteryReadings = parsedMessages
@@ -129,6 +121,14 @@ object KafkaToCassandra {
       .filter(lightFilter(_))
       .flatMap(LightReadingJSON4S.from)
       .saveToCassandra("sensordata", "light", SomeColumns("date", "deviceid", "brightnes"))
+
+    // publish latest accelerometer data to Kafka for the data-analytics application
+    parsedAccelerometerMessages.foreachRDD { rdd =>
+      // don't publish everything, just take the newest 10 elements (we can still adjust this value later if needed)
+      rdd.top(10).foreach { accelerometer =>
+        new KafkaProducer[String, String](producerProps).send(new ProducerRecord(Topics.SENSOR_READING_ACCELEROMETER, accelerometer.deviceid, accelerometer.toCsv))
+      }
+    }
 
     // Start the computation
     ssc.start()
