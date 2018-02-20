@@ -8,12 +8,12 @@ import akka.http.scaladsl.server.{ExceptionHandler, Route}
 import akka.pattern.ask
 import akka.util.Timeout
 import com.zuehlke.hackzurich.common.dataformats.Prediction
-import com.zuehlke.hackzurich.service.KafkaConsumerActor.RequestPrediction
+import com.zuehlke.hackzurich.service.PredictionActor.RequestPrediction
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
-class ExportRoute(val consumerActor: ActorRef, val system: ActorSystem) {
+class ExportRoute(val predictionActor: ActorRef, val system: ActorSystem) {
   implicit val timeout: Timeout = Timeout(5 seconds)
 
   implicit def myExceptionHandler: ExceptionHandler =
@@ -42,7 +42,7 @@ class ExportRoute(val consumerActor: ActorRef, val system: ActorSystem) {
 
   def predictionGET(): Route = {
     get {
-      val future = (consumerActor ? RequestPrediction()).mapTo[Seq[Prediction]]
+      val future = (predictionActor ? RequestPrediction()).mapTo[Seq[Prediction]]
       val result = Await.result(future, timeout.duration)
       println("Result size: " + result.size)
       val message = result.map(p => p.toString).mkString("<br/>")
