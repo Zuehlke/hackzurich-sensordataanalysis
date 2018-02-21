@@ -18,11 +18,11 @@ package com.zuehlke.hackzurich.service
   */
 class LinearRegression(val x: Seq[Double], val y: Seq[Double]) {
 
-  private var intercept = 0.0
-  private var slope = 0.0
-  private var r2 = 0.0
-  private var svar0 = 0.0
-  private var svar1 = 0.0
+  private var intercept: Double = _
+  private var slope: Double = _
+  private var r2: Double = _
+  private var svar0: Double = _
+  private var svar1: Double = _
 
   /**
     * Performs a linear regression on the data points `(y[i], x[i])`.
