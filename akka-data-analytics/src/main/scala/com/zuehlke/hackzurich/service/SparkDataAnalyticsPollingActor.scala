@@ -27,7 +27,7 @@ class SparkDataAnalyticsPollingActor(val predictionActor: ActorRef) extends Acto
     val records = consumer.poll(1000)
     for (r <- records.iterator()) {
       val prediction = Prediction(r.value())
-      println("Got this from Kafka: " + prediction)
+      println("SparkDataAnalyticsPollingActor: Got this from Kafka: " + prediction)
       map += (prediction.deviceid -> prediction)
     }
     map

@@ -1,5 +1,7 @@
 package com.zuehlke.hackzurich.service
 
+import java.text.SimpleDateFormat
+
 import akka.actor.Actor
 import com.zuehlke.hackzurich.common.dataformats.{AccelerometerReadingJSON4S, Prediction}
 import com.zuehlke.hackzurich.service.PredictionActor.RequestPrediction
@@ -15,12 +17,14 @@ class PredictionActor extends Actor {
   private val speedLayerData = ArrayBuffer.empty[AccelerometerReadingJSON4S]
   private val speedLayerDataMap = mutable.Map.empty[String, ArrayBuffer[(Long, Double)]]
 
+  private val timeFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+
   /**
     * How far in the future we want to predict
     */
   val forecastTime = 5
 
-  def compilePredictions(): Seq[Prediction] = {
+  private def compilePredictions(): Seq[Prediction] = {
     val speedLayerBuffer = ArrayBuffer.empty[Prediction]
 
     for (device <- speedLayerDataMap.keySet) {
@@ -47,13 +51,14 @@ class PredictionActor extends Actor {
 
   private def updateSpeedLayerMap(): Unit = {
     for (x <- speedLayerData) {
-      val id = s"FAST LAYER - ${x.deviceid}" // TODO: DEBUG ONLY!!!!
+      val id = x.deviceid
       // Create a new ArrayBuffer if there is no data yet for a specific deviceid
       val lst = speedLayerDataMap.getOrElse(id, ArrayBuffer.empty[(Long, Double)])
       // we can add it to the end of the list, as we know that the timestamps are in increasing order
       lst += Tuple2(x.date, x.z)
       speedLayerDataMap += (id -> lst)
     }
+    speedLayerData.clear()
   }
 
   /**
@@ -62,7 +67,7 @@ class PredictionActor extends Actor {
     * @param values y values
     * @return Sequence of Doubles (size `forecastTime`)
     */
-  def forecast(values: Seq[Double]): Seq[Double] = {
+  private def forecast(values: Seq[Double]): Seq[Double] = {
     require(values.length >= 2, "I cannot predict something from less than two values")
 
     val lastX = values.length.toDouble
@@ -79,9 +84,84 @@ class PredictionActor extends Actor {
       speedLayerData ++= x.data
       updateSpeedLayerMap()
     case RequestPrediction() =>
-      sender() ! compilePredictions()
+      sender() ! predictionsToString()
     case x => println(s"PredictionActor: I got a weird message: $x")
   }
+
+  private def predictionsToString(): String = {
+    sparkDataToString + forecastedSpeedLayerDataToString + speedLayerDataToString
+  }
+
+  private def sparkDataToString: String = {
+    val sb = new mutable.StringBuilder()
+    sb.append("                 SparkDataAnalytics Data              \n")
+    sb.append("======================================================\n")
+
+    for (device <- sparkAnalyticsData.keySet) {
+      sb.append(device).append("\n")
+      var i = 0
+      val p = sparkAnalyticsData(device)
+      for (value <- p.values) {
+        sb.append(timeFormatter.format(p.timestamp + i))
+        sb.append(" - - - - ")
+        sb.append(value)
+        sb.append("\n")
+        i += 1000
+      }
+      sb.append("-------------------------------------------\n\n")
+    }
+    sb.append("\n\n")
+    sb.toString()
+  }
+
+  private def speedLayerDataToString: String = {
+    val sb = new mutable.StringBuilder()
+    sb.append("                     Speed Layer Data                 \n")
+    sb.append("======================================================\n")
+
+    for (device <- speedLayerDataMap.keySet) {
+      sb.append(device).append("\n")
+      val p = speedLayerDataMap(device)
+      for (value <- p) {
+        sb.append(timeFormatter.format(value._1))
+        sb.append(" - - - - ")
+        sb.append(value._2)
+        sb.append("\n")
+      }
+      sb.append("-------------------------------------------\n\n")
+    }
+    sb.append("\n\n")
+    sb.toString()
+  }
+
+  private def forecastedSpeedLayerDataToString: String = {
+    val sb = new mutable.StringBuilder()
+    sb.append("               FORECASTED Speed Layer Data            \n")
+    sb.append("======================================================\n")
+
+    for (device <- speedLayerDataMap.keySet) {
+      sb.append(device).append("\n")
+
+      val p = speedLayerDataMap(device)
+      val values = for (x <- p) yield x._2
+      val lastTimestamp = (for (x <- p) yield x._1).max
+
+      val predictions = forecast(values)
+      var i = 1000
+      for (value <- predictions) {
+        sb.append(timeFormatter.format(lastTimestamp + i))
+        sb.append(" - - - - ")
+        sb.append(value)
+        sb.append("\n")
+        i += 1000
+      }
+      sb.append("-------------------------------------------\n\n")
+    }
+    sb.append("\n\n")
+    sb.toString()
+  }
+
+
 }
 
 
