@@ -9,6 +9,7 @@ import com.cloudera.sparkts.models.ARIMA
 import com.cloudera.sparkts.{DateTimeIndex, SecondFrequency, TimeSeriesRDD}
 import com.zuehlke.hackzurich.common.dataformats.Prediction
 import com.zuehlke.hackzurich.common.kafkautils.{MesosKafkaBootstrapper, Topics}
+import org.apache.commons.math3.exception.NoDataException
 import org.apache.commons.math3.linear.SingularMatrixException
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.apache.spark.SparkConf
@@ -135,7 +136,11 @@ object DataAnalytics {
           returnValue = new DenseVector(forecasted.toArray.slice(forecasted.size - forecastTime, forecasted.size))
         } catch {
           case e: NegativeArraySizeException => println(s"Error with array: $newVec - ${e.getMessage}")
+            returnValue = new DenseVector(Array(0.0))
           case e: SingularMatrixException => println(s"The result matrix of the model was singular: ${e.getMessage}")
+            returnValue = new DenseVector(Array(0.0))
+          case e: NoDataException => println(s"There was no input data: ${e.getMessage}")
+            returnValue = new DenseVector(Array(0.0))
         }
         returnValue
       }
