@@ -7,7 +7,7 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.{ExceptionHandler, Route}
 import akka.pattern.ask
 import akka.util.Timeout
-import com.zuehlke.hackzurich.service.PredictionActor.RequestPrediction
+import com.zuehlke.hackzurich.service.PredictionActor._
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
@@ -25,12 +25,23 @@ class ExportRoute(val predictionActor: ActorRef, val system: ActorSystem) {
     }
 
   val route: Route =
-    path("hello") {
-      helloGET()
+    pathSingleSlash {
+      predictionGET(RequestPrediction())
     } ~
-      path("prediction") {
-        predictionGET()
-      }
+      path("combined") {
+        predictionGET(RequestCombinedPrediction())
+      } ~
+      path("speedLayerData") {
+        predictionGET(RequestSpeedLayerData())
+      } ~
+      path("speedLayer") {
+        predictionGET(RequestSpeedLayerPrediction())
+      } ~
+      path("sparkData") {
+        predictionGET(RequestSparkDataAnalyticsPrediction())
+      } ~ path("hello") {
+      helloGET()
+    }
 
   /** very basic interaction, mainly used as helathcheck whether service is up and running */
   def helloGET(): Route = {
@@ -39,9 +50,9 @@ class ExportRoute(val predictionActor: ActorRef, val system: ActorSystem) {
     }
   }
 
-  def predictionGET(): Route = {
+  def predictionGET(actorRequestMessage: PredictionActorRequests): Route = {
     get {
-      val future = (predictionActor ? RequestPrediction()).mapTo[String]
+      val future = (predictionActor ? actorRequestMessage).mapTo[String]
       val result = Await.result(future, timeout.duration)
       val message = result.replace("\n", "<br/>\n")
       //      println("Message: " + message)
