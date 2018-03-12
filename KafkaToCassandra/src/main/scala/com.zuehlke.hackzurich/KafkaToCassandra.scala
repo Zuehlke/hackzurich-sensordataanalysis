@@ -1,14 +1,11 @@
 package com.zuehlke.hackzurich
 
-import java.util.Properties
-
 import com.datastax.spark.connector.SomeColumns
 import com.datastax.spark.connector.cql.CassandraConnector
 import com.datastax.spark.connector.streaming._
 import com.zuehlke.hackzurich.common.dataformats._
-import com.zuehlke.hackzurich.common.kafkautils.{MesosKafkaBootstrapper, MessageStream, Topics}
+import com.zuehlke.hackzurich.common.kafkautils.MessageStream
 import org.apache.kafka.clients.consumer.ConsumerRecord
-import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.streaming._
@@ -33,7 +30,6 @@ object KafkaToCassandra {
       .config(sparkConf)
       .getOrCreate()
 
-
     val connector = CassandraConnector(sparkConf)
     try {
       val session = connector.openSession()
@@ -43,14 +39,8 @@ object KafkaToCassandra {
       case e: Exception => System.err.println("Could not create Schema: " + e)
     }
 
-    // Kafka Properties
-    val producerProps = new Properties()
-    producerProps.put("bootstrap.servers", MesosKafkaBootstrapper.mkBootstrapServersString)
-    producerProps.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
-    producerProps.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer")
-
-    // Create context with 30 second batch interval
-    val ssc = new StreamingContext(spark.sparkContext, Seconds(30))
+    // Create context with 40 second batch interval
+    val ssc = new StreamingContext(spark.sparkContext, Seconds(40))
 
     val messages: InputDStream[ConsumerRecord[String, String]] = MessageStream.directMessageStream(ssc, executionName)
     // More config options:, Topics.SENSOR_READING, OffsetResetConfig.Earliest)
@@ -63,10 +53,9 @@ object KafkaToCassandra {
 
     // save Accelerometer
     val accelerometerFilter = new SensorTypeFilter("Accelerometer")
-    val parsedAccelerometerMessages = parsedMessages
+    parsedMessages
       .filter(accelerometerFilter(_))
       .flatMap(AccelerometerReadingJSON4S.from)
-    parsedAccelerometerMessages
       .saveToCassandra("sensordata", "accelerometer", SomeColumns("date", "deviceid", "x", "y", "z"))
 
     // save Battery
@@ -121,13 +110,6 @@ object KafkaToCassandra {
       .filter(lightFilter(_))
       .flatMap(LightReadingJSON4S.from)
       .saveToCassandra("sensordata", "light", SomeColumns("date", "deviceid", "brightnes"))
-
-    // publish latest accelerometer data to Kafka for the data-analytics application
-    parsedAccelerometerMessages.foreachRDD { rdd =>
-      rdd.foreach { accelerometer =>
-        new KafkaProducer[String, String](producerProps).send(new ProducerRecord(Topics.SENSOR_READING_ACCELEROMETER, accelerometer.deviceid, accelerometer.toCsv))
-      }
-    }
 
     // Start the computation
     ssc.start()
