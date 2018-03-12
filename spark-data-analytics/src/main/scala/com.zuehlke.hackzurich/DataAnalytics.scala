@@ -9,7 +9,7 @@ import com.cloudera.sparkts.models.ARIMA
 import com.cloudera.sparkts.{DateTimeIndex, SecondFrequency, TimeSeriesRDD}
 import com.zuehlke.hackzurich.common.dataformats.Prediction
 import com.zuehlke.hackzurich.common.kafkautils.{MesosKafkaBootstrapper, Topics}
-import org.apache.commons.math3.exception.NoDataException
+import org.apache.commons.math3.exception.{MathIllegalArgumentException, NoDataException}
 import org.apache.commons.math3.linear.SingularMatrixException
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.apache.spark.SparkConf
@@ -48,7 +48,8 @@ object DataAnalytics {
     * UserDefinedFunction to create a new Timestamp from given input columns
     */
   val toDateUdf: UserDefinedFunction = udf((year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) => {
-    new Timestamp(year - 1900, month, day, hour, minute, second, 0)
+    val timeFormatted = s"$year-$month-$day $hour:$minute:$second.0"
+    Timestamp.valueOf(timeFormatted)
   })
 
   def main(args: Array[String]) {
@@ -141,12 +142,14 @@ object DataAnalytics {
             returnValue = new DenseVector(Array(0.0))
           case e: NoDataException => println(s"There was no input data: ${e.getMessage}")
             returnValue = new DenseVector(Array(0.0))
+          case e: MathIllegalArgumentException => println(s"Math exception: ${e.getMessage}")
+            returnValue = new DenseVector(Array(0.0))
         }
         returnValue
       }
 
       forecast.foreach { x =>
-        val predictionMessage = Prediction(System.currentTimeMillis(), x._1, x._2.toArray)
+        val predictionMessage = Prediction(lastDate.getTime, x._1, x._2.toArray)
         new KafkaProducer[String, String](producerProps).send(new ProducerRecord(Topics.DATA_ANALYTICS, x._1, predictionMessage.toCsv))
       }
     }
