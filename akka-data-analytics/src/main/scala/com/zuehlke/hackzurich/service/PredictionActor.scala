@@ -174,18 +174,21 @@ class PredictionActor extends Actor {
 
   private def appendSpeedLayerEntryToSB(sb: StringBuilder, predictionBuffer: ArrayBuffer[(Long, Double)]) = {
     val values = for (x <- predictionBuffer) yield x._2
-    val lastTimestamp = (for (x <- predictionBuffer) yield x._1).max
+    val timestamps = for (x <- predictionBuffer) yield x._1
+    if (timestamps.nonEmpty) {
+      val lastTimestamp = timestamps.max
 
-    val predictions = forecast(values)
-    var i = 1000
-    for (value <- predictions) {
-      sb.append(timeFormatter.format(lastTimestamp + i))
-      sb.append(" - - - - ")
-      sb.append(value)
-      sb.append("\n")
-      i += 1000
+      val predictions = forecast(values)
+      var i = 1000
+      for (value <- predictions) {
+        sb.append(timeFormatter.format(lastTimestamp + i))
+        sb.append(" - - - - ")
+        sb.append(value)
+        sb.append("\n")
+        i += 1000
+      }
+      sb.append("-------------------------------------------\n\n")
     }
-    sb.append("-------------------------------------------\n\n")
   }
 
   private def combinedForecastData: String = {
