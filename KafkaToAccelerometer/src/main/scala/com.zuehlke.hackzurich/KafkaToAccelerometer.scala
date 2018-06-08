@@ -29,7 +29,11 @@ object KafkaToAccelerometer {
   def main(args: Array[String]) {
     val executionName = "KafkaToAccelerometer"
 
-    val sparkConf = new SparkConf(true).set("spark.cassandra.connection.host", "node-0-server.cassandra.autoip.dcos.thisdcos.directory,node-1-server.cassandra.autoip.dcos.thisdcos.directory,node-2-server.cassandra.autoip.dcos.thisdcos.directory")
+    val sparkConf = new SparkConf(true)
+      .set("spark.cassandra.connection.host", "node-0-server.cassandra.autoip.dcos.thisdcos.directory,node-1-server.cassandra.autoip.dcos.thisdcos.directory,node-2-server.cassandra.autoip.dcos.thisdcos.directory")
+      .set("spark.streaming.backpressure.enabled", "true")
+      .set("spark.streaming.kafka.consumer.poll.ms", "4096")
+      .set("spark.locality.wait", "6s")
     val spark = SparkSession.builder()
       .appName(executionName)
       .config(sparkConf)
