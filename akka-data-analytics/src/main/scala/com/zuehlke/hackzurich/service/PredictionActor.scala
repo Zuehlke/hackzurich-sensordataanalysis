@@ -19,8 +19,8 @@ class PredictionActor extends Actor {
 
   private val timeFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
   private val TIME_THRESHOLD_MS = 2 * 60 * 1000
-  private val WEIGHT_SPARK = 0.5
-  private val WEIGHT_SPEED_LAYER = 0.5
+  private val WEIGHT_SPARK = 0.4
+  private val WEIGHT_SPEED_LAYER = 0.6
 
   /**
     * How far in the future we want to predict
