@@ -1,0 +1,17 @@
+{
+  "id": "smack-load-generator-small",
+  "instances": 1,
+  "cpus":0.5,
+  "mem":512,
+  "disk": 1000,
+  "container":{
+    "docker":{
+      "forcePullImage":true,
+      "image":"bwedenik/smack-load-generator-small",
+      "network":"HOST",
+      "privileged": false
+    },
+    "type":"DOCKER"
+  },
+  "args": ["http://ip-10-0-1-109.us-west-1.compute.internal:5166/sensorReading/ecs"]
+}
