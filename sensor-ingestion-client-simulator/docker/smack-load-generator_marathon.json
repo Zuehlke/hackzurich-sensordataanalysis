@@ -1,0 +1,17 @@
+{
+  "id": "smack-load-generator-small",
+  "instances": 1,
+  "cpus":0.2,
+  "mem":512,
+  "disk": 100,
+  "container":{
+    "docker":{
+      "forcePullImage":false,
+      "image":"bwedenik/smack-load-generator-small",
+      "network":"HOST",
+      "privileged": false
+    },
+    "type":"DOCKER"
+  },
+  "args": ["http://52.53.245.159:8083/sensorReading/local"]
+}
